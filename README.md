@@ -18,3 +18,6 @@ https://github.com/tantivy-search/tantivy
 
 Based on GraphQL.
 
+## Structure of the project
+
+Indexer should be seperate from the API node. 
