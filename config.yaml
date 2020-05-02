@@ -1,0 +1,12 @@
+# Example config for Gallop
+
+gallop:
+  tables:
+    views:
+      columns:
+        - url
+        - browser
+        - country
+    reads:
+      columns:
+        - url

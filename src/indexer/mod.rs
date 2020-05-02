@@ -1,0 +1,3 @@
+/*
+Will write an indexer server. This server will only do simple commands.
+*/
