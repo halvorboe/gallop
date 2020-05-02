@@ -3,7 +3,7 @@ use crate::util::random;
 use tantivy::Index;
 
 pub struct Table {
-    index: Index,
+    indexers: Vec<Indexer>,
 }
 
 pub struct Row {
@@ -14,7 +14,7 @@ pub struct Row {
 impl Table {
     pub fn new() -> Self {
         Self {
-            
+            indexers: vec![],
         }
     }
 
