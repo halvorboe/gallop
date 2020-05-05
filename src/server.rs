@@ -10,13 +10,13 @@ use futures::sync::oneshot;
 use futures::Future;
 use grpcio::{Environment, RpcContext, ServerBuilder, UnarySink};
 
-use protos::diner::{Check, Item, Order};
-use protos::diner_grpc::{self, Diner};
+use protos::indexer::{Check, Item, Order};
+use protos::indexer_grpc::{self, Indexer};
 
 #[derive(Clone)]
-struct DinerService;
+struct IndexerService;
 
-impl Diner for DinerService {
+impl Indexer for IndexerService {
     fn eat(&mut self, ctx: RpcContext, order: Order, sink: UnarySink<Check>) {
         println!("Received Order {{ {:?} }}", order);
         let mut check = Check::new();
@@ -37,7 +37,7 @@ impl Diner for DinerService {
 
 fn main() {
     let env = Arc::new(Environment::new(1));
-    let service = diner_grpc::create_diner(DinerService);
+    let service = indexer_grpc::create_indexer(IndexerService);
     let mut server = ServerBuilder::new(env)
         .register_service(service)
         .bind("127.0.0.1", 0)

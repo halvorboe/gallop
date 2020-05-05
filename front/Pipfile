@@ -7,6 +7,10 @@ verify_ssl = true
 
 [packages]
 protobuf = "*"
+grpcio-tools = "*"
 
 [requires]
 python_version = "3.7"
+
+[scripts]
+generate = "python -m grpc_tools.protoc -I../protos --python_out=. --grpc_python_out=. ../protos/indexer.proto"
