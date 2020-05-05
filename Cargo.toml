@@ -4,20 +4,22 @@ version = "0.1.0"
 authors = ["halvorboe <halvor@highered.global>"]
 edition = "2018"
 
-[dependencies]
-tantivy = "*"
-futures = "0.1.16"
-grpcio = "0.4.3"
-protobuf = "~2"
-
-
-[build-dependencies]
-protoc-grpcio = "*"
-
 [lib]
 name = "protos"
 path = "src/protos/mod.rs"
 
 [[bin]]
-name = "indexer"
-path = "src/bin/indexer.rs"
+name = "server"
+path = "src/server.rs"
+
+[[bin]]
+name = "client"
+path = "src/client.rs"
+
+[dependencies]
+futures = "0.1.16"
+grpcio = "0.4.3"
+protobuf = "~2"
+
+[build-dependencies]
+protoc-grpcio = "*"

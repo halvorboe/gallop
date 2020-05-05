@@ -2,5 +2,5 @@ extern crate futures;
 extern crate grpcio;
 extern crate protobuf;
 
-pub mod indexer;
-pub mod indexer_grpc;
+pub mod diner;
+pub mod diner_grpc;
