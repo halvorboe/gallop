@@ -9,8 +9,8 @@ name = "protos"
 path = "src/protos/mod.rs"
 
 [[bin]]
-name = "server"
-path = "src/server.rs"
+name = "indexer"
+path = "src/bin/indexer.rs"
 
 [[bin]]
 name = "client"

@@ -1,1 +1,0 @@
-protoc -I=indexer/src/protos/indexer --python_out=front/protos indexer/src/protos/indexer/indexer.proto

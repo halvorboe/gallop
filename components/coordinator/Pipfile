@@ -1,0 +1,23 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+grpcio-tools = "*"
+mypy = "*"
+
+[packages]
+protobuf = "*"
+graphene = "*"
+starlette = "*" 
+uvicorn = "*"
+fastapi = "*"
+
+
+[requires]
+python_version = "3.7"
+
+[scripts]
+server = "uvicorn master:app --reload"
+generate = "python -m grpc_tools.protoc -I../protos --python_out=./master/protos --grpc_python_out=./master/protos ../protos/indexer.proto"
