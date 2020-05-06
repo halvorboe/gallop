@@ -1,6 +1,6 @@
 
 cd components/coordinator
-# pipenv install --dev && pipenv run generate
+pipenv install --dev && pipenv run generate
 cd ../..
 
 cargo install protobuf-codegen &&  \

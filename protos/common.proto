@@ -8,6 +8,17 @@ message Error {
     string error_message = 2;
 }
 
+message Table {
+  string name = 1;
+  enum Resolution {
+    DAY = 0;
+  }
+  Resolution segment_resolution = 2;
+  uint64 segment_size = 3;
+  repeated string fields = 4;
+}
+
 message Row {
-  uint64 timetamp = 1;
+  uint64 timestamp = 1;
+  string data = 2;
 }

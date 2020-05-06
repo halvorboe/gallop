@@ -37,9 +37,19 @@ message SegmentsResponse {
   repeated SegmentMeta segments = 2;
 }
 
+message ConfigureRequest {
+  repeated Table tables = 1;
+}
+
+message InsertRequest {
+  string table_name = 1;
+  Row row = 2;
+}
+
 
 service Storage {
-  rpc Insert(Row) returns (Error) {}
+  rpc Configure(ConfigureRequest) returns (Error) {}
+  rpc Insert(InsertRequest) returns (Error) {}
   rpc Segment(SegmentRequest) returns (SegmentResponse) {}
   rpc Segments(SegmentsRequest) returns (SegmentsResponse) {}
 }

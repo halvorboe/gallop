@@ -22,6 +22,11 @@ grpcio = "0.4.3"
 protobuf = "~2"
 log = "0.4"
 env_logger = "0.7.1"
+chrono = "*"
+
+[dev-dependencies]
+mockall = "0.7.1"
+
 
 # [build-dependencies]
 # protoc-grpcio = "*"

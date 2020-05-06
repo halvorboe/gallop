@@ -6,12 +6,12 @@ use futures::sync::oneshot;
 use futures::Future;
 use grpcio::{Environment, RpcContext, ServerBuilder, UnarySink};
 
-use grpcio::{Service};
+use grpcio::Service;
 
 pub fn serve(service: Service) {
     env_logger::init();
     // New event loop.
-    let env = Arc::new(Environment::new(1));   
+    let env = Arc::new(Environment::new(1));
     // Build the server.
     let mut server = ServerBuilder::new(env)
         .register_service(service)
