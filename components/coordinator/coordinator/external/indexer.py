@@ -5,7 +5,6 @@ from coordinator.data import Row, Segment
 
 
 class InMemoryIndexer:
-
     def __init__(self):
         self.segments = []
 

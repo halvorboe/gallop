@@ -8,7 +8,7 @@
 
 # print(stub.Eat(indexer_pb2.Order()))
 
-from coordinator.functions import Coordinator
+from coordinator import Coordinator
 from coordinator.data import Row
 
 coordinator = Coordinator()
@@ -20,3 +20,5 @@ coordinator.insert(Row(timestamp=3, data={"title": "Hello, test!"}))
 coordinator.sync()
 
 print(coordinator.query("test"))
+
+print(Row.random().time())

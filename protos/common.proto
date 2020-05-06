@@ -1,0 +1,13 @@
+
+syntax = "proto3";
+
+package protos;
+
+message Error {
+    int32 error_code = 1;
+    string error_message = 2;
+}
+
+message Row {
+  uint64 timetamp = 1;
+}

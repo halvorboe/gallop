@@ -2,20 +2,13 @@ syntax = "proto3";
 
 package protos;
 
+import "common.proto";
+
+
 service Indexer {
-  rpc Eat(Order) returns (Check) {}
+  rpc InsertSegment(InsertSegmentRequest) returns (Error) {}
 }
 
-enum Item {
-  SPAM = 0;
-  EGGS = 1;
-  HAM = 2;
-}
-
-message Order {
-  repeated Item items = 1;
-}
-
-message Check {
-  double total = 1;
+message InsertSegmentRequest {
+    string id = 1;
 }

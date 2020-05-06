@@ -2,6 +2,7 @@ from coordinator.data import Row
 
 from coordinator.external import FileStorage, InMemoryIndexer
 
+
 class Coordinator:
 
     """
@@ -15,13 +16,13 @@ class Coordinator:
 
     def insert(self, row: Row):
         self.storage.insert(row)
-   
+
     def select(self):
-       self.storage.select()
-    
+        self.storage.select()
+
     def query(self, query_string: str):
         return self.indexers[0].query(query_string)
-    
+
     def sync(self):
         segments = self.storage.select_segments()
         for segment in segments:

@@ -14,10 +14,13 @@ starlette = "*"
 uvicorn = "*"
 fastapi = "*"
 
-
 [requires]
 python_version = "3.7"
 
 [scripts]
+cli = "python -m coordinator"
 server = "uvicorn master:app --reload"
-generate = "python -m grpc_tools.protoc -I../protos --python_out=./master/protos --grpc_python_out=./master/protos ../protos/indexer.proto"
+generate = "python -m grpc_tools.protoc -I../../protos --python_out=./coordinator/protos --grpc_python_out=./coordinator/protos ../../protos/common.proto ../../protos/storage.proto ../../protos/indexer.proto"
+
+[pipenv]
+allow_prereleases = true

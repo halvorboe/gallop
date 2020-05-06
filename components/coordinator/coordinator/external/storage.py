@@ -4,10 +4,9 @@ from coordinator.data import Segment, Row
 
 
 class FileStorage:
-
     def __init__(self):
         self.segments = [Segment()]
-    
+
     def insert(self, row: Row):
         self.segments[0].add(row)
 
@@ -16,4 +15,3 @@ class FileStorage:
 
     def select_segments(self):
         return self.segments
-
