@@ -19,7 +19,6 @@ use gallop::core::grpc;
 
 use chrono::{DateTime, NaiveDateTime, Utc};
 
-#[derive(Debug, Clone)]
 struct StorageService {
     inner: InnerStorageService,
 }
@@ -45,7 +44,6 @@ impl Storage for StorageService {
     }
 }
 
-#[derive(Debug, Clone)]
 struct InnerStorageService {
     config: Configuration,
     directory: InMemoryDirectory,
@@ -78,15 +76,20 @@ impl InnerStorageService {
     }
 
     fn insert(&mut self, table_name: String, row: Row) {
-        let segment = table_name + "-" + &self.segment_for_row(row);
-        println!("{}", segment);
         // Figure out what segment it belogs to.
+        let segment = table_name + "-" + &self.segment_for_row(row.clone());
         // Append it to that segment.
+        self.directory.append(segment, row.get_timestamp().to_string() + "|" + &row.get_data().to_string())
     }
 
-    fn segments(&mut self) -> Vec<SegmentMeta> {
-        vec![]
+    fn segments(&self) -> Vec<String> {
+        self.directory.list()
     } 
+
+    fn segment(&self, name: String) -> Vec<Row> {
+        dbg!(self.directory.read(name));
+        vec![]
+    }
 }
 
 fn main() {    
@@ -109,6 +112,18 @@ mod tests {
         service.insert(String::from("a"), row.clone());
         service.insert(String::from("b"), row.clone());
         assert!(service.segments().len() == 2);
+    }
+    
+    #[test]
+    fn test_file_content() {
+        let mut row = Row::new();
+        row.set_timestamp(10_000_000_000_000_000);
+        row.set_data(String::from("{\"title\":\"Hello, world!\"}"));
+        let mut service = InnerStorageService::default();
+        service.insert(String::from("a"), row.clone());
+        let segment = &service.segments()[0];
+        let rows = dbg!(service.segment(segment.to_string()));
+        assert!(false);
 
     }
 }
