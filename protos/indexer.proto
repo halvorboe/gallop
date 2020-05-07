@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package protos;
+
+import "common.proto";
+
+
+message BindRequest {
+    SegmentId segment_id = 1;
+    string host = 2;
+    int32 port = 3;
+}
+
+
+message UnBindRequest {
+    SegmentId segment_id = 1;
+}
+
+
+service Indexer {
+    rpc Bind(BindRequest) returns (Error) {}
+    rpc UnBind(UnBindRequest) returns (Error) {}
+  }
+  

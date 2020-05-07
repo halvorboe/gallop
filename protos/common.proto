@@ -22,3 +22,22 @@ message Row {
   uint64 timestamp = 1;
   string data = 2;
 }
+
+
+enum SegmentResolution {
+  // HOUR = 0;
+  DAY = 0;
+}
+
+message SegmentId {
+  string table = 1;
+  SegmentResolution resolution = 2;
+  string timestamp = 3;
+  string id = 4;
+}
+
+message Segment {
+  SegmentId meta = 1;
+  repeated Row Row = 2;
+}
+
