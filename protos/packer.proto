@@ -50,7 +50,7 @@ message InsertRequest {
 }
 
 
-service Storage {
+service Packer {
   rpc Insert(InsertRequest) returns (Error) {}
   rpc Segment(SegmentRequest) returns (SegmentResponse) {}
   rpc Segments(SegmentsRequest) returns (SegmentsResponse) {}

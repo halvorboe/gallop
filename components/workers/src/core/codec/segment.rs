@@ -1,4 +1,4 @@
-use crate::protos::storage::{SegmentId, SegmentResolution};
+use crate::protos::packer::{SegmentId, SegmentResolution};
 
 
 

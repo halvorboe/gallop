@@ -32,5 +32,5 @@ Write a front-end in python.
 ## Indexers
 Responsible for making segments easily queriable.
 
-## Storage
+## packer
 Responsible for not loosing data.

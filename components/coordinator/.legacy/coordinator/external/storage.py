@@ -3,7 +3,7 @@ from typing import List
 from coordinator.data import Segment, Row
 
 
-class FileStorage:
+class FilePacker:
     def __init__(self):
         self.segments = [Segment()]
 

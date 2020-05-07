@@ -1,5 +1,5 @@
 
-use crate::protos::storage::SegmentResolution;
+use crate::protos::packer::SegmentResolution;
 
 #[derive(Debug, Clone)]
 pub struct Configuration {

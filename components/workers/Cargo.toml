@@ -13,8 +13,8 @@ name = "indexer"
 path = "src/bin/indexer.rs"
 
 [[bin]]
-name = "storage"
-path = "src/bin/storage.rs"
+name = "packer"
+path = "src/bin/packer.rs"
 
 [dependencies]
 futures = "0.1.16"

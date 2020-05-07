@@ -1,29 +1,29 @@
 from coordinator.data import Row
 
-from coordinator.external import FileStorage, InMemoryIndexer
+from coordinator.external import FilePacker, InMemoryIndexer
 
 
 class Coordinator:
 
     """
     Add inn config.
-    Storage should split into segments.
+    Packer should split into segments.
     """
 
     def __init__(self):
-        self.storage = FileStorage()
+        self.packer = FilePacker()
         self.indexers = [InMemoryIndexer()]
 
     def insert(self, row: Row):
-        self.storage.insert(row)
+        self.packer.insert(row)
 
     def select(self):
-        self.storage.select()
+        self.packer.select()
 
     def query(self, query_string: str):
         return self.indexers[0].query(query_string)
 
     def sync(self):
-        segments = self.storage.select_segments()
+        segments = self.packer.select_segments()
         for segment in segments:
             self.indexers[0].index(segment)

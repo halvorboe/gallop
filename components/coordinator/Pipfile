@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 grpcio-tools = "*"
 mypy = "*"
+pylint = "*"
 
 [packages]
 protobuf = "*"
@@ -20,7 +21,7 @@ python_version = "3.7"
 [scripts]
 cli = "python -m coordinator"
 server = "uvicorn master:app --reload"
-generate = "python -m grpc_tools.protoc -I../../protos --python_out=./coordinator/protos --grpc_python_out=./coordinator/protos ../../protos/common.proto ../../protos/storage.proto ../../protos/indexer.proto"
+generate = "python -m grpc_tools.protoc -I../../protos --python_out=./coordinator/protos --grpc_python_out=./coordinator/protos ../../protos/common.proto ../../protos/packer.proto ../../protos/indexer.proto"
 
 [pipenv]
 allow_prereleases = true

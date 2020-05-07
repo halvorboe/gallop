@@ -1,24 +1,13 @@
-# import grpc
 
-# import indexer_pb2
-# import indexer_pb2_grpc
+import grpc
 
-# channel = grpc.insecure_channel('localhost:46515')
-# stub = indexer_pb2_grpc.IndexerStub(channel)
+import coordinator.protos.packer_pb2 as packer
+import coordinator.protos.packer_pb2_grpc as packer_grpc
 
-# print(stub.Eat(indexer_pb2.Order()))
+import coordinator.protos.common_pb2 as common
 
-from coordinator import Coordinator
-from coordinator.data import Row
+channel = grpc.insecure_channel('localhost:40091')
+stub = packer_grpc.PackerStub(channel)
 
-coordinator = Coordinator()
+stub.Insert(common.Row())
 
-coordinator.insert(Row(timestamp=1, data={"title": "Hello, world!"}))
-coordinator.insert(Row(timestamp=2, data={"title": "Hello, goose!"}))
-coordinator.insert(Row(timestamp=3, data={"title": "Hello, test!"}))
-
-coordinator.sync()
-
-print(coordinator.query("test"))
-
-print(Row.random().time())

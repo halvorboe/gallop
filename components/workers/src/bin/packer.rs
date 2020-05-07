@@ -7,12 +7,12 @@ use futures::Future;
 use grpcio::{Environment, RpcContext, ServerBuilder, UnarySink};
 
 use gallop::protos::common::{Error, Row};
-use gallop::protos::storage::SegmentId;
-use gallop::protos::storage::{
+use gallop::protos::packer::SegmentId;
+use gallop::protos::packer::{
     ConfigureRequest, InsertRequest, SegmentRequest, SegmentResponse, SegmentsRequest,
     SegmentsResponse,
 };
-use gallop::protos::storage_grpc::{self, Storage};
+use gallop::protos::packer_grpc::{self, Packer};
 
 use gallop::core::codec;
 use gallop::core::config::{Configuration};
@@ -22,19 +22,19 @@ use gallop::core::grpc;
 use chrono::{DateTime, NaiveDateTime, Utc};
 
 #[derive(Clone)]
-struct StorageService {
-    inner: InnerStorageService,
+struct PackerService {
+    inner: InnerPackerService,
 }
 
-impl StorageService {
+impl PackerService {
     fn new() -> Self {
         Self {
-            inner: InnerStorageService::default(),
+            inner: InnerPackerService::default(),
         }
     }
 }
 
-impl Storage for StorageService {
+impl Packer for PackerService {
     
     fn insert(&mut self, ctx: RpcContext, req: InsertRequest, sink: UnarySink<Error>) {
         let table_name = req.get_table_name().to_string();
@@ -79,12 +79,12 @@ impl Storage for StorageService {
 }
 
 #[derive(Clone)]
-struct InnerStorageService {
+struct InnerPackerService {
     config: Configuration,
     directory: InMemoryDirectory,
 }
 
-impl InnerStorageService {
+impl InnerPackerService {
     fn default() -> Self {
         Self {
             config: Configuration::default(),
@@ -114,13 +114,13 @@ impl InnerStorageService {
 }
 
 fn main() {
-    let service = StorageService::new();
-    grpc::serve(storage_grpc::create_storage(service));
+    let service = PackerService::new();
+    grpc::serve(packer_grpc::create_packer(service));
 }
 
 mod tests {
 
-    use super::InnerStorageService;
+    use super::InnerPackerService;
     use gallop::protos::common::Row;
 
     #[test]
@@ -128,7 +128,7 @@ mod tests {
         let mut row = Row::new();
         row.set_timestamp(10_000_000_000_000_000);
         row.set_data(String::from("{\"title\":\"Hello, world!\"}"));
-        let mut service = InnerStorageService::default();
+        let mut service = InnerPackerService::default();
         service.insert(String::from("a"), row.clone());
         service.insert(String::from("b"), row.clone());
         assert!(service.segments().len() == 2);
@@ -139,7 +139,7 @@ mod tests {
         let mut row = Row::new();
         row.set_timestamp(10_000_000_000_000_000);
         row.set_data(String::from("{\"title\":\"Hello, world!\"}"));
-        let mut service = InnerStorageService::default();
+        let mut service = InnerPackerService::default();
         service.insert(String::from("a"), row.clone());
         let segment = &service.segments()[0];
         let rows = service.segment(segment.to_string());

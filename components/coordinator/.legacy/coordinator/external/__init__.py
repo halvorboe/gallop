@@ -1,2 +1,2 @@
 from .indexer import InMemoryIndexer
-from .storage import FileStorage
+from .packer import FilePacker
