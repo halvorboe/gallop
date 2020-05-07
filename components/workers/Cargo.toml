@@ -1,0 +1,32 @@
+[package]
+name = "gallop"
+version = "0.1.0"
+authors = ["halvorboe <halvor@highered.global>"]
+edition = "2018"
+
+[lib]
+name = "gallop"
+path = "src/lib.rs"
+
+[[bin]]
+name = "indexer"
+path = "src/bin/indexer.rs"
+
+[[bin]]
+name = "storage"
+path = "src/bin/storage.rs"
+
+[dependencies]
+futures = "0.1.16"
+grpcio = "0.4.3"
+protobuf = "~2"
+log = "0.4"
+env_logger = "0.7.1"
+chrono = "*"
+
+[dev-dependencies]
+mockall = "0.7.1"
+
+
+# [build-dependencies]
+# protoc-grpcio = "*"

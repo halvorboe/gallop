@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package protos;
+
+import "common.proto";
+
+enum SegmentResolution {
+  HOUR = 0;
+  DAY = 1;
+}
+
+message SegmentId {
+  SegmentResolution resolution = 1;
+  string timestamp = 2;
+  string id = 3;
+}
+
+message Segment {
+  SegmentId meta = 1;
+  repeated Row Row = 2;
+}
+
+
+message SegmentRequest {
+  SegmentId segment_id = 1;
+}
+
+message SegmentResponse {
+  Segment segment  = 1;
+}
+
+message SegmentsRequest {
+  SegmentId segment_id = 1;
+}
+
+message SegmentsResponse {
+  repeated SegmentId segments = 2;
+}
+
+
+
+message ConfigureRequest {
+  repeated Table tables = 1;
+}
+
+message InsertRequest {
+  string table_name = 1;
+  Row row = 2;
+}
+
+
+service Storage {
+  rpc Configure(ConfigureRequest) returns (Error) {}
+  rpc Insert(InsertRequest) returns (Error) {}
+  rpc Segment(SegmentRequest) returns (SegmentResponse) {}
+  rpc Segments(SegmentsRequest) returns (SegmentsResponse) {}
+}

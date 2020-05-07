@@ -21,3 +21,16 @@ Based on GraphQL.
 ## Structure of the project
 
 Indexer should be seperate from the API node. 
+
+
+# Current plan
+Write the indexer in Rust
+
+Write a front-end in python. 
+
+
+## Indexers
+Responsible for making segments easily queriable.
+
+## Storage
+Responsible for not loosing data.

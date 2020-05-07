@@ -3,10 +3,10 @@
 gallop:
   tables:
     views:
+      segments:
+        resolution: DAY
+        max_size: 10
       columns:
         - url
         - browser
         - country
-    reads:
-      columns:
-        - url
