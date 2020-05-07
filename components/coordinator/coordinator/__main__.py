@@ -6,8 +6,14 @@ import coordinator.protos.packer_pb2_grpc as packer_grpc
 
 import coordinator.protos.common_pb2 as common
 
-channel = grpc.insecure_channel('localhost:40091')
+channel = grpc.insecure_channel('localhost:8081')
 stub = packer_grpc.PackerStub(channel)
 
-stub.Insert(common.Row())
+result = stub.Insert(common.Row())
+print(result)
 
+result = stub.Segments(packer.SegmentsRequest())
+print(result)
+
+result = stub.Segment(packer.SegmentRequest())
+print(result)

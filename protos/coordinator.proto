@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package protos;
+
+import "common.proto";
+
+
+service Coordinator {
+}

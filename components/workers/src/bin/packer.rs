@@ -1,3 +1,6 @@
+#[macro_use] extern crate log;
+
+
 use std::io::Read;
 use std::sync::Arc;
 use std::{io, thread};
@@ -5,6 +8,7 @@ use std::{io, thread};
 use futures::sync::oneshot;
 use futures::Future;
 use grpcio::{Environment, RpcContext, ServerBuilder, UnarySink};
+use protobuf::{RepeatedField};
 
 use gallop::protos::common::{Error, Row};
 use gallop::protos::packer::SegmentId;
@@ -37,6 +41,7 @@ impl PackerService {
 impl Packer for PackerService {
     
     fn insert(&mut self, ctx: RpcContext, req: InsertRequest, sink: UnarySink<Error>) {
+        debug!("Inserting row...");
         let table_name = req.get_table_name().to_string();
         let row = req.get_row();
         self.inner.insert(table_name, row.clone());
@@ -49,7 +54,27 @@ impl Packer for PackerService {
             .map(|_| ());
         ctx.spawn(f)
     }
+
+    fn segments(
+        &mut self,
+        ctx: RpcContext,
+        req: SegmentsRequest,
+        sink: UnarySink<SegmentsResponse>,
+    ) {
+        debug!("Fetching segments...");
+        let segments = self.inner.segments();
+        debug!("Found {} segments...", segments.len());
+        let mut resp = SegmentsResponse::default();
+        resp.set_segments(RepeatedField::from_vec(segments));
+        let f = sink
+            .success(resp)
+            .map_err(move |e| println!("failed to reply {:?}: {:?}", req, e))
+            .map(|_| ());
+        ctx.spawn(f) 
+    }
+
     fn segment(&mut self, ctx: RpcContext, req: SegmentRequest, sink: UnarySink<SegmentResponse>) {
+        debug!("Fetching {} segment...", codec::segment::encode_id( req.get_segment_id().clone()));
         let segment_id = req.get_segment_id();
         let segment = self.inner.segment("124".to_string());
         let mut resp = SegmentResponse::default();
@@ -62,20 +87,7 @@ impl Packer for PackerService {
         ctx.spawn(f) 
 
     }
-    fn segments(
-        &mut self,
-        ctx: RpcContext,
-        req: SegmentsRequest,
-        sink: UnarySink<SegmentsResponse>,
-    ) {
-        let segments = self.inner.segments();
-        let mut resp = SegmentsResponse::default();
-        let f = sink
-            .success(resp)
-            .map_err(move |e| println!("failed to reply {:?}: {:?}", req, e))
-            .map(|_| ());
-        ctx.spawn(f) 
-    }
+
 }
 
 #[derive(Clone)]
@@ -100,8 +112,8 @@ impl InnerPackerService {
         self.directory.append(table_name, codec::row::encode(&row))
     }
 
-    fn segments(&self) -> Vec<String> {
-        self.directory.list()
+    fn segments(&self) -> Vec<SegmentId> {
+        self.directory.list().iter().map(|it| codec::segment::decode_id(it.clone())).collect()
     }
 
     fn segment(&self, name: String) -> Vec<Row> {
@@ -115,7 +127,7 @@ impl InnerPackerService {
 
 fn main() {
     let service = PackerService::new();
-    grpc::serve(packer_grpc::create_packer(service));
+    grpc::serve(packer_grpc::create_packer(service), 8081);
 }
 
 mod tests {
@@ -142,7 +154,7 @@ mod tests {
         let mut service = InnerPackerService::default();
         service.insert(String::from("a"), row.clone());
         let segment = &service.segments()[0];
-        let rows = service.segment(segment.to_string());
+        let rows = service.segment("123".to_string());
         assert_eq!(rows[0], row);
     }
 }
