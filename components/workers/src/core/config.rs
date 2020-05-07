@@ -11,7 +11,6 @@ pub struct Configuration {
 }
 
 impl Configuration {
-
     pub fn default() -> Self {
         Self {
             segment_resolution: SegmentResolution::DAY,
@@ -22,7 +21,7 @@ impl Configuration {
     pub fn new(segment_resolution: SegmentResolution, segment_max_size: usize) -> Self {
         Self {
             segment_resolution,
-            segment_max_size
+            segment_max_size,
         }
     }
 }

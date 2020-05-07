@@ -4,8 +4,8 @@ syntax = "proto3";
 package protos;
 
 message Error {
-    int32 error_code = 1;
-    string error_message = 2;
+    int32 code = 1;
+    string message = 2;
 }
 
 message Table {

@@ -4,38 +4,40 @@ package protos;
 
 import "common.proto";
 
+enum SegmentResolution {
+  HOUR = 0;
+  DAY = 1;
+}
 
-message SegmentMeta {
-  string id = 1;
-  uint64 timestamp = 2; 
-  enum Resolution {
-      HOUR = 0;
-      DAY = 1;
-      WEEK = 2;
-  }
-  Resolution resolution = 3;
+message SegmentId {
+  SegmentResolution resolution = 1;
+  string timestamp = 2;
+  string id = 3;
 }
 
 message Segment {
-  SegmentMeta meta = 1;
+  SegmentId meta = 1;
   repeated Row Row = 2;
 }
 
 
 message SegmentRequest {
-  
+  SegmentId segment_id = 1;
 }
 
 message SegmentResponse {
-  Segment segments = 1;
+  Segment segment  = 1;
 }
 
 message SegmentsRequest {
+  SegmentId segment_id = 1;
 }
 
 message SegmentsResponse {
-  repeated SegmentMeta segments = 2;
+  repeated SegmentId segments = 2;
 }
+
+
 
 message ConfigureRequest {
   repeated Table tables = 1;

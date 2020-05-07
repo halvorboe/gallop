@@ -7,18 +7,21 @@ use futures::Future;
 use grpcio::{Environment, RpcContext, ServerBuilder, UnarySink};
 
 use gallop::protos::common::{Error, Row};
-use gallop::protos::storage::{SegmentMeta};
+use gallop::protos::storage::SegmentMeta;
 use gallop::protos::storage::{
-    ConfigureRequest, InsertRequest, SegmentRequest, SegmentResponse, SegmentsRequest, SegmentsResponse,
+    ConfigureRequest, InsertRequest, SegmentRequest, SegmentResponse, SegmentsRequest,
+    SegmentsResponse,
 };
 use gallop::protos::storage_grpc::{self, Storage};
 
+use gallop::core::codec;
 use gallop::core::config::{Configuration, SegmentResolution};
 use gallop::core::directory::{Directory, InMemoryDirectory};
 use gallop::core::grpc;
 
 use chrono::{DateTime, NaiveDateTime, Utc};
 
+#[derive(Clone)]
 struct StorageService {
     inner: InnerStorageService,
 }
@@ -32,25 +35,65 @@ impl StorageService {
 }
 
 impl Storage for StorageService {
-    fn configure(&mut self, ctx: RpcContext, req: ConfigureRequest, sink: UnarySink<Error>) {}
-    fn insert(&mut self, ctx: RpcContext, req: InsertRequest, sink: UnarySink<Error>) {}
-    fn segment(&mut self, ctx: RpcContext, req: SegmentRequest, sink: UnarySink<SegmentResponse>) {}
+    fn configure(&mut self, ctx: RpcContext, req: ConfigureRequest, sink: UnarySink<Error>) {
+        let mut resp = Error::default();
+        resp.set_code(0);
+        resp.set_message("OK!".to_string());
+        let f = sink
+        .success(resp)
+        .map_err(move |e| println!("failed to reply {:?}: {:?}", req, e))
+        .map(|_| ());
+        ctx.spawn(f) 
+    }
+    fn insert(&mut self, ctx: RpcContext, req: InsertRequest, sink: UnarySink<Error>) {
+        let table_name = req.get_table_name().to_string();
+        let row = req.get_row();
+        self.inner.insert(table_name, row.clone());
+        let mut resp = Error::default();
+        resp.set_code(0);
+        resp.set_message("OK!".to_string());
+        let f = sink
+            .success(resp)
+            .map_err(move |e| println!("failed to reply {:?}: {:?}", req, e))
+            .map(|_| ());
+        ctx.spawn(f)
+    }
+    fn segment(&mut self, ctx: RpcContext, req: SegmentRequest, sink: UnarySink<SegmentResponse>) {
+        let segment_id = req.get_segment_id();
+        let segment = self.inner.segment();
+        let mut resp = SegmentResponse::default();
+
+
+        let f = sink
+            .success(resp)
+            .map_err(move |e| println!("failed to reply {:?}: {:?}", req, e))
+            .map(|_| ());
+        ctx.spawn(f) 
+
+    }
     fn segments(
         &mut self,
         ctx: RpcContext,
         req: SegmentsRequest,
         sink: UnarySink<SegmentsResponse>,
     ) {
+        let segments = self.inner.segments();
+        let mut resp = SegmentsResponse::default();
+        let f = sink
+            .success(resp)
+            .map_err(move |e| println!("failed to reply {:?}: {:?}", req, e))
+            .map(|_| ());
+        ctx.spawn(f) 
     }
 }
 
+#[derive(Clone)]
 struct InnerStorageService {
     config: Configuration,
     directory: InMemoryDirectory,
 }
 
 impl InnerStorageService {
-
     fn default() -> Self {
         Self {
             config: Configuration::default(),
@@ -58,50 +101,37 @@ impl InnerStorageService {
         }
     }
 
-    fn segment_for_row(&self, row: Row) -> String {
-        let timestamp = row.get_timestamp();
-        let naive = NaiveDateTime::from_timestamp(
-            (timestamp / 1_000_000_000) as i64,
-            timestamp as u32 % 1_000_000_000,
-        );
 
-        let datetime: DateTime<Utc> = DateTime::from_utc(naive, Utc);
-        let formatter = match self.config.segment_resolution {
-            SegmentResolution::HOUR => "%Y#%m#%d#%H",
-            SegmentResolution::DAY => "%Y#%m#%d"
-        };
-        datetime
-            .format(formatter)
-            .to_string()
-    }
 
     fn insert(&mut self, table_name: String, row: Row) {
         // Figure out what segment it belogs to.
         let segment = table_name + "-" + &self.segment_for_row(row.clone());
         // Append it to that segment.
-        self.directory.append(segment, row.get_timestamp().to_string() + "|" + &row.get_data().to_string())
+        self.directory.append(segment, codec::row::encode(&row))
     }
 
     fn segments(&self) -> Vec<String> {
         self.directory.list()
-    } 
+    }
 
     fn segment(&self, name: String) -> Vec<Row> {
-        dbg!(self.directory.read(name));
-        vec![]
+        self.directory
+            .read(name)
+            .iter()
+            .map(|it| codec::row::decode(it))
+            .collect()
     }
 }
 
-fn main() {    
-    // grpc::serve(storage_grpc::create_storage(StorageService::new()));
+fn main() {
+    let service = StorageService::new();
+    grpc::serve(storage_grpc::create_storage(service));
 }
 
 mod tests {
 
-    use gallop::protos::common::{Row};
     use super::InnerStorageService;
-
-
+    use gallop::protos::common::Row;
 
     #[test]
     fn test_basic() {
@@ -113,7 +143,7 @@ mod tests {
         service.insert(String::from("b"), row.clone());
         assert!(service.segments().len() == 2);
     }
-    
+
     #[test]
     fn test_file_content() {
         let mut row = Row::new();
@@ -122,8 +152,7 @@ mod tests {
         let mut service = InnerStorageService::default();
         service.insert(String::from("a"), row.clone());
         let segment = &service.segments()[0];
-        let rows = dbg!(service.segment(segment.to_string()));
-        assert!(false);
-
+        let rows = service.segment(segment.to_string());
+        assert_eq!(rows[0], row);
     }
 }

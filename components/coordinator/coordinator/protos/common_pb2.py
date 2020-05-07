@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='protos',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x0c\x63ommon.proto\x12\x06protos\"2\n\x05\x45rror\x12\x12\n\nerror_code\x18\x01 \x01(\x05\x12\x15\n\rerror_message\x18\x02 \x01(\t\"\x88\x01\n\x05Table\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x34\n\x12segment_resolution\x18\x02 \x01(\x0e\x32\x18.protos.Table.Resolution\x12\x14\n\x0csegment_size\x18\x03 \x01(\x04\x12\x0e\n\x06\x66ields\x18\x04 \x03(\t\"\x15\n\nResolution\x12\x07\n\x03\x44\x41Y\x10\x00\"&\n\x03Row\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\tb\x06proto3'
+  serialized_pb=b'\n\x0c\x63ommon.proto\x12\x06protos\"&\n\x05\x45rror\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x12\x0f\n\x07message\x18\x02 \x01(\t\"\x88\x01\n\x05Table\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x34\n\x12segment_resolution\x18\x02 \x01(\x0e\x32\x18.protos.Table.Resolution\x12\x14\n\x0csegment_size\x18\x03 \x01(\x04\x12\x0e\n\x06\x66ields\x18\x04 \x03(\t\"\x15\n\nResolution\x12\x07\n\x03\x44\x41Y\x10\x00\"&\n\x03Row\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\tb\x06proto3'
 )
 
 
@@ -36,8 +36,8 @@ _TABLE_RESOLUTION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=192,
-  serialized_end=213,
+  serialized_start=180,
+  serialized_end=201,
 )
 _sym_db.RegisterEnumDescriptor(_TABLE_RESOLUTION)
 
@@ -50,14 +50,14 @@ _ERROR = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='error_code', full_name='protos.Error.error_code', index=0,
+      name='code', full_name='protos.Error.code', index=0,
       number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='error_message', full_name='protos.Error.error_message', index=1,
+      name='message', full_name='protos.Error.message', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -76,7 +76,7 @@ _ERROR = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=24,
-  serialized_end=74,
+  serialized_end=62,
 )
 
 
@@ -128,8 +128,8 @@ _TABLE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=77,
-  serialized_end=213,
+  serialized_start=65,
+  serialized_end=201,
 )
 
 
@@ -166,8 +166,8 @@ _ROW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=215,
-  serialized_end=253,
+  serialized_start=203,
+  serialized_end=241,
 )
 
 _TABLE.fields_by_name['segment_resolution'].enum_type = _TABLE_RESOLUTION
