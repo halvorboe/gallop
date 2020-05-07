@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='protos',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\rstorage.proto\x12\x06protos\x1a\x0c\x63ommon.proto\"Y\n\tSegmentId\x12\n\n\x02id\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\t\x12-\n\nresolution\x18\x03 \x01(\x0e\x32\x19.protos.SegmentResolution\"D\n\x07Segment\x12\x1f\n\x04meta\x18\x01 \x01(\x0b\x32\x11.protos.SegmentId\x12\x18\n\x03Row\x18\x02 \x03(\x0b\x32\x0b.protos.Row\"7\n\x0eSegmentRequest\x12%\n\nsegment_id\x18\x01 \x01(\x0b\x32\x11.protos.SegmentId\"3\n\x0fSegmentResponse\x12 \n\x07segment\x18\x01 \x01(\x0b\x32\x0f.protos.Segment\"8\n\x0fSegmentsRequest\x12%\n\nsegment_id\x18\x01 \x01(\x0b\x32\x11.protos.SegmentId\"7\n\x10SegmentsResponse\x12#\n\x08segments\x18\x02 \x03(\x0b\x32\x11.protos.SegmentId\"1\n\x10\x43onfigureRequest\x12\x1d\n\x06tables\x18\x01 \x03(\x0b\x32\r.protos.Table\"=\n\rInsertRequest\x12\x12\n\ntable_name\x18\x01 \x01(\t\x12\x18\n\x03row\x18\x02 \x01(\x0b\x32\x0b.protos.Row*&\n\x11SegmentResolution\x12\x08\n\x04HOUR\x10\x00\x12\x07\n\x03\x44\x41Y\x10\x01\x32\xf2\x01\n\x07Storage\x12\x36\n\tConfigure\x12\x18.protos.ConfigureRequest\x1a\r.protos.Error\"\x00\x12\x30\n\x06Insert\x12\x15.protos.InsertRequest\x1a\r.protos.Error\"\x00\x12<\n\x07Segment\x12\x16.protos.SegmentRequest\x1a\x17.protos.SegmentResponse\"\x00\x12?\n\x08Segments\x12\x17.protos.SegmentsRequest\x1a\x18.protos.SegmentsResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\rstorage.proto\x12\x06protos\x1a\x0c\x63ommon.proto\"h\n\tSegmentId\x12\r\n\x05table\x18\x01 \x01(\t\x12-\n\nresolution\x18\x02 \x01(\x0e\x32\x19.protos.SegmentResolution\x12\x11\n\ttimestamp\x18\x03 \x01(\t\x12\n\n\x02id\x18\x04 \x01(\t\"D\n\x07Segment\x12\x1f\n\x04meta\x18\x01 \x01(\x0b\x32\x11.protos.SegmentId\x12\x18\n\x03Row\x18\x02 \x03(\x0b\x32\x0b.protos.Row\"7\n\x0eSegmentRequest\x12%\n\nsegment_id\x18\x01 \x01(\x0b\x32\x11.protos.SegmentId\"3\n\x0fSegmentResponse\x12 \n\x07segment\x18\x01 \x01(\x0b\x32\x0f.protos.Segment\"8\n\x0fSegmentsRequest\x12%\n\nsegment_id\x18\x01 \x01(\x0b\x32\x11.protos.SegmentId\"7\n\x10SegmentsResponse\x12#\n\x08segments\x18\x02 \x03(\x0b\x32\x11.protos.SegmentId\"1\n\x10\x43onfigureRequest\x12\x1d\n\x06tables\x18\x01 \x03(\x0b\x32\r.protos.Table\"=\n\rInsertRequest\x12\x12\n\ntable_name\x18\x01 \x01(\t\x12\x18\n\x03row\x18\x02 \x01(\x0b\x32\x0b.protos.Row*&\n\x11SegmentResolution\x12\x08\n\x04HOUR\x10\x00\x12\x07\n\x03\x44\x41Y\x10\x01\x32\xba\x01\n\x07Storage\x12\x30\n\x06Insert\x12\x15.protos.InsertRequest\x1a\r.protos.Error\"\x00\x12<\n\x07Segment\x12\x16.protos.SegmentRequest\x1a\x17.protos.SegmentResponse\"\x00\x12?\n\x08Segments\x12\x17.protos.SegmentsRequest\x1a\x18.protos.SegmentsResponse\"\x00\x62\x06proto3'
   ,
   dependencies=[common__pb2.DESCRIPTOR,])
 
@@ -41,8 +41,8 @@ _SEGMENTRESOLUTION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=539,
-  serialized_end=577,
+  serialized_start=554,
+  serialized_end=592,
 )
 _sym_db.RegisterEnumDescriptor(_SEGMENTRESOLUTION)
 
@@ -60,23 +60,30 @@ _SEGMENTID = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='protos.SegmentId.id', index=0,
+      name='table', full_name='protos.SegmentId.table', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='timestamp', full_name='protos.SegmentId.timestamp', index=1,
-      number=2, type=9, cpp_type=9, label=1,
+      name='resolution', full_name='protos.SegmentId.resolution', index=1,
+      number=2, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='protos.SegmentId.timestamp', index=2,
+      number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='resolution', full_name='protos.SegmentId.resolution', index=2,
-      number=3, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
+      name='id', full_name='protos.SegmentId.id', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -93,7 +100,7 @@ _SEGMENTID = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=39,
-  serialized_end=128,
+  serialized_end=143,
 )
 
 
@@ -130,8 +137,8 @@ _SEGMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=130,
-  serialized_end=198,
+  serialized_start=145,
+  serialized_end=213,
 )
 
 
@@ -161,8 +168,8 @@ _SEGMENTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=200,
-  serialized_end=255,
+  serialized_start=215,
+  serialized_end=270,
 )
 
 
@@ -192,8 +199,8 @@ _SEGMENTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=257,
-  serialized_end=308,
+  serialized_start=272,
+  serialized_end=323,
 )
 
 
@@ -223,8 +230,8 @@ _SEGMENTSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=310,
-  serialized_end=366,
+  serialized_start=325,
+  serialized_end=381,
 )
 
 
@@ -254,8 +261,8 @@ _SEGMENTSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=368,
-  serialized_end=423,
+  serialized_start=383,
+  serialized_end=438,
 )
 
 
@@ -285,8 +292,8 @@ _CONFIGUREREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=425,
-  serialized_end=474,
+  serialized_start=440,
+  serialized_end=489,
 )
 
 
@@ -323,8 +330,8 @@ _INSERTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=476,
-  serialized_end=537,
+  serialized_start=491,
+  serialized_end=552,
 )
 
 _SEGMENTID.fields_by_name['resolution'].enum_type = _SEGMENTRESOLUTION
@@ -411,22 +418,13 @@ _STORAGE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=580,
-  serialized_end=822,
+  serialized_start=595,
+  serialized_end=781,
   methods=[
-  _descriptor.MethodDescriptor(
-    name='Configure',
-    full_name='protos.Storage.Configure',
-    index=0,
-    containing_service=None,
-    input_type=_CONFIGUREREQUEST,
-    output_type=common__pb2._ERROR,
-    serialized_options=None,
-  ),
   _descriptor.MethodDescriptor(
     name='Insert',
     full_name='protos.Storage.Insert',
-    index=1,
+    index=0,
     containing_service=None,
     input_type=_INSERTREQUEST,
     output_type=common__pb2._ERROR,
@@ -435,7 +433,7 @@ _STORAGE = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='Segment',
     full_name='protos.Storage.Segment',
-    index=2,
+    index=1,
     containing_service=None,
     input_type=_SEGMENTREQUEST,
     output_type=_SEGMENTRESPONSE,
@@ -444,7 +442,7 @@ _STORAGE = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='Segments',
     full_name='protos.Storage.Segments',
-    index=3,
+    index=2,
     containing_service=None,
     input_type=_SEGMENTSREQUEST,
     output_type=_SEGMENTSRESPONSE,

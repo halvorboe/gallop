@@ -1,8 +1,5 @@
-#[derive(Debug, Clone)]
-pub enum SegmentResolution {
-    HOUR,
-    DAY,
-}
+
+use crate::protos::storage::SegmentResolution;
 
 #[derive(Debug, Clone)]
 pub struct Configuration {

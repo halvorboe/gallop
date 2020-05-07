@@ -14,11 +14,6 @@ class StorageStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.Configure = channel.unary_unary(
-                '/protos.Storage/Configure',
-                request_serializer=storage__pb2.ConfigureRequest.SerializeToString,
-                response_deserializer=common__pb2.Error.FromString,
-                )
         self.Insert = channel.unary_unary(
                 '/protos.Storage/Insert',
                 request_serializer=storage__pb2.InsertRequest.SerializeToString,
@@ -38,12 +33,6 @@ class StorageStub(object):
 
 class StorageServicer(object):
     """Missing associated documentation comment in .proto file"""
-
-    def Configure(self, request, context):
-        """Missing associated documentation comment in .proto file"""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
 
     def Insert(self, request, context):
         """Missing associated documentation comment in .proto file"""
@@ -66,11 +55,6 @@ class StorageServicer(object):
 
 def add_StorageServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'Configure': grpc.unary_unary_rpc_method_handler(
-                    servicer.Configure,
-                    request_deserializer=storage__pb2.ConfigureRequest.FromString,
-                    response_serializer=common__pb2.Error.SerializeToString,
-            ),
             'Insert': grpc.unary_unary_rpc_method_handler(
                     servicer.Insert,
                     request_deserializer=storage__pb2.InsertRequest.FromString,
@@ -95,22 +79,6 @@ def add_StorageServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class Storage(object):
     """Missing associated documentation comment in .proto file"""
-
-    @staticmethod
-    def Configure(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/protos.Storage/Configure',
-            storage__pb2.ConfigureRequest.SerializeToString,
-            common__pb2.Error.FromString,
-            options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def Insert(request,

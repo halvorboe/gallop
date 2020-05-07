@@ -7,7 +7,7 @@ use futures::Future;
 use grpcio::{Environment, RpcContext, ServerBuilder, UnarySink};
 
 use gallop::protos::common::{Error, Row};
-use gallop::protos::storage::SegmentMeta;
+use gallop::protos::storage::SegmentId;
 use gallop::protos::storage::{
     ConfigureRequest, InsertRequest, SegmentRequest, SegmentResponse, SegmentsRequest,
     SegmentsResponse,
@@ -15,7 +15,7 @@ use gallop::protos::storage::{
 use gallop::protos::storage_grpc::{self, Storage};
 
 use gallop::core::codec;
-use gallop::core::config::{Configuration, SegmentResolution};
+use gallop::core::config::{Configuration};
 use gallop::core::directory::{Directory, InMemoryDirectory};
 use gallop::core::grpc;
 
@@ -35,16 +35,7 @@ impl StorageService {
 }
 
 impl Storage for StorageService {
-    fn configure(&mut self, ctx: RpcContext, req: ConfigureRequest, sink: UnarySink<Error>) {
-        let mut resp = Error::default();
-        resp.set_code(0);
-        resp.set_message("OK!".to_string());
-        let f = sink
-        .success(resp)
-        .map_err(move |e| println!("failed to reply {:?}: {:?}", req, e))
-        .map(|_| ());
-        ctx.spawn(f) 
-    }
+    
     fn insert(&mut self, ctx: RpcContext, req: InsertRequest, sink: UnarySink<Error>) {
         let table_name = req.get_table_name().to_string();
         let row = req.get_row();
@@ -60,7 +51,7 @@ impl Storage for StorageService {
     }
     fn segment(&mut self, ctx: RpcContext, req: SegmentRequest, sink: UnarySink<SegmentResponse>) {
         let segment_id = req.get_segment_id();
-        let segment = self.inner.segment();
+        let segment = self.inner.segment("124".to_string());
         let mut resp = SegmentResponse::default();
 
 
@@ -101,13 +92,12 @@ impl InnerStorageService {
         }
     }
 
-
-
     fn insert(&mut self, table_name: String, row: Row) {
-        // Figure out what segment it belogs to.
-        let segment = table_name + "-" + &self.segment_for_row(row.clone());
-        // Append it to that segment.
-        self.directory.append(segment, codec::row::encode(&row))
+        let mut segment_id = SegmentId::new();
+        segment_id.set_table(table_name.clone());
+        segment_id.set_resolution(self.config.segment_resolution);
+        segment_id.set_timestamp(codec::row::encode_timestamp(row.get_timestamp() as u128, self.config.segment_resolution));
+        self.directory.append(table_name, codec::row::encode(&row))
     }
 
     fn segments(&self) -> Vec<String> {

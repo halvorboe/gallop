@@ -10,9 +10,10 @@ enum SegmentResolution {
 }
 
 message SegmentId {
-  SegmentResolution resolution = 1;
-  string timestamp = 2;
-  string id = 3;
+  string table = 1;
+  SegmentResolution resolution = 2;
+  string timestamp = 3;
+  string id = 4;
 }
 
 message Segment {
@@ -50,7 +51,6 @@ message InsertRequest {
 
 
 service Storage {
-  rpc Configure(ConfigureRequest) returns (Error) {}
   rpc Insert(InsertRequest) returns (Error) {}
   rpc Segment(SegmentRequest) returns (SegmentResponse) {}
   rpc Segments(SegmentsRequest) returns (SegmentsResponse) {}
