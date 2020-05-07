@@ -1,5 +1,5 @@
 use crate::protos::common::Row;
-use crate::protos::packer::{SegmentId, SegmentResolution};
+use crate::protos::packer::SegmentResolution;
 
 use chrono::{DateTime, NaiveDateTime, Utc};
 

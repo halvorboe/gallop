@@ -1,11 +1,4 @@
-pub trait Directory {
-    // Returns a list of file names.
-    fn list(&self) -> Vec<String>;
-    // Appends to the file named 'name'. Creates it if it does not exist.
-    fn append(&mut self, name: String, line: String);
-    // Returns all the lines in a file.
-    fn read(&self, name: String) -> Option<Vec<String>>;
-}
+use super::Directory;
 
 #[derive(Debug, Clone)]
 pub struct InMemoryFile {
@@ -43,11 +36,6 @@ impl InMemoryFile {
 }
 
 impl InMemoryDirectory {
-    pub fn new() -> Self {
-        Self {
-            files: Box::from(Vec::new()),
-        }
-    }
 
     fn find(&self, name: String) -> Option<&InMemoryFile> {
         for file in self.files.iter() {
@@ -101,6 +89,13 @@ impl Directory for InMemoryDirectory {
     }
     fn read(&self, name: String) -> Option<Vec<String>> {
         Some(self.find(name.clone())?.lines())
+    }
+    
+    
+    fn new() -> Self {
+        Self {
+            files: Box::from(Vec::new()),
+        }
     }
 }
 

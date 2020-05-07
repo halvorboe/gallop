@@ -19,14 +19,14 @@ use gallop::protos::packer_grpc::{self, Packer};
 
 use gallop::core::codec;
 use gallop::core::config::Configuration;
-use gallop::core::directory::{Directory, InMemoryDirectory};
+use gallop::core::directory::Directory;
+use gallop::core::directory::memory::InMemoryDirectory;
 use gallop::core::grpc;
 
-use chrono::{DateTime, NaiveDateTime, Utc};
 
 #[derive(Clone)]
 struct PackerService {
-    inner: InnerPackerService,
+    inner: InnerPackerService<InMemoryDirectory>,
 }
 
 impl PackerService {
@@ -92,16 +92,16 @@ impl Packer for PackerService {
 }
 
 #[derive(Clone)]
-struct InnerPackerService {
+struct InnerPackerService<D: Directory> {
     config: Configuration,
-    directory: InMemoryDirectory,
+    directory: D,
 }
 
-impl InnerPackerService {
+impl<D: Directory> InnerPackerService<D> {
     fn default() -> Self {
         Self {
             config: Configuration::default(),
-            directory: InMemoryDirectory::new(),
+            directory: D::new(),
         }
     }
 
@@ -148,10 +148,11 @@ mod tests {
     use super::InnerPackerService;
     use gallop::core::codec;
     use gallop::protos::common::Row;
+    use gallop::core::directory::memory::InMemoryDirectory;
 
     #[test]
     fn test_different_segements() {
-        let mut service = InnerPackerService::default();
+        let mut service: InnerPackerService<InMemoryDirectory> = InnerPackerService::default();
 
         let mut row = generate_row(1000);
         service.insert(String::from("a"), row.clone());
@@ -162,7 +163,7 @@ mod tests {
 
     #[test]
     fn test_same_segment() {
-        let mut service = InnerPackerService::default();
+        let mut service: InnerPackerService<InMemoryDirectory> = InnerPackerService::default();
 
         let table = "a".to_string();
         service.insert(table.clone(), generate_row(1000));
@@ -173,7 +174,7 @@ mod tests {
 
     #[test]
     fn test_content() {
-        let mut service = InnerPackerService::default();
+        let mut service: InnerPackerService<InMemoryDirectory> = InnerPackerService::default();
 
         let table = "a".to_string();
         let row = generate_row(1000);
