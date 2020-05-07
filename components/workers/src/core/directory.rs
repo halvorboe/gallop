@@ -1,4 +1,3 @@
-
 pub trait Directory {
     // Returns a list of file names.
     fn list(&self) -> Vec<String>;
@@ -16,7 +15,7 @@ pub struct InMemoryFile {
 
 #[derive(Debug, Clone)]
 pub struct InMemoryDirectory {
-    files:  Box<Vec<InMemoryFile>>,
+    files: Box<Vec<InMemoryFile>>,
 }
 
 impl InMemoryFile {
@@ -45,7 +44,9 @@ impl InMemoryFile {
 
 impl InMemoryDirectory {
     pub fn new() -> Self {
-        Self { files: Box::from(Vec::new())  }
+        Self {
+            files: Box::from(Vec::new()),
+        }
     }
 
     fn find(&self, name: String) -> Option<&InMemoryFile> {
@@ -67,10 +68,24 @@ impl InMemoryDirectory {
     }
 
     fn create(&mut self, name: String) {
-        debug!("Files before: [{}]", self.files.iter().map(|it| it.name.clone()).collect::<Vec<String>>().join(", "));
+        debug!(
+            "Files before: [{}]",
+            self.files
+                .iter()
+                .map(|it| it.name.clone())
+                .collect::<Vec<String>>()
+                .join(", ")
+        );
         let file = InMemoryFile::from(name);
         self.files.push(file);
-        debug!("Files after: [{}]", self.files.iter().map(|it| it.name.clone()).collect::<Vec<String>>().join(", "));
+        debug!(
+            "Files after: [{}]",
+            self.files
+                .iter()
+                .map(|it| it.name.clone())
+                .collect::<Vec<String>>()
+                .join(", ")
+        );
     }
 }
 
@@ -91,7 +106,7 @@ impl Directory for InMemoryDirectory {
 
 mod tests {
 
-    use super::{InMemoryFile, InMemoryDirectory, Directory};
+    use super::{Directory, InMemoryDirectory, InMemoryFile};
 
     #[test]
     fn test_file_basic() {
@@ -114,7 +129,10 @@ mod tests {
         directory.append(name.clone(), name.clone());
         directory.append(name.clone(), name.clone());
         directory.append(name.clone(), name.clone());
-        assert_eq!(directory.read(name.clone()).unwrap(), vec![name.clone(), name.clone(), name.clone()])
+        assert_eq!(
+            directory.read(name.clone()).unwrap(),
+            vec![name.clone(), name.clone(), name.clone()]
+        )
     }
 
     #[test]
@@ -124,7 +142,6 @@ mod tests {
         assert_eq!(directory.read(name.clone()), None)
     }
 
-
     fn generate_file(name: String, contents: Vec<&str>) -> InMemoryFile {
         let mut file = InMemoryFile::from(name);
         for line in contents.iter() {
@@ -132,6 +149,4 @@ mod tests {
         }
         file
     }
-
-
 }

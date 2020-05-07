@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='protos',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x0cpacker.proto\x12\x06protos\x1a\x0c\x63ommon.proto\"h\n\tSegmentId\x12\r\n\x05table\x18\x01 \x01(\t\x12-\n\nresolution\x18\x02 \x01(\x0e\x32\x19.protos.SegmentResolution\x12\x11\n\ttimestamp\x18\x03 \x01(\t\x12\n\n\x02id\x18\x04 \x01(\t\"D\n\x07Segment\x12\x1f\n\x04meta\x18\x01 \x01(\x0b\x32\x11.protos.SegmentId\x12\x18\n\x03Row\x18\x02 \x03(\x0b\x32\x0b.protos.Row\"7\n\x0eSegmentRequest\x12%\n\nsegment_id\x18\x01 \x01(\x0b\x32\x11.protos.SegmentId\"3\n\x0fSegmentResponse\x12 \n\x07segment\x18\x01 \x01(\x0b\x32\x0f.protos.Segment\"8\n\x0fSegmentsRequest\x12%\n\nsegment_id\x18\x01 \x01(\x0b\x32\x11.protos.SegmentId\"7\n\x10SegmentsResponse\x12#\n\x08segments\x18\x02 \x03(\x0b\x32\x11.protos.SegmentId\"1\n\x10\x43onfigureRequest\x12\x1d\n\x06tables\x18\x01 \x03(\x0b\x32\r.protos.Table\"=\n\rInsertRequest\x12\x12\n\ntable_name\x18\x01 \x01(\t\x12\x18\n\x03row\x18\x02 \x01(\x0b\x32\x0b.protos.Row*&\n\x11SegmentResolution\x12\x08\n\x04HOUR\x10\x00\x12\x07\n\x03\x44\x41Y\x10\x01\x32\xb9\x01\n\x06Packer\x12\x30\n\x06Insert\x12\x15.protos.InsertRequest\x1a\r.protos.Error\"\x00\x12<\n\x07Segment\x12\x16.protos.SegmentRequest\x1a\x17.protos.SegmentResponse\"\x00\x12?\n\x08Segments\x12\x17.protos.SegmentsRequest\x1a\x18.protos.SegmentsResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x0cpacker.proto\x12\x06protos\x1a\x0c\x63ommon.proto\"h\n\tSegmentId\x12\r\n\x05table\x18\x01 \x01(\t\x12-\n\nresolution\x18\x02 \x01(\x0e\x32\x19.protos.SegmentResolution\x12\x11\n\ttimestamp\x18\x03 \x01(\t\x12\n\n\x02id\x18\x04 \x01(\t\"D\n\x07Segment\x12\x1f\n\x04meta\x18\x01 \x01(\x0b\x32\x11.protos.SegmentId\x12\x18\n\x03Row\x18\x02 \x03(\x0b\x32\x0b.protos.Row\"7\n\x0eSegmentRequest\x12%\n\nsegment_id\x18\x01 \x01(\x0b\x32\x11.protos.SegmentId\"3\n\x0fSegmentResponse\x12 \n\x07segment\x18\x01 \x01(\x0b\x32\x0f.protos.Segment\"8\n\x0fSegmentsRequest\x12%\n\nsegment_id\x18\x01 \x01(\x0b\x32\x11.protos.SegmentId\"7\n\x10SegmentsResponse\x12#\n\x08segments\x18\x02 \x03(\x0b\x32\x11.protos.SegmentId\"1\n\x10\x43onfigureRequest\x12\x1d\n\x06tables\x18\x01 \x03(\x0b\x32\r.protos.Table\"8\n\rInsertRequest\x12\r\n\x05table\x18\x01 \x01(\t\x12\x18\n\x03row\x18\x02 \x01(\x0b\x32\x0b.protos.Row*\x1c\n\x11SegmentResolution\x12\x07\n\x03\x44\x41Y\x10\x00\x32\xb9\x01\n\x06Packer\x12\x30\n\x06Insert\x12\x15.protos.InsertRequest\x1a\r.protos.Error\"\x00\x12<\n\x07Segment\x12\x16.protos.SegmentRequest\x1a\x17.protos.SegmentResponse\"\x00\x12?\n\x08Segments\x12\x17.protos.SegmentsRequest\x1a\x18.protos.SegmentsResponse\"\x00\x62\x06proto3'
   ,
   dependencies=[common__pb2.DESCRIPTOR,])
 
@@ -31,24 +31,19 @@ _SEGMENTRESOLUTION = _descriptor.EnumDescriptor(
   file=DESCRIPTOR,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='HOUR', index=0, number=0,
-      serialized_options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='DAY', index=1, number=1,
+      name='DAY', index=0, number=0,
       serialized_options=None,
       type=None),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=553,
-  serialized_end=591,
+  serialized_start=548,
+  serialized_end=576,
 )
 _sym_db.RegisterEnumDescriptor(_SEGMENTRESOLUTION)
 
 SegmentResolution = enum_type_wrapper.EnumTypeWrapper(_SEGMENTRESOLUTION)
-HOUR = 0
-DAY = 1
+DAY = 0
 
 
 
@@ -305,7 +300,7 @@ _INSERTREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='table_name', full_name='protos.InsertRequest.table_name', index=0,
+      name='table', full_name='protos.InsertRequest.table', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -331,7 +326,7 @@ _INSERTREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=490,
-  serialized_end=551,
+  serialized_end=546,
 )
 
 _SEGMENTID.fields_by_name['resolution'].enum_type = _SEGMENTRESOLUTION
@@ -418,8 +413,8 @@ _PACKER = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=594,
-  serialized_end=779,
+  serialized_start=579,
+  serialized_end=764,
   methods=[
   _descriptor.MethodDescriptor(
     name='Insert',

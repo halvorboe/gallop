@@ -5,8 +5,8 @@ package protos;
 import "common.proto";
 
 enum SegmentResolution {
-  HOUR = 0;
-  DAY = 1;
+  // HOUR = 0;
+  DAY = 0;
 }
 
 message SegmentId {
@@ -45,7 +45,7 @@ message ConfigureRequest {
 }
 
 message InsertRequest {
-  string table_name = 1;
+  string table = 1;
   Row row = 2;
 }
 

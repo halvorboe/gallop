@@ -1,4 +1,3 @@
-
 use crate::protos::packer::SegmentResolution;
 
 #[derive(Debug, Clone)]
