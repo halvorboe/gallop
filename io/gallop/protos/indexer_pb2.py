@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='protos',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\rindexer.proto\x12\x06protos\x1a\x0c\x63ommon.proto\"P\n\x0b\x42indRequest\x12%\n\nsegment_id\x18\x01 \x01(\x0b\x32\x11.protos.SegmentId\x12\x0c\n\x04host\x18\x02 \x01(\t\x12\x0c\n\x04port\x18\x03 \x01(\x05\"6\n\rUnBindRequest\x12%\n\nsegment_id\x18\x01 \x01(\x0b\x32\x11.protos.SegmentId2i\n\x07Indexer\x12,\n\x04\x42ind\x12\x13.protos.BindRequest\x1a\r.protos.Error\"\x00\x12\x30\n\x06UnBind\x12\x15.protos.UnBindRequest\x1a\r.protos.Error\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\rindexer.proto\x12\x06protos\x1a\x0c\x63ommon.proto\"4\n\x0b\x42indRequest\x12%\n\nsegment_id\x18\x01 \x01(\x0b\x32\x11.protos.SegmentId\"6\n\rUnBindRequest\x12%\n\nsegment_id\x18\x01 \x01(\x0b\x32\x11.protos.SegmentId2i\n\x07Indexer\x12,\n\x04\x42ind\x12\x13.protos.BindRequest\x1a\r.protos.Error\"\x00\x12\x30\n\x06UnBind\x12\x15.protos.UnBindRequest\x1a\r.protos.Error\"\x00\x62\x06proto3'
   ,
   dependencies=[common__pb2.DESCRIPTOR,])
 
@@ -40,20 +40,6 @@ _BINDREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='host', full_name='protos.BindRequest.host', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='port', full_name='protos.BindRequest.port', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -67,7 +53,7 @@ _BINDREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=39,
-  serialized_end=119,
+  serialized_end=91,
 )
 
 
@@ -97,8 +83,8 @@ _UNBINDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=121,
-  serialized_end=175,
+  serialized_start=93,
+  serialized_end=147,
 )
 
 _BINDREQUEST.fields_by_name['segment_id'].message_type = common__pb2._SEGMENTID
@@ -129,8 +115,8 @@ _INDEXER = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=177,
-  serialized_end=282,
+  serialized_start=149,
+  serialized_end=254,
   methods=[
   _descriptor.MethodDescriptor(
     name='Bind',

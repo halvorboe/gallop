@@ -7,8 +7,8 @@ import "common.proto";
 
 message BindRequest {
     SegmentId segment_id = 1;
-    string host = 2;
-    int32 port = 3;
+    // string host = 2;
+    // int32 port = 3;
 }
 
 
