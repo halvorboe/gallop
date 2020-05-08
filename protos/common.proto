@@ -33,7 +33,7 @@ message SegmentId {
   string table = 1;
   SegmentResolution resolution = 2;
   string timestamp = 3;
-  string id = 4;
+  string partition_id = 4;
 }
 
 message Segment {

@@ -13,7 +13,6 @@ message SegmentResponse {
 }
 
 message SegmentsRequest {
-  SegmentId segment_id = 1;
 }
 
 message SegmentsResponse {
