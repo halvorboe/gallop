@@ -36,7 +36,6 @@ impl InMemoryFile {
 }
 
 impl InMemoryDirectory {
-
     fn find(&self, name: String) -> Option<&InMemoryFile> {
         for file in self.files.iter() {
             if file.name == name {
@@ -94,8 +93,7 @@ impl Directory for InMemoryDirectory {
     fn read_size(&self, name: String) -> Option<u64> {
         Some(0)
     }
-    
-    
+
     fn new() -> Self {
         Self {
             files: Box::from(Vec::new()),

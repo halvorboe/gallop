@@ -38,6 +38,6 @@ message SegmentId {
 
 message Segment {
   SegmentId meta = 1;
-  repeated Row Row = 2;
+  repeated Row rows = 2;
 }
 

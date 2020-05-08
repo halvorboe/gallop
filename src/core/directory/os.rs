@@ -1,9 +1,9 @@
 use super::Directory;
 use uuid;
 
-use std::io::{self, BufReader};
-use std::io::prelude::*;
 use std::fs;
+use std::io::prelude::*;
+use std::io::{self, BufReader};
 use std::path::Path;
 
 #[derive(Debug, Clone)]
@@ -12,7 +12,6 @@ pub struct OSDirectory {
 }
 
 impl OSDirectory {
-
     fn build_path_to_file(&self, file_name: String) -> String {
         let path = Path::new(&self.path).join(&file_name);
         path.to_string_lossy().to_owned().to_string()
@@ -23,20 +22,15 @@ impl OSDirectory {
             .write(true)
             .create_new(true)
             .open(path_to_file.clone());
-        
     }
-
 }
 
-    
 impl Directory for OSDirectory {
     fn new() -> Self {
         let id = uuid::Uuid::new_v4();
         let path = String::from(format!("/tmp/gallop-{}", id));
         fs::create_dir(path.clone());
-        Self {
-            path,
-        }
+        Self { path }
     }
     fn list(&self) -> Vec<String> {
         let mut items: Vec<String> = Vec::new();
@@ -64,8 +58,8 @@ impl Directory for OSDirectory {
         if file.is_err() {
             return None;
         }
-        let mut lines : Vec<String> = Vec::new();
-        for line in  BufReader::new(file.unwrap()).lines() {
+        let mut lines: Vec<String> = Vec::new();
+        for line in BufReader::new(file.unwrap()).lines() {
             if line.is_ok() {
                 lines.push(line.unwrap());
             }
@@ -81,9 +75,6 @@ impl Directory for OSDirectory {
         }
         Some(metadata.unwrap().len())
     }
-    
-    
-
 }
 
 mod tests {
@@ -108,5 +99,4 @@ mod tests {
         let mut directory: OSDirectory = OSDirectory::new();
         assert_eq!(directory.read(name.clone()), None)
     }
-
 }

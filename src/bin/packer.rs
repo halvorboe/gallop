@@ -3,8 +3,8 @@ extern crate log;
 
 use uuid::Uuid;
 
-use std::{io::Read, sync::Arc};
 use std::{io, thread};
+use std::{io::Read, sync::Arc};
 
 use futures::sync::oneshot;
 use futures::Future;
@@ -12,7 +12,7 @@ use grpcio::{Environment, RpcContext, ServerBuilder, UnarySink};
 use protobuf::RepeatedField;
 
 use gallop::protos::common::{Error, Row};
-use gallop::protos::common::SegmentId;
+use gallop::protos::common::{Segment, SegmentId};
 use gallop::protos::packer::{
     ConfigureRequest, InsertRequest, SegmentRequest, SegmentResponse, SegmentsRequest,
     SegmentsResponse,
@@ -21,11 +21,10 @@ use gallop::protos::packer_grpc::{self, Packer};
 
 use gallop::core::codec;
 use gallop::core::config::Configuration;
-use gallop::core::directory::Directory;
 use gallop::core::directory::memory::InMemoryDirectory;
 use gallop::core::directory::os::OSDirectory;
+use gallop::core::directory::Directory;
 use gallop::core::grpc;
-
 
 #[derive(Clone)]
 struct PackerService {
@@ -35,7 +34,7 @@ struct PackerService {
 impl PackerService {
     fn new() -> Self {
         Self {
-            inner:InnerPackerService::default(),
+            inner: InnerPackerService::default(),
         }
     }
 }
@@ -76,15 +75,20 @@ impl Packer for PackerService {
     }
 
     fn segment(&mut self, ctx: RpcContext, req: SegmentRequest, sink: UnarySink<SegmentResponse>) {
-        unimplemented!("segments not implemented");
-        debug!(
-            "Fetching {} segment...",
-            codec::segment::encode_id(req.get_segment_id().clone())
-        );
-        let segment_id = req.get_segment_id();
-        let segment = self.inner.segment("124".to_string());
+        let segment_id = req.get_segment_id().clone();
+        let segment_name = codec::segment::encode_id(segment_id.clone());
+        let segment = self.inner.segment(segment_name);
         let mut resp = SegmentResponse::default();
-
+        let mut segment_for_resp = Segment::new();
+        segment_for_resp.set_meta(segment_id);
+        segment_for_resp.set_rows(RepeatedField::from_vec(
+            segment
+                .unwrap()
+                .iter()
+                .map(|it| codec::row::decode(it))
+                .collect(),
+        ));
+        resp.set_segment(segment_for_resp);
         let f = sink
             .success(resp)
             .map_err(move |e| println!("failed to reply {:?}: {:?}", req, e))
@@ -122,7 +126,7 @@ impl<D: Directory> InnerPackerService<D> {
                 }
             }
         }
-        segment_id.set_partition_id( format!("{}", Uuid::new_v4()));
+        segment_id.set_partition_id(format!("{}", Uuid::new_v4()));
         codec::segment::encode_id(segment_id.clone())
     }
 
@@ -170,8 +174,8 @@ mod tests {
 
     use super::InnerPackerService;
     use gallop::core::codec;
-    use gallop::protos::common::Row;
     use gallop::core::directory::memory::InMemoryDirectory;
+    use gallop::protos::common::Row;
 
     #[test]
     fn test_different_segements() {

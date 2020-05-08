@@ -4,7 +4,11 @@ pub fn encode_id(segment_id: SegmentId) -> String {
     let resolution = match segment_id.get_resolution() {
         SegmentResolution::DAY => "DAY",
     };
-    segment_id.get_table().to_lowercase().replace(" ", "-").to_string()
+    segment_id
+        .get_table()
+        .to_lowercase()
+        .replace(" ", "-")
+        .to_string()
         + "#"
         + resolution
         + "#"
