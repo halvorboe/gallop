@@ -8,7 +8,9 @@ use gallop::protos::common::Error;
 use gallop::protos::indexer::{BindRequest, UnBindRequest};
 use gallop::protos::indexer_grpc::{self, Indexer};
 
-use gallop::callers::packer::{ConnectedPackerCaller, PackerCaller};
+#[cfg(test)]
+use mockall::{automock, mock, predicate::*};
+
 
 use gallop::core::directory::Directory;
 use gallop::core::grpc;
@@ -49,7 +51,13 @@ impl<C: PackerCaller> InnerIndexerService<C> {
         //     packer_client: client,
         // }
         Self {
-            packer_caller: C::new(),
+            packer_caller: C::from("localhost:8080".to_string()),
+        }
+    }
+
+    fn from(packer_caller: C) -> Self {
+        Self {
+            packer_caller: packer_caller,
         }
     }
 
@@ -64,4 +72,35 @@ impl<C: PackerCaller> InnerIndexerService<C> {
 fn main() {
     let service = IndexerService::new();
     grpc::serve(indexer_grpc::create_indexer(service), 8082);
+}
+
+#[cfg_attr(test, automock)]
+pub trait PackerCaller {
+    fn from(host: String) -> Self;
+    fn foo(&self, x: u32) -> u32;
+}
+
+#[derive(Clone)]
+pub struct ConnectedPackerCaller {}
+
+impl PackerCaller for ConnectedPackerCaller {
+    fn from(host: String) -> Self {
+        return Self{}
+    }
+    fn foo(&self, x: u32) -> u32 {
+        x + 1
+    }
+}
+
+
+#[cfg(test)]
+mod tests {
+    use super::{MockPackerCaller, InnerIndexerService};
+
+
+    #[test]
+    fn test_basic() {
+        let mock = MockPackerCaller::new();
+        let service = InnerIndexerService::from(mock);
+    }
 }
