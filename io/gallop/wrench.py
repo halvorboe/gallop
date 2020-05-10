@@ -15,7 +15,6 @@ import gallop.protos.common_pb2 as common
 from gallop import constants
 
 def chaos():
-
     channel = grpc.insecure_channel('localhost:8081')
     stub = packer_grpc.PackerStub(channel)
 
@@ -53,9 +52,9 @@ def random_data():
 
 
 
-print("Fetching segment...")
+# print("Fetching segment...")
 
-print("Done...")
+# print("Done...")
 
 # result = stub.Segment(packer.SegmentRequest())
 # print(result)

@@ -38,7 +38,7 @@ mod tests {
     fn test_encode_decode() {
         let mut segment_id = SegmentId::default();
         segment_id.set_table("a".to_string());
-        segment_id.set_id("123".to_string());
+        segment_id.set_partition_id("123".to_string());
         segment_id.set_timestamp("123-123-123".to_string());
         segment_id.set_resolution(SegmentResolution::DAY);
         let encoded_string = encode_id(segment_id.clone());

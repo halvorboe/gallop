@@ -24,9 +24,10 @@ log = "0.4"
 env_logger = "0.7.1"
 chrono = "*"
 uuid ={ version = "*", features = ["v4"] }
+mockall ={ version = "*", features = ["nightly"] }
+
 
 [dev-dependencies]
-mockall = "0.7.1"
 
 
 # [build-dependencies]

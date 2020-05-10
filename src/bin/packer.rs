@@ -212,7 +212,7 @@ mod tests {
 
         let content = service.segment(codec::segment::encode_id(segment_id));
 
-        assert_eq!(row, content.unwrap()[0]);
+        assert_eq!(codec::row::encode(&row), content.unwrap()[0]);
     }
 
     fn generate_row(timestamp: u64) -> Row {
