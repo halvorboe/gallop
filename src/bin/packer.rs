@@ -3,10 +3,8 @@ extern crate log;
 
 use uuid::Uuid;
 
-use std::{io, thread};
-use std::{io::Read, sync::Arc};
+use std::io::Read;
 
-use futures::sync::oneshot;
 use futures::Future;
 use grpcio::{Environment, RpcContext, ServerBuilder, UnarySink};
 use protobuf::RepeatedField;
@@ -14,14 +12,13 @@ use protobuf::RepeatedField;
 use gallop::protos::common::{Error, Row};
 use gallop::protos::common::{Segment, SegmentId};
 use gallop::protos::packer::{
-    ConfigureRequest, InsertRequest, SegmentRequest, SegmentResponse, SegmentsRequest,
-    SegmentsResponse,
+    InsertRequest, SegmentRequest, SegmentResponse, SegmentsRequest, SegmentsResponse,
 };
 use gallop::protos::packer_grpc::{self, Packer};
 
 use gallop::core::codec;
 use gallop::core::config::Configuration;
-use gallop::core::directory::memory::InMemoryDirectory;
+
 use gallop::core::directory::os::OSDirectory;
 use gallop::core::directory::Directory;
 use gallop::core::grpc;
@@ -133,7 +130,7 @@ impl<D: Directory> InnerPackerService<D> {
     fn insert(&mut self, table: String, row: Row) {
         // Build the segment...
         let mut segment_id = SegmentId::new();
-        segment_id.set_table(table.clone());
+        segment_id.set_table(table);
         segment_id.set_resolution(self.config.segment_resolution);
         segment_id.set_timestamp(codec::row::encode_timestamp(
             row.get_timestamp(),
@@ -172,8 +169,8 @@ fn main() {
 
 mod tests {
 
-    use super::InnerPackerService;
-    use gallop::core::codec;
+    use super::*;
+
     use gallop::core::directory::memory::InMemoryDirectory;
     use gallop::protos::common::Row;
 
@@ -181,10 +178,10 @@ mod tests {
     fn test_different_segements() {
         let mut service: InnerPackerService<InMemoryDirectory> = InnerPackerService::default();
 
-        let mut row = generate_row(1000);
+        let row = generate_row(1000);
         service.insert(String::from("a"), row.clone());
         service.insert(String::from("b"), row.clone());
-        service.insert(String::from("c"), row.clone());
+        service.insert(String::from("c"), row);
         assert!(service.segments().len() == 3);
     }
 
@@ -195,7 +192,7 @@ mod tests {
         let table = "a".to_string();
         service.insert(table.clone(), generate_row(1000));
         service.insert(table.clone(), generate_row(1000));
-        service.insert(table.clone(), generate_row(1000));
+        service.insert(table, generate_row(1000));
         assert!(service.segments().len() == 1);
     }
 
@@ -206,7 +203,7 @@ mod tests {
         let table = "a".to_string();
         let row = generate_row(1000);
 
-        service.insert(table.clone(), row.clone());
+        service.insert(table, row.clone());
 
         let segment_id = service.segments().iter().next().unwrap().clone();
 

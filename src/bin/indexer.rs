@@ -1,31 +1,15 @@
 #[macro_use]
 extern crate log;
 
-use uuid::Uuid;
-
-use std::{io, thread};
-use std::{io::Read, sync::Arc};
-
-use futures::sync::oneshot;
-use futures::Future;
 use grpcio::{ChannelBuilder, EnvBuilder, Environment, RpcContext, ServerBuilder, UnarySink};
-use protobuf::RepeatedField;
 
-use gallop::protos::common::{Error, Row};
-use gallop::protos::common::{Segment, SegmentId};
+use gallop::protos::common::Error;
+
 use gallop::protos::indexer::{BindRequest, UnBindRequest};
 use gallop::protos::indexer_grpc::{self, Indexer};
-use gallop::protos::packer::{
-    ConfigureRequest, InsertRequest, SegmentRequest, SegmentResponse, SegmentsRequest,
-    SegmentsResponse,
-};
-use gallop::protos::packer_grpc::{self, Packer, PackerClient};
 
 use gallop::callers::packer::{ConnectedPackerCaller, PackerCaller};
-use gallop::core::codec;
-use gallop::core::config::Configuration;
-use gallop::core::directory::memory::InMemoryDirectory;
-use gallop::core::directory::os::OSDirectory;
+
 use gallop::core::directory::Directory;
 use gallop::core::grpc;
 
@@ -43,11 +27,11 @@ impl IndexerService {
 }
 
 impl Indexer for IndexerService {
-    fn bind(&mut self, ctx: RpcContext, req: BindRequest, sink: UnarySink<Error>) {
-        let segment_id = req.get_segment_id();
+    fn bind(&mut self, _ctx: RpcContext, req: BindRequest, _sink: UnarySink<Error>) {
+        let _segment_id = req.get_segment_id();
         // let segment = self.inner.pull(segment_id.clone());
     }
-    fn un_bind(&mut self, ctx: RpcContext, req: UnBindRequest, sink: UnarySink<Error>) {
+    fn un_bind(&mut self, _ctx: RpcContext, _req: UnBindRequest, _sink: UnarySink<Error>) {
         todo!();
     }
 }

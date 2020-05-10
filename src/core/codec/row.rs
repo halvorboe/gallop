@@ -8,7 +8,7 @@ pub fn encode(row: &Row) -> String {
 }
 
 pub fn decode(row_string: &String) -> Row {
-    let parts: Vec<String> = row_string.split("#").map(|it| it.to_string()).collect();
+    let parts: Vec<String> = row_string.split('#').map(|it| it.to_string()).collect();
     let mut row = Row::new();
     row.set_timestamp(parts[0].parse().unwrap());
     row.set_data(parts[1].clone());

@@ -21,7 +21,7 @@ impl InMemoryFile {
 
     pub fn from(name: String) -> Self {
         Self {
-            name: name,
+            name,
             lines: vec![],
         }
     }
@@ -31,7 +31,7 @@ impl InMemoryFile {
     }
 
     pub fn lines(&self) -> Vec<String> {
-        self.lines.iter().map(|it| it.clone()).collect()
+        self.lines.to_vec()
     }
 }
 
@@ -84,13 +84,13 @@ impl Directory for InMemoryDirectory {
         if self.find(name.clone()).is_none() {
             self.create(name.clone());
         }
-        self.find_mut(name.clone()).unwrap().push(line);
+        self.find_mut(name).unwrap().push(line);
     }
     fn read(&self, name: String) -> Option<Vec<String>> {
-        Some(self.find(name.clone())?.lines())
+        Some(self.find(name)?.lines())
     }
 
-    fn read_size(&self, name: String) -> Option<u64> {
+    fn read_size(&self, _name: String) -> Option<u64> {
         Some(0)
     }
 
@@ -103,7 +103,7 @@ impl Directory for InMemoryDirectory {
 
 mod tests {
 
-    use super::{Directory, InMemoryDirectory, InMemoryFile};
+    use super::*;
 
     #[test]
     fn test_file_basic() {

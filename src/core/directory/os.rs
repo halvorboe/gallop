@@ -1,9 +1,8 @@
 use super::Directory;
-use uuid;
 
 use std::fs;
 use std::io::prelude::*;
-use std::io::{self, BufReader};
+use std::io::BufReader;
 use std::path::Path;
 
 #[derive(Debug, Clone)]
@@ -18,17 +17,17 @@ impl OSDirectory {
     }
 
     fn create_if_not_exist(&self, path_to_file: String) {
-        let file = fs::OpenOptions::new()
+        let _file = fs::OpenOptions::new()
             .write(true)
             .create_new(true)
-            .open(path_to_file.clone());
+            .open(path_to_file);
     }
 }
 
 impl Directory for OSDirectory {
     fn new() -> Self {
         let id = uuid::Uuid::new_v4();
-        let path = String::from(format!("/tmp/gallop-{}", id));
+        let path = format!("/tmp/gallop-{}", id);
         fs::create_dir(path.clone());
         Self { path }
     }
@@ -48,7 +47,7 @@ impl Directory for OSDirectory {
         let mut file = fs::OpenOptions::new()
             .write(true)
             .append(true)
-            .open(path_to_file.clone())
+            .open(path_to_file)
             .unwrap();
         writeln!(file, "{}", line).unwrap();
     }
@@ -79,7 +78,8 @@ impl Directory for OSDirectory {
 
 mod tests {
 
-    use super::{Directory, OSDirectory};
+    use super::*;
+
     #[test]
     fn test_directory_basic() {
         let name = String::from("test.txt");
