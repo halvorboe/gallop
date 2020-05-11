@@ -3,14 +3,16 @@ extern crate log;
 
 use grpcio::{ChannelBuilder, EnvBuilder, Environment, RpcContext, ServerBuilder, UnarySink};
 
-use gallop::protos::common::Error;
+use gallop::protos::common::{Error, Segment, SegmentId};
 
 use gallop::protos::indexer::{BindRequest, UnBindRequest};
-use gallop::protos::indexer_grpc::{self, Indexer};
+use gallop::protos::{
+    indexer_grpc::{self, Indexer},
+    packer::SegmentRequest,
+};
 
 #[cfg(test)]
 use mockall::{automock, mock, predicate::*};
-
 
 use gallop::core::directory::Directory;
 use gallop::core::grpc;
@@ -61,12 +63,11 @@ impl<C: PackerCaller> InnerIndexerService<C> {
         }
     }
 
-    // fn pull(&self, segment_id: SegmentId) -> Segment {
-    //     let mut req = SegmentRequest::new();
-    //     req.set_segment_id(segment_id);
-    //     let resp = self.packer_client.segment(&req).unwrap();
-    //     resp.get_segment().clone()
-    // }
+    fn pull(&self, segment_id: SegmentId) -> Segment {
+        self.packer_caller.foo(4);
+        let resp = self.packer_caller.segment(segment_id).unwrap();
+        resp
+    }
 }
 
 fn main() {
@@ -78,6 +79,7 @@ fn main() {
 pub trait PackerCaller {
     fn from(host: String) -> Self;
     fn foo(&self, x: u32) -> u32;
+    fn segment(&self, segment_id: SegmentId) -> Option<Segment>;
 }
 
 #[derive(Clone)]
@@ -85,22 +87,34 @@ pub struct ConnectedPackerCaller {}
 
 impl PackerCaller for ConnectedPackerCaller {
     fn from(host: String) -> Self {
-        return Self{}
+        return Self {};
     }
     fn foo(&self, x: u32) -> u32 {
         x + 1
     }
-}
 
+    fn segment(&self, segment_id: SegmentId) -> Option<Segment> {
+        Some(Segment::new())
+    }
+}
 
 #[cfg(test)]
 mod tests {
-    use super::{MockPackerCaller, InnerIndexerService};
+    use super::{InnerIndexerService, MockPackerCaller, SegmentId};
 
+    #[cfg(test)]
+    use mockall::{automock, mock, predicate};
+    use gallop::protos::common::Segment;
 
     #[test]
-    fn test_basic() {
-        let mock = MockPackerCaller::new();
+    fn test_basic_mock() {
+        let mut mock = MockPackerCaller::new();
+        mock.expect_segment().returning(|x| Some(Segment::new()));
+        mock.expect_foo()
+            .with(predicate::eq(4))
+            .times(1)
+            .returning(|x| x + 1);
         let service = InnerIndexerService::from(mock);
+        service.pull(SegmentId::new());
     }
 }

@@ -22,9 +22,9 @@ grpcio = "0.4.3"
 protobuf = "~2"
 log = "0.4"
 env_logger = "0.7.1"
-chrono = "*"
-uuid ={ version = "*", features = ["v4"] }
-mockall ={ version = "*", features = ["nightly"] }
+chrono = "0.4.11"
+uuid ={ version = "0.8.1", features = ["v4"] }
+mockall ={ version = "0.7.1", features = ["nightly"] }
 
 
 [dev-dependencies]
