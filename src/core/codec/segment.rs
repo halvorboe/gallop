@@ -29,8 +29,7 @@ pub fn decode_id(segment_id_string: String) -> SegmentId {
 
 mod tests {
 
-    use crate::core::codec::segment::{encode_id, decode_id};
-use crate::protos::common::{SegmentId, SegmentResolution};
+    use super::*;
 
     #[test]
     fn test_encode_decode() {

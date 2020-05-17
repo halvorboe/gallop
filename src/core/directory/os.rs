@@ -78,7 +78,7 @@ impl Directory for OSDirectory {
 
 mod tests {
 
-    use super::OSDirectory;
+    use super::*;
 
     #[test]
     fn test_directory_basic() {

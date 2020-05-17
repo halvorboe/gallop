@@ -17,7 +17,9 @@ use gallop::core::grpc;
 
 use grpcio::{ChannelBuilder, EnvBuilder};
 
-use gallop::protos::indexer::{BindRequest, UnBindRequest, CountRequest, QueryRequest, QueryResponse, CountResponse};
+use gallop::protos::indexer::{
+    BindRequest, CountRequest, CountResponse, QueryRequest, QueryResponse, UnBindRequest,
+};
 use gallop::protos::indexer_grpc::{self, Indexer};
 
 #[cfg(test)]
@@ -37,12 +39,11 @@ impl IndexerService {
 }
 
 impl Indexer for IndexerService {
-
-    fn query(&mut self, ctx: RpcContext, req: QueryRequest, sink: UnarySink<QueryResponse>) {
+    fn query(&mut self, _ctx: RpcContext, _req: QueryRequest, _sink: UnarySink<QueryResponse>) {
         unimplemented!();
     }
 
-    fn count(&mut self, ctx: RpcContext, req: CountRequest, sink: UnarySink<CountResponse>) {
+    fn count(&mut self, _ctx: RpcContext, _req: CountRequest, _sink: UnarySink<CountResponse>) {
         unimplemented!();
     }
 
@@ -119,7 +120,7 @@ impl PackerCaller for ConnectedPackerCaller {
         let mut req = SegmentRequest::new();
         req.set_segment_id(segment_id);
         info!("Sending request...");
-        let env = Arc::new(EnvBuilder::new().build());
+        let _env = Arc::new(EnvBuilder::new().build());
         Some(client.segment(&req).expect("rpc").get_segment().clone())
     }
 }
@@ -130,8 +131,6 @@ mod tests {
 
     use gallop::protos::common::Segment;
     #[cfg(test)]
-    use mockall::predicate;
-
     #[test]
     fn test_basic_mock() {
         let mut mock = MockPackerCaller::new();
