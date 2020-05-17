@@ -78,8 +78,6 @@ impl Directory for OSDirectory {
 
 mod tests {
 
-    use super::*;
-
     #[test]
     fn test_directory_basic() {
         let name = String::from("test.txt");
@@ -89,14 +87,14 @@ mod tests {
         directory.append(name.clone(), name.clone());
         assert_eq!(
             directory.read(name.clone()).unwrap(),
-            vec![name.clone(), name.clone(), name.clone()]
+            vec![name.clone(), name.clone(), name]
         )
     }
 
     #[test]
     fn test_directory_not_found() {
         let name = String::from("test.txt");
-        let mut directory: OSDirectory = OSDirectory::new();
-        assert_eq!(directory.read(name.clone()), None)
+        let directory: OSDirectory = OSDirectory::new();
+        assert_eq!(directory.read(name), None)
     }
 }

@@ -171,7 +171,6 @@ mod tests {
 
     use super::*;
 
-    use gallop::core::directory::memory::InMemoryDirectory;
     use gallop::protos::common::Row;
 
     #[test]

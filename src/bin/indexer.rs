@@ -1,26 +1,17 @@
 #[macro_use]
 extern crate log;
 
-use uuid::Uuid;
-
-use std::io::Read;
-
 use futures::Future;
 use grpcio::{Environment, RpcContext, ServerBuilder, UnarySink};
-use protobuf::RepeatedField;
 
-use gallop::protos::common::{Error, Row};
+use gallop::protos::common::Error;
 use gallop::protos::common::{Segment, SegmentId};
 use gallop::protos::packer::{
     InsertRequest, SegmentRequest, SegmentResponse, SegmentsRequest, SegmentsResponse,
 };
-use gallop::protos::packer_grpc::{self, Packer, PackerClient};
+use gallop::protos::packer_grpc::{Packer, PackerClient};
 use std::sync::Arc;
 
-use gallop::core::codec;
-use gallop::core::config::Configuration;
-
-use gallop::core::directory::os::OSDirectory;
 use gallop::core::directory::Directory;
 use gallop::core::grpc;
 
@@ -30,7 +21,7 @@ use gallop::protos::indexer::{BindRequest, UnBindRequest};
 use gallop::protos::indexer_grpc::{self, Indexer};
 
 #[cfg(test)]
-use mockall::{automock, mock, predicate::*};
+use mockall::{automock, predicate::*};
 
 #[derive(Clone)]
 struct IndexerService {
@@ -48,7 +39,7 @@ impl IndexerService {
 impl Indexer for IndexerService {
     fn bind(&mut self, ctx: RpcContext, req: BindRequest, sink: UnarySink<Error>) {
         let segment_id = req.get_segment_id();
-        let segment = self.inner.pull(segment_id.clone());
+        let _segment = self.inner.pull(segment_id.clone());
         let mut resp = Error::default();
         resp.set_code(0);
         resp.set_message("OK!".to_string());
@@ -82,9 +73,7 @@ impl<C: PackerCaller> InnerIndexerService<C> {
     }
 
     fn from(packer_caller: C) -> Self {
-        Self {
-            packer_caller: packer_caller,
-        }
+        Self { packer_caller }
     }
 
     fn pull(&self, segment_id: SegmentId) -> Segment {
@@ -109,8 +98,8 @@ pub trait PackerCaller {
 pub struct ConnectedPackerCaller {}
 
 impl PackerCaller for ConnectedPackerCaller {
-    fn from(host: String) -> Self {
-        return Self {};
+    fn from(_host: String) -> Self {
+        Self {}
     }
     fn foo(&self, x: u32) -> u32 {
         x + 1
@@ -132,12 +121,12 @@ mod tests {
 
     use gallop::protos::common::Segment;
     #[cfg(test)]
-    use mockall::{automock, mock, predicate};
+    use mockall::predicate;
 
     #[test]
     fn test_basic_mock() {
         let mut mock = MockPackerCaller::new();
-        mock.expect_segment().returning(|x| Some(Segment::new()));
+        mock.expect_segment().returning(|_x| Some(Segment::new()));
         mock.expect_foo()
             .with(predicate::eq(4))
             .times(1)

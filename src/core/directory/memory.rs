@@ -114,7 +114,7 @@ mod tests {
 
     #[test]
     fn test_file_basic_empty() {
-        let mut file = InMemoryFile::from("test".to_string());
+        let file = InMemoryFile::from("test".to_string());
         let empty: Vec<String> = Vec::new();
         assert_eq!(empty, file.lines());
     }
@@ -128,15 +128,15 @@ mod tests {
         directory.append(name.clone(), name.clone());
         assert_eq!(
             directory.read(name.clone()).unwrap(),
-            vec![name.clone(), name.clone(), name.clone()]
+            vec![name.clone(), name.clone(), name]
         )
     }
 
     #[test]
     fn test_directory_not_found() {
         let name = String::from("test.txt");
-        let mut directory: InMemoryDirectory = InMemoryDirectory::new();
-        assert_eq!(directory.read(name.clone()), None)
+        let directory: InMemoryDirectory = InMemoryDirectory::new();
+        assert_eq!(directory.read(name), None)
     }
 
     fn generate_file(name: String, contents: Vec<&str>) -> InMemoryFile {

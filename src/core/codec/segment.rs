@@ -29,8 +29,6 @@ pub fn decode_id(segment_id_string: String) -> SegmentId {
 
 mod tests {
 
-    use super::*;
-
     #[test]
     fn test_encode_decode() {
         let mut segment_id = SegmentId::default();
