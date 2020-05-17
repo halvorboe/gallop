@@ -3,10 +3,9 @@ extern crate log;
 
 use uuid::Uuid;
 
-use std::io::Read;
 
 use futures::Future;
-use grpcio::{Environment, RpcContext, ServerBuilder, UnarySink};
+use grpcio::{RpcContext, UnarySink};
 use protobuf::RepeatedField;
 
 use gallop::protos::common::{Error, Row};
@@ -59,9 +58,9 @@ impl Packer for PackerService {
         req: SegmentsRequest,
         sink: UnarySink<SegmentsResponse>,
     ) {
-        println!("Fetching segments...");
+        info!("Fetching segments...");
         let segments = self.inner.segments();
-        println!("Found {} segments...", segments.len());
+        info!("Found {} segments...", segments.len());
         let mut resp = SegmentsResponse::default();
         resp.set_segments(RepeatedField::from_vec(segments));
         let f = sink
@@ -167,7 +166,9 @@ fn main() {
     grpc::serve(packer_grpc::create_packer(service), 8081);
 }
 
+#[allow(unused_imports)]
 mod tests {
+
 
     use super::*;
     use gallop::core::directory::memory::InMemoryDirectory;
@@ -212,6 +213,7 @@ mod tests {
         assert_eq!(codec::row::encode(&row), content.unwrap()[0]);
     }
 
+    #[allow(dead_code)]
     fn generate_row(timestamp: u64) -> Row {
         let mut row = Row::new();
         row.set_timestamp(timestamp);

@@ -4,7 +4,7 @@ use std::{io, thread};
 
 use futures::sync::oneshot;
 use futures::Future;
-use grpcio::{Environment, RpcContext, ServerBuilder, UnarySink};
+use grpcio::{Environment, ServerBuilder};
 
 use grpcio::Service;
 

@@ -2,25 +2,22 @@
 extern crate log;
 
 use futures::Future;
-use grpcio::{Environment, RpcContext, ServerBuilder, UnarySink};
+use grpcio::{RpcContext, UnarySink};
 
 use gallop::protos::common::Error;
 use gallop::protos::common::{Segment, SegmentId};
 use gallop::protos::packer::{
-    InsertRequest, SegmentRequest, SegmentResponse, SegmentsRequest, SegmentsResponse,
+    SegmentRequest
 };
-use gallop::protos::packer_grpc::{Packer, PackerClient};
+use gallop::protos::packer_grpc::{PackerClient};
 use std::sync::Arc;
-
-use gallop::core::directory::Directory;
-use gallop::core::grpc;
 
 use grpcio::{ChannelBuilder, EnvBuilder};
 
 use gallop::protos::indexer::{
     BindRequest, CountRequest, CountResponse, QueryRequest, QueryResponse, UnBindRequest,
 };
-use gallop::protos::indexer_grpc::{self, Indexer};
+use gallop::{core::grpc, protos::indexer_grpc::{self, Indexer}};
 
 #[cfg(test)]
 use mockall::{automock, predicate::*};
@@ -83,6 +80,7 @@ impl<C: PackerCaller> InnerIndexerService<C> {
         }
     }
 
+    #[allow(dead_code)]
     fn from(packer_caller: C) -> Self {
         Self { packer_caller }
     }

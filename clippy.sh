@@ -1,1 +1,1 @@
-cargo clippy --fix -Z unstable-options
+cargo clippy --fix

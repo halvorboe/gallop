@@ -27,6 +27,7 @@ pub fn decode_id(segment_id_string: String) -> SegmentId {
     segment_id
 }
 
+#[allow(unused_imports)]
 mod tests {
 
     use super::*;
