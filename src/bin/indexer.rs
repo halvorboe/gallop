@@ -1,6 +1,8 @@
 #[macro_use]
 extern crate log;
 
+use gallop::core::index::TantivyIndex;
+use gallop::clients::packer::{LocalPackerClient, PackerClientWrapper};
 use futures::Future;
 use grpcio::{RpcContext, UnarySink};
 
@@ -17,6 +19,7 @@ use gallop::protos::indexer::{
 };
 use gallop::{
     core::grpc,
+    core::index::IndexWrapper,
     protos::indexer_grpc::{self, Indexer},
 };
 
@@ -25,7 +28,7 @@ use mockall::{automock, predicate::*};
 
 #[derive(Clone)]
 struct IndexerService {
-    inner: InnerIndexerService<ConnectedPackerCaller>,
+    inner: InnerIndexerService<LocalPackerClient, TantivyIndex>,
 }
 
 impl IndexerService {
@@ -70,71 +73,39 @@ impl Indexer for IndexerService {
     }
 }
 #[derive(Clone)]
-struct InnerIndexerService<C: PackerCaller> {
-    packer_caller: C,
+struct InnerIndexerService<C: PackerClientWrapper, I: IndexWrapper> {
+    packer_client_wrapper: C,
+    index_wrapper: I,
 }
 
-impl<C: PackerCaller> InnerIndexerService<C> {
+impl<C: PackerClientWrapper, I: IndexWrapper> InnerIndexerService<C, I> {
     fn new() -> Self {
         Self {
-            packer_caller: C::from("localhost:8081".to_string()),
+            packer_client_wrapper: C::from_addr("localhost:8081".to_string()),
+            index_wrapper: I::new(),
         }
     }
 
     #[allow(dead_code)]
-    fn from(packer_caller: C) -> Self {
-        Self { packer_caller }
+    fn from(packer_client_wrapper: C) -> Self {
+        let index_wrapper = I::new();
+        Self { packer_client_wrapper, index_wrapper }
     }
 
     fn pull(&self, segment_id: SegmentId) -> Segment {
-        let resp = self.packer_caller.segment(segment_id).unwrap();
+        let resp = self.packer_client_wrapper.segment(segment_id).unwrap();
         resp
-    }
-}
-
-fn main() {
-    let service = IndexerService::new();
-    grpc::serve(indexer_grpc::create_indexer(service), 8082);
-}
-
-#[cfg_attr(test, automock)]
-pub trait PackerCaller {
-    fn from(host: String) -> Self;
-    fn segment(&self, segment_id: SegmentId) -> Option<Segment>;
-}
-
-#[derive(Clone)]
-pub struct ConnectedPackerCaller {}
-
-impl PackerCaller for ConnectedPackerCaller {
-    fn from(_host: String) -> Self {
-        Self {}
-    }
-
-    fn segment(&self, segment_id: SegmentId) -> Option<Segment> {
-        info!("Builing package fetcher...");
-        let env = Arc::new(EnvBuilder::new().build());
-        let ch = ChannelBuilder::new(env).connect("localhost:8081");
-        let client = PackerClient::new(ch);
-        let mut req = SegmentRequest::new();
-        req.set_segment_id(segment_id);
-        info!("Sending request...");
-        let _env = Arc::new(EnvBuilder::new().build());
-        Some(client.segment(&req).expect("rpc").get_segment().clone())
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{InnerIndexerService, MockPackerCaller, SegmentId};
+    use super::{InnerIndexerService, SegmentId};
 
-    use gallop::protos::common::Segment;
-    #[cfg(test)]
-    #[test]
-    fn test_basic_mock() {
-        let mut mock = MockPackerCaller::new();
-        mock.expect_segment().returning(|_x| Some(Segment::new()));
-        let service = InnerIndexerService::from(mock);
-        service.pull(SegmentId::new());
-    }
+}
+
+
+fn main() {
+    let service = IndexerService::new();
+    grpc::serve(indexer_grpc::create_indexer(service), 8082);
 }

@@ -7,8 +7,7 @@ use futures::Future;
 use grpcio::{RpcContext, UnarySink};
 use protobuf::RepeatedField;
 
-use gallop::protos::common::{Error, Row};
-use gallop::protos::common::{Segment, SegmentId};
+use gallop::protos::common::{Error, Row, Segment, SegmentId};
 use gallop::protos::packer::{
     InsertRequest, SegmentRequest, SegmentResponse, SegmentsRequest, SegmentsResponse,
 };
@@ -160,11 +159,6 @@ impl<D: Directory> InnerPackerService<D> {
     }
 }
 
-fn main() {
-    let service = PackerService::new();
-    grpc::serve(packer_grpc::create_packer(service), 8081);
-}
-
 #[allow(unused_imports)]
 mod tests {
 
@@ -218,4 +212,11 @@ mod tests {
         row.set_data(String::from("{\"title\":\"Hello, world!\"}"));
         row
     }
+}
+
+
+
+fn main() {
+    let service = PackerService::new();
+    grpc::serve(packer_grpc::create_packer(service), 8081);
 }
