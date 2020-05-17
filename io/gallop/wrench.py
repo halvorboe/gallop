@@ -9,32 +9,33 @@ from tqdm import tqdm
 import gallop.protos.packer_pb2 as packer
 import gallop.protos.packer_pb2_grpc as packer_grpc
 
+import gallop.protos.indexer_pb2 as indexer
+import gallop.protos.indexer_pb2_grpc as indexer_grpc
+
 import gallop.protos.common_pb2 as common
 
 from gallop import constants
 
 
 def chaos():
-    channel = grpc.insecure_channel("localhost:8081")
-    stub = packer_grpc.PackerStub(channel)
+    packer_stub = packer_grpc.PackerStub(grpc.insecure_channel("localhost:8081"))
 
-    for _ in tqdm(range(1_000_000)):
+    indexer_stub = indexer_grpc.IndexerStub(grpc.insecure_channel("localhost:8082"))
+
+    for _ in tqdm(range(10)):
         table = "hello-world"
         row = common.Row()
         row.timestamp = random_timestamp()
         row.data = random_data()
         req = packer.InsertRequest(table=table, row=row)
-        stub.Insert(req)
+        packer_stub.Insert(req)
 
-    segments_response = stub.Segments(packer.SegmentsRequest())
-    print(type(segments_response))
-    for segment_id in segments_response.segments:
-        print("table: ", segment_id.table)
-        print("resolution: ", segment_id.resolution)
-        print("timestamp: ", segment_id.timestamp)
-        print("id: ", segment_id.partition_id)
-        segment_resp = stub.Segment(packer.SegmentRequest(segment_id=segment_id))
-        print("resp:", segment_resp.segment.rows)
+    segments_response = packer_stub.Segments(packer.SegmentsRequest())
+    for segment_id in tqdm(segments_response.segments):
+        segment_resp = packer_stub.Segment(packer.SegmentRequest(segment_id=segment_id))
+        req = indexer.BindRequest(segment_id=segment_id)
+        indexer_stub.Bind(req)
+
 
 
 def random_timestamp():
@@ -43,7 +44,7 @@ def random_timestamp():
             datetime.now()
             - timedelta(seconds=random.randint(0, 60 * 60 * 24 * 365 * 5))
         ).timestamp()
-        * 1_000_000_000
+        * 1_000_000
     )
 
 

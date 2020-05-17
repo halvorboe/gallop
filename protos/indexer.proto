@@ -4,6 +4,24 @@ package protos;
 
 import "common.proto";
 
+message QueryRequest {
+    string table = 1;
+    string query = 2;
+}
+
+message QueryResponse {
+    repeated Row rows = 1;
+}
+
+
+message CountRequest {
+    string table = 1;
+    string query = 2;
+}
+
+message CountResponse {
+    int32 result = 1;
+}
 
 message BindRequest {
     SegmentId segment_id = 1;
@@ -18,6 +36,8 @@ message UnBindRequest {
 
 
 service Indexer {
+    rpc Count(CountRequest) returns (CountResponse) {}
+    rpc Query(QueryRequest) returns (QueryResponse) {}
     rpc Bind(BindRequest) returns (Error) {}
     rpc UnBind(UnBindRequest) returns (Error) {}
   }

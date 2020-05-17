@@ -17,7 +17,7 @@ use gallop::core::grpc;
 
 use grpcio::{ChannelBuilder, EnvBuilder};
 
-use gallop::protos::indexer::{BindRequest, UnBindRequest};
+use gallop::protos::indexer::{BindRequest, UnBindRequest, CountRequest, QueryRequest, QueryResponse, CountResponse};
 use gallop::protos::indexer_grpc::{self, Indexer};
 
 #[cfg(test)]
@@ -37,7 +37,17 @@ impl IndexerService {
 }
 
 impl Indexer for IndexerService {
+
+    fn query(&mut self, ctx: RpcContext, req: QueryRequest, sink: UnarySink<QueryResponse>) {
+        unimplemented!();
+    }
+
+    fn count(&mut self, ctx: RpcContext, req: CountRequest, sink: UnarySink<CountResponse>) {
+        unimplemented!();
+    }
+
     fn bind(&mut self, ctx: RpcContext, req: BindRequest, sink: UnarySink<Error>) {
+        info!("Got request to bid segment...");
         let segment_id = req.get_segment_id();
         let _segment = self.inner.pull(segment_id.clone());
         let mut resp = Error::default();
@@ -68,7 +78,7 @@ struct InnerIndexerService<C: PackerCaller> {
 impl<C: PackerCaller> InnerIndexerService<C> {
     fn new() -> Self {
         Self {
-            packer_caller: C::from("localhost:8080".to_string()),
+            packer_caller: C::from("localhost:8081".to_string()),
         }
     }
 
@@ -90,7 +100,6 @@ fn main() {
 #[cfg_attr(test, automock)]
 pub trait PackerCaller {
     fn from(host: String) -> Self;
-    fn foo(&self, x: u32) -> u32;
     fn segment(&self, segment_id: SegmentId) -> Option<Segment>;
 }
 
@@ -101,16 +110,16 @@ impl PackerCaller for ConnectedPackerCaller {
     fn from(_host: String) -> Self {
         Self {}
     }
-    fn foo(&self, x: u32) -> u32 {
-        x + 1
-    }
 
     fn segment(&self, segment_id: SegmentId) -> Option<Segment> {
+        info!("Builing package fetcher...");
         let env = Arc::new(EnvBuilder::new().build());
-        let ch = ChannelBuilder::new(env).connect("localhost:50051");
+        let ch = ChannelBuilder::new(env).connect("localhost:8081");
         let client = PackerClient::new(ch);
         let mut req = SegmentRequest::new();
         req.set_segment_id(segment_id);
+        info!("Sending request...");
+        let env = Arc::new(EnvBuilder::new().build());
         Some(client.segment(&req).expect("rpc").get_segment().clone())
     }
 }
@@ -127,10 +136,6 @@ mod tests {
     fn test_basic_mock() {
         let mut mock = MockPackerCaller::new();
         mock.expect_segment().returning(|_x| Some(Segment::new()));
-        mock.expect_foo()
-            .with(predicate::eq(4))
-            .times(1)
-            .returning(|x| x + 1);
         let service = InnerIndexerService::from(mock);
         service.pull(SegmentId::new());
     }
