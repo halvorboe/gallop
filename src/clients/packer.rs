@@ -1,14 +1,15 @@
-
+use crate::protos::{
+    common::{Segment, SegmentId},
+    packer::SegmentRequest,
+    packer_grpc::PackerClient,
+};
+use grpcio::{ChannelBuilder, EnvBuilder};
 #[cfg(test)]
 use mockall::{automock, predicate::*};
-use crate::protos::{packer_grpc::PackerClient, common::{SegmentId, Segment}, packer::SegmentRequest};
-use grpcio::{ChannelBuilder, EnvBuilder};
 use std::sync::Arc;
-
 
 #[cfg_attr(test, automock)]
 pub trait PackerClientWrapper {
-
     fn from_addr(addr: String) -> Self;
     fn segment(&self, segment_id: SegmentId) -> Option<Segment>;
 }
@@ -17,7 +18,6 @@ pub trait PackerClientWrapper {
 pub struct LocalPackerClient {}
 
 impl PackerClientWrapper for LocalPackerClient {
-
     fn from_addr(addr: String) -> Self {
         Self {}
     }
@@ -37,7 +37,7 @@ impl PackerClientWrapper for LocalPackerClient {
 
 mod tests {
 
-    use super::{*, Segment, SegmentId};
+    use super::{Segment, SegmentId, *};
 
     #[test]
     fn test_basic_mock() {
@@ -45,5 +45,4 @@ mod tests {
         mock.expect_segment().returning(|_x| Some(Segment::new()));
         mock.segment(SegmentId::new());
     }
-
 }

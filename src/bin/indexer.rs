@@ -1,9 +1,9 @@
 #[macro_use]
 extern crate log;
 
-use gallop::core::index::TantivyIndex;
-use gallop::clients::packer::{LocalPackerClient, PackerClientWrapper};
 use futures::Future;
+use gallop::clients::packer::{LocalPackerClient, PackerClientWrapper};
+use gallop::core::index::TantivyIndex;
 use grpcio::{RpcContext, UnarySink};
 
 use gallop::protos::common::Error;
@@ -89,7 +89,10 @@ impl<C: PackerClientWrapper, I: IndexWrapper> InnerIndexerService<C, I> {
     #[allow(dead_code)]
     fn from(packer_client_wrapper: C) -> Self {
         let index_wrapper = I::new();
-        Self { packer_client_wrapper, index_wrapper }
+        Self {
+            packer_client_wrapper,
+            index_wrapper,
+        }
     }
 
     fn pull(&self, segment_id: SegmentId) -> Segment {
@@ -101,9 +104,7 @@ impl<C: PackerClientWrapper, I: IndexWrapper> InnerIndexerService<C, I> {
 #[cfg(test)]
 mod tests {
     use super::{InnerIndexerService, SegmentId};
-
 }
-
 
 fn main() {
     let service = IndexerService::new();
