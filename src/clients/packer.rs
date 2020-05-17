@@ -29,8 +29,8 @@ impl PackerClientWrapper for LocalPackerClient {
         let client = PackerClient::new(ch);
         let mut req = SegmentRequest::new();
         req.set_segment_id(segment_id);
-        info!("Sending request...");
         let _env = Arc::new(EnvBuilder::new().build());
+        info!("Sending request...");
         Some(client.segment(&req).expect("rpc").get_segment().clone())
     }
 }
