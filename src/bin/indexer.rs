@@ -6,10 +6,8 @@ use grpcio::{RpcContext, UnarySink};
 
 use gallop::protos::common::Error;
 use gallop::protos::common::{Segment, SegmentId};
-use gallop::protos::packer::{
-    SegmentRequest
-};
-use gallop::protos::packer_grpc::{PackerClient};
+use gallop::protos::packer::SegmentRequest;
+use gallop::protos::packer_grpc::PackerClient;
 use std::sync::Arc;
 
 use grpcio::{ChannelBuilder, EnvBuilder};
@@ -17,7 +15,10 @@ use grpcio::{ChannelBuilder, EnvBuilder};
 use gallop::protos::indexer::{
     BindRequest, CountRequest, CountResponse, QueryRequest, QueryResponse, UnBindRequest,
 };
-use gallop::{core::grpc, protos::indexer_grpc::{self, Indexer}};
+use gallop::{
+    core::grpc,
+    protos::indexer_grpc::{self, Indexer},
+};
 
 #[cfg(test)]
 use mockall::{automock, predicate::*};

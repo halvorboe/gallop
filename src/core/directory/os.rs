@@ -28,7 +28,7 @@ impl Directory for OSDirectory {
     fn new() -> Self {
         let id = uuid::Uuid::new_v4();
         let path = format!("/tmp/gallop-{}", id);
-        fs::create_dir(path.clone());
+        fs::create_dir(path.clone()).unwrap();
         Self { path }
     }
     fn list(&self) -> Vec<String> {
@@ -76,10 +76,12 @@ impl Directory for OSDirectory {
     }
 }
 
+#[allow(unused_imports)]
 mod tests {
 
     use super::*;
 
+    #[test]
     fn test_directory_basic() {
         let name = String::from("test.txt");
         let mut directory: OSDirectory = OSDirectory::new();

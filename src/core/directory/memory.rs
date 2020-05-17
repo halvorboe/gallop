@@ -139,6 +139,7 @@ mod tests {
         assert_eq!(directory.read(name), None)
     }
 
+    #[allow(dead_code)]
     fn generate_file(name: String, contents: Vec<&str>) -> InMemoryFile {
         let mut file = InMemoryFile::from(name);
         for line in contents.iter() {

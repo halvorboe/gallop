@@ -3,7 +3,6 @@ extern crate log;
 
 use uuid::Uuid;
 
-
 use futures::Future;
 use grpcio::{RpcContext, UnarySink};
 use protobuf::RepeatedField;
@@ -168,7 +167,6 @@ fn main() {
 
 #[allow(unused_imports)]
 mod tests {
-
 
     use super::*;
     use gallop::core::directory::memory::InMemoryDirectory;
