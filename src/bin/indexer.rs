@@ -1,21 +1,36 @@
 #[macro_use]
 extern crate log;
 
-use grpcio::{ChannelBuilder, EnvBuilder, Environment, RpcContext, ServerBuilder, UnarySink};
+use uuid::Uuid;
 
-use gallop::protos::common::{Error, Segment, SegmentId};
+use std::io::Read;
+
+use futures::Future;
+use grpcio::{Environment, RpcContext, ServerBuilder, UnarySink};
+use protobuf::RepeatedField;
+
+use gallop::protos::common::{Error, Row};
+use gallop::protos::common::{Segment, SegmentId};
+use gallop::protos::packer::{
+    InsertRequest, SegmentRequest, SegmentResponse, SegmentsRequest, SegmentsResponse,
+};
+use gallop::protos::packer_grpc::{self, Packer, PackerClient};
+use std::sync::Arc;
+
+use gallop::core::codec;
+use gallop::core::config::Configuration;
+
+use gallop::core::directory::os::OSDirectory;
+use gallop::core::directory::Directory;
+use gallop::core::grpc;
+
+use grpcio::{ChannelBuilder, EnvBuilder};
 
 use gallop::protos::indexer::{BindRequest, UnBindRequest};
-use gallop::protos::{
-    indexer_grpc::{self, Indexer},
-    packer::SegmentRequest,
-};
+use gallop::protos::indexer_grpc::{self, Indexer};
 
 #[cfg(test)]
 use mockall::{automock, mock, predicate::*};
-
-use gallop::core::directory::Directory;
-use gallop::core::grpc;
 
 #[derive(Clone)]
 struct IndexerService {
@@ -31,12 +46,27 @@ impl IndexerService {
 }
 
 impl Indexer for IndexerService {
-    fn bind(&mut self, _ctx: RpcContext, req: BindRequest, _sink: UnarySink<Error>) {
-        let _segment_id = req.get_segment_id();
-        // let segment = self.inner.pull(segment_id.clone());
+    fn bind(&mut self, ctx: RpcContext, req: BindRequest, sink: UnarySink<Error>) {
+        let segment_id = req.get_segment_id();
+        let segment = self.inner.pull(segment_id.clone());
+        let mut resp = Error::default();
+        resp.set_code(0);
+        resp.set_message("OK!".to_string());
+        let f = sink
+            .success(resp)
+            .map_err(move |e| println!("failed to reply {:?}: {:?}", req, e))
+            .map(|_| ());
+        ctx.spawn(f)
     }
-    fn un_bind(&mut self, _ctx: RpcContext, _req: UnBindRequest, _sink: UnarySink<Error>) {
-        todo!();
+    fn un_bind(&mut self, ctx: RpcContext, req: UnBindRequest, sink: UnarySink<Error>) {
+        let mut resp = Error::default();
+        resp.set_code(0);
+        resp.set_message("OK!".to_string());
+        let f = sink
+            .success(resp)
+            .map_err(move |e| println!("failed to reply {:?}: {:?}", req, e))
+            .map(|_| ());
+        ctx.spawn(f)
     }
 }
 #[derive(Clone)]
@@ -46,12 +76,6 @@ struct InnerIndexerService<C: PackerCaller> {
 
 impl<C: PackerCaller> InnerIndexerService<C> {
     fn new() -> Self {
-        // let env = Arc::new(EnvBuilder::new().build());
-        // let channel = ChannelBuilder::new(env).connect("localhost:8081");
-        // let client = PackerClient::new(channel);
-        // Self {
-        //     packer_client: client,
-        // }
         Self {
             packer_caller: C::from("localhost:8080".to_string()),
         }
@@ -64,7 +88,6 @@ impl<C: PackerCaller> InnerIndexerService<C> {
     }
 
     fn pull(&self, segment_id: SegmentId) -> Segment {
-        self.packer_caller.foo(4);
         let resp = self.packer_caller.segment(segment_id).unwrap();
         resp
     }
@@ -94,7 +117,12 @@ impl PackerCaller for ConnectedPackerCaller {
     }
 
     fn segment(&self, segment_id: SegmentId) -> Option<Segment> {
-        Some(Segment::new())
+        let env = Arc::new(EnvBuilder::new().build());
+        let ch = ChannelBuilder::new(env).connect("localhost:50051");
+        let client = PackerClient::new(ch);
+        let mut req = SegmentRequest::new();
+        req.set_segment_id(segment_id);
+        Some(client.segment(&req).expect("rpc").get_segment().clone())
     }
 }
 
@@ -102,9 +130,9 @@ impl PackerCaller for ConnectedPackerCaller {
 mod tests {
     use super::{InnerIndexerService, MockPackerCaller, SegmentId};
 
+    use gallop::protos::common::Segment;
     #[cfg(test)]
     use mockall::{automock, mock, predicate};
-    use gallop::protos::common::Segment;
 
     #[test]
     fn test_basic_mock() {
