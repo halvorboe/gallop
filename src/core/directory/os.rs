@@ -78,7 +78,8 @@ impl Directory for OSDirectory {
 
 mod tests {
 
-    #[test]
+    use super::*;
+
     fn test_directory_basic() {
         let name = String::from("test.txt");
         let mut directory: OSDirectory = OSDirectory::new();
