@@ -64,9 +64,11 @@ class Row(graphene.ObjectType):
     timestamp = graphene.Int()
     data = graphene.List(Data)
 
+
 class Column(graphene.ObjectType):
     name = graphene.String()
     data_type = graphene.Field(DataType)
+
 
 class Table(graphene.ObjectType):
     name = graphene.String()
@@ -75,20 +77,12 @@ class Table(graphene.ObjectType):
     rows = graphene.List(Row)
 
     def resolve_columns(self, info):
-        return [{
-            "name": "message",
-            "data_type": 0,
-        }]
+        return [{"name": "message", "data_type": 0,}]
 
     def resolve_rows(self, info):
-        return [{
-            "timestamp": 123,
-            "data": [{
-                "key": "message",
-                "value": "Hello, world!"
-            }],
-        }]
-    
+        return [
+            {"timestamp": 123, "data": [{"key": "message", "value": "Hello, world!"}],}
+        ]
 
 
 class Query(graphene.ObjectType):
@@ -97,7 +91,7 @@ class Query(graphene.ObjectType):
 
     def resolve_tables(self, info):
         return ["a", "b", "c"]
-    
+
     def resolve_table(self, info, name):
         return {"name": name}
 
@@ -107,7 +101,7 @@ class Mutations(graphene.ObjectType):
 
 
 routes = [
-    Route('/', GraphQLApp(schema=graphene.Schema(query=Query, mutation=Mutations)))
+    Route("/", GraphQLApp(schema=graphene.Schema(query=Query, mutation=Mutations)))
 ]
 
 app = Starlette(routes=routes)

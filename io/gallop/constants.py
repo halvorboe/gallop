@@ -1,7 +1,3 @@
-
-
-
-
 URLS = [
     "https://example.net/",
     "https://example.com/",

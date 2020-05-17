@@ -1,4 +1,3 @@
-
 import json
 import random
 from datetime import datetime, timedelta
@@ -14,11 +13,12 @@ import gallop.protos.common_pb2 as common
 
 from gallop import constants
 
+
 def chaos():
-    channel = grpc.insecure_channel('localhost:8081')
+    channel = grpc.insecure_channel("localhost:8081")
     stub = packer_grpc.PackerStub(channel)
 
-    for _ in tqdm(range(1_000)):
+    for _ in tqdm(range(1_000_000)):
         table = "hello-world"
         row = common.Row()
         row.timestamp = random_timestamp()
@@ -26,7 +26,6 @@ def chaos():
         req = packer.InsertRequest(table=table, row=row)
         stub.Insert(req)
 
-    
     segments_response = stub.Segments(packer.SegmentsRequest())
     print(type(segments_response))
     for segment_id in segments_response.segments:
@@ -36,20 +35,26 @@ def chaos():
         print("id: ", segment_id.partition_id)
         segment_resp = stub.Segment(packer.SegmentRequest(segment_id=segment_id))
         print("resp:", segment_resp.segment.rows)
-    
-
-
-
-
-
 
 
 def random_timestamp():
-    return int((datetime.now() - timedelta(seconds=random.randint(0, 60 * 60 *24 * 365 * 5))).timestamp() * 1_000_000_000)
+    return int(
+        (
+            datetime.now()
+            - timedelta(seconds=random.randint(0, 60 * 60 * 24 * 365 * 5))
+        ).timestamp()
+        * 1_000_000_000
+    )
+
 
 def random_data():
-    return json.dumps({"url": random.choice(constants.URLS), "browser": random.choice(constants.BROWSERS), "country": random.choice(constants.COUNTRY)})
-
+    return json.dumps(
+        {
+            "url": random.choice(constants.URLS),
+            "browser": random.choice(constants.BROWSERS),
+            "country": random.choice(constants.COUNTRY),
+        }
+    )
 
 
 # print("Fetching segment...")
