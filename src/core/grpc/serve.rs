@@ -1,3 +1,7 @@
+use std::fmt::Debug;
+use grpcio::UnarySink;
+use grpcio::RpcContext;
+use crate::protos::indexer::BindRequest;
 use std::io::Read;
 use std::sync::Arc;
 use std::{io, thread};
@@ -7,8 +11,11 @@ use futures::Future;
 use grpcio::{Environment, ServerBuilder};
 
 use grpcio::Service;
+use crate::protos::common::Error;
 
-pub fn serve(service: Service, port: u16) {
+
+
+pub fn default(service: Service, port: u16) {
     env_logger::init();
     // New event loop.
     let env = Arc::new(Environment::new(1));

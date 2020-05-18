@@ -216,5 +216,5 @@ mod tests {
 
 fn main() {
     let service = PackerService::new();
-    grpc::serve(packer_grpc::create_packer(service), 8081);
+    grpc::serve::default(packer_grpc::create_packer(service), 8081);
 }

@@ -7,6 +7,7 @@ use gallop::core::index::TantivyIndex;
 use grpcio::{RpcContext, UnarySink};
 
 use gallop::protos::common::Error;
+use gallop::core::grpc;
 use gallop::protos::common::{Segment, SegmentId};
 use gallop::protos::packer::SegmentRequest;
 use gallop::protos::packer_grpc::PackerClient;
@@ -18,7 +19,6 @@ use gallop::protos::indexer::{
     BindRequest, CountRequest, CountResponse, QueryRequest, QueryResponse, UnBindRequest,
 };
 use gallop::{
-    core::grpc,
     core::index::IndexWrapper,
     protos::indexer_grpc::{self, Indexer},
 };
@@ -52,24 +52,11 @@ impl Indexer for IndexerService {
         info!("Got request to bid segment...");
         let segment_id = req.get_segment_id();
         let _segment = self.inner.pull(segment_id.clone());
-        let mut resp = Error::default();
-        resp.set_code(0);
-        resp.set_message("OK!".to_string());
-        let f = sink
-            .success(resp)
-            .map_err(move |e| println!("failed to reply {:?}: {:?}", req, e))
-            .map(|_| ());
-        ctx.spawn(f)
+        // Response
+        grpc::errors::ok(ctx, req, sink);
     }
     fn un_bind(&mut self, ctx: RpcContext, req: UnBindRequest, sink: UnarySink<Error>) {
-        let mut resp = Error::default();
-        resp.set_code(0);
-        resp.set_message("OK!".to_string());
-        let f = sink
-            .success(resp)
-            .map_err(move |e| println!("failed to reply {:?}: {:?}", req, e))
-            .map(|_| ());
-        ctx.spawn(f)
+        grpc::errors::ok(ctx, req, sink);
     }
 }
 #[derive(Clone)]
@@ -108,5 +95,5 @@ mod tests {
 
 fn main() {
     let service = IndexerService::new();
-    grpc::serve(indexer_grpc::create_indexer(service), 8082);
+    grpc::serve::default(indexer_grpc::create_indexer(service), 8082);
 }
