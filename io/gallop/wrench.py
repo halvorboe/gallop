@@ -22,7 +22,7 @@ def chaos():
 
     indexer_stub = indexer_grpc.IndexerStub(grpc.insecure_channel("localhost:8082"))
 
-    for _ in tqdm(range(10)):
+    for _ in tqdm(range(100_000)):
         table = "hello-world"
         row = common.Row()
         row.timestamp = random_timestamp()
@@ -44,7 +44,7 @@ def random_timestamp():
             datetime.now()
             - timedelta(seconds=random.randint(0, 60 * 60 * 24 * 365 * 5))
         ).timestamp()
-        * 1_000_000
+        * 10_000_000
     )
 
 

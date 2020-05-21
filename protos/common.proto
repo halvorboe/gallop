@@ -25,7 +25,6 @@ message Row {
 
 
 enum SegmentResolution {
-  // HOUR = 0;
   DAY = 0;
 }
 

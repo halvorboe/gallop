@@ -4,6 +4,30 @@ package protos;
 
 import "common.proto";
 
+enum NodeType {
+    INDEXER = 0;
+    PACKER = 1;
+    COORDINATOR = 2;
+}
+
+message Node {
+    NodeType nodeType = 1;
+    string host = 2;
+}
+
+message NodeRequest {
+    Node node = 1;
+}
+  
+message ClusterResponse {
+    repeated Node nodes = 1;
+}
+
+message ClusterRequest {
+}
 
 service Coordinator {
+    rpc Cluster(ClusterRequest) returns (ClusterResponse) {}
+    rpc Register(NodeRequest) returns (Error) {}
+
 }

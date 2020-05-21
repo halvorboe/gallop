@@ -5,6 +5,8 @@ use tantivy::query::QueryParser;
 use tantivy::schema::*;
 use tantivy::{doc, Index, ReloadPolicy};
 use tempfile::TempDir;
+use std::{fs, path::Path};
+use uuid::Uuid;
 
 pub trait IndexWrapper {
     fn new() -> Self;
@@ -20,7 +22,9 @@ pub struct TantivyIndex {
 
 impl IndexWrapper for TantivyIndex {
     fn new() -> Self {
-        let index_path = TempDir::new().unwrap();
+        let raw_index_path = "/tmp/tantivy-".to_string() + &Uuid::new_v4().to_string();
+        fs::create_dir_all(&raw_index_path);
+        let index_path = Path::new(&raw_index_path);
         let mut schema_builder = Schema::builder();
         for field in vec!["timestamp"] {
             schema_builder.add_text_field(field, TEXT | STORED);

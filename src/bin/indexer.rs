@@ -45,13 +45,14 @@ impl Indexer for IndexerService {
     }
 
     fn count(&mut self, _ctx: RpcContext, _req: CountRequest, _sink: UnarySink<CountResponse>) {
-        unimplemented!();
     }
 
     fn bind(&mut self, ctx: RpcContext, req: BindRequest, sink: UnarySink<Error>) {
         info!("Got request to bid segment...");
         let segment_id = req.get_segment_id();
-        let _segment = self.inner.pull(segment_id.clone());
+        let segment = self.inner.pull(segment_id.clone());
+        info!("Indexing segment...");
+        self.inner.index_wrapper.index(segment.rows.to_vec());
         // Response
         grpc::errors::ok(ctx, req, sink);
     }
