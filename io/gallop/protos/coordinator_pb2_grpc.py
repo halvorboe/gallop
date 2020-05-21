@@ -14,10 +14,10 @@ class CoordinatorStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.Cluster = channel.unary_unary(
-                '/protos.Coordinator/Cluster',
-                request_serializer=coordinator__pb2.ClusterRequest.SerializeToString,
-                response_deserializer=coordinator__pb2.ClusterResponse.FromString,
+        self.Discover = channel.unary_unary(
+                '/protos.Coordinator/Discover',
+                request_serializer=coordinator__pb2.DiscoverRequest.SerializeToString,
+                response_deserializer=coordinator__pb2.DiscoverResponse.FromString,
                 )
         self.Register = channel.unary_unary(
                 '/protos.Coordinator/Register',
@@ -29,7 +29,7 @@ class CoordinatorStub(object):
 class CoordinatorServicer(object):
     """Missing associated documentation comment in .proto file"""
 
-    def Cluster(self, request, context):
+    def Discover(self, request, context):
         """Missing associated documentation comment in .proto file"""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -44,10 +44,10 @@ class CoordinatorServicer(object):
 
 def add_CoordinatorServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'Cluster': grpc.unary_unary_rpc_method_handler(
-                    servicer.Cluster,
-                    request_deserializer=coordinator__pb2.ClusterRequest.FromString,
-                    response_serializer=coordinator__pb2.ClusterResponse.SerializeToString,
+            'Discover': grpc.unary_unary_rpc_method_handler(
+                    servicer.Discover,
+                    request_deserializer=coordinator__pb2.DiscoverRequest.FromString,
+                    response_serializer=coordinator__pb2.DiscoverResponse.SerializeToString,
             ),
             'Register': grpc.unary_unary_rpc_method_handler(
                     servicer.Register,
@@ -65,7 +65,7 @@ class Coordinator(object):
     """Missing associated documentation comment in .proto file"""
 
     @staticmethod
-    def Cluster(request,
+    def Discover(request,
             target,
             options=(),
             channel_credentials=None,
@@ -74,9 +74,9 @@ class Coordinator(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/protos.Coordinator/Cluster',
-            coordinator__pb2.ClusterRequest.SerializeToString,
-            coordinator__pb2.ClusterResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/protos.Coordinator/Discover',
+            coordinator__pb2.DiscoverRequest.SerializeToString,
+            coordinator__pb2.DiscoverResponse.FromString,
             options, channel_credentials,
             call_credentials, compression, wait_for_ready, timeout, metadata)
 

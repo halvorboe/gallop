@@ -18,9 +18,9 @@
 #![allow(unused_imports)]
 #![allow(unused_results)]
 
-const METHOD_COORDINATOR_CLUSTER: ::grpcio::Method<super::coordinator::ClusterRequest, super::coordinator::ClusterResponse> = ::grpcio::Method {
+const METHOD_COORDINATOR_DISCOVER: ::grpcio::Method<super::coordinator::DiscoverRequest, super::coordinator::DiscoverResponse> = ::grpcio::Method {
     ty: ::grpcio::MethodType::Unary,
-    name: "/protos.Coordinator/Cluster",
+    name: "/protos.Coordinator/Discover",
     req_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
     resp_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
 };
@@ -44,20 +44,20 @@ impl CoordinatorClient {
         }
     }
 
-    pub fn cluster_opt(&self, req: &super::coordinator::ClusterRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<super::coordinator::ClusterResponse> {
-        self.client.unary_call(&METHOD_COORDINATOR_CLUSTER, req, opt)
+    pub fn discover_opt(&self, req: &super::coordinator::DiscoverRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<super::coordinator::DiscoverResponse> {
+        self.client.unary_call(&METHOD_COORDINATOR_DISCOVER, req, opt)
     }
 
-    pub fn cluster(&self, req: &super::coordinator::ClusterRequest) -> ::grpcio::Result<super::coordinator::ClusterResponse> {
-        self.cluster_opt(req, ::grpcio::CallOption::default())
+    pub fn discover(&self, req: &super::coordinator::DiscoverRequest) -> ::grpcio::Result<super::coordinator::DiscoverResponse> {
+        self.discover_opt(req, ::grpcio::CallOption::default())
     }
 
-    pub fn cluster_async_opt(&self, req: &super::coordinator::ClusterRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::coordinator::ClusterResponse>> {
-        self.client.unary_call_async(&METHOD_COORDINATOR_CLUSTER, req, opt)
+    pub fn discover_async_opt(&self, req: &super::coordinator::DiscoverRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::coordinator::DiscoverResponse>> {
+        self.client.unary_call_async(&METHOD_COORDINATOR_DISCOVER, req, opt)
     }
 
-    pub fn cluster_async(&self, req: &super::coordinator::ClusterRequest) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::coordinator::ClusterResponse>> {
-        self.cluster_async_opt(req, ::grpcio::CallOption::default())
+    pub fn discover_async(&self, req: &super::coordinator::DiscoverRequest) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::coordinator::DiscoverResponse>> {
+        self.discover_async_opt(req, ::grpcio::CallOption::default())
     }
 
     pub fn register_opt(&self, req: &super::coordinator::NodeRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<super::common::Error> {
@@ -81,15 +81,15 @@ impl CoordinatorClient {
 }
 
 pub trait Coordinator {
-    fn cluster(&mut self, ctx: ::grpcio::RpcContext, req: super::coordinator::ClusterRequest, sink: ::grpcio::UnarySink<super::coordinator::ClusterResponse>);
+    fn discover(&mut self, ctx: ::grpcio::RpcContext, req: super::coordinator::DiscoverRequest, sink: ::grpcio::UnarySink<super::coordinator::DiscoverResponse>);
     fn register(&mut self, ctx: ::grpcio::RpcContext, req: super::coordinator::NodeRequest, sink: ::grpcio::UnarySink<super::common::Error>);
 }
 
 pub fn create_coordinator<S: Coordinator + Send + Clone + 'static>(s: S) -> ::grpcio::Service {
     let mut builder = ::grpcio::ServiceBuilder::new();
     let mut instance = s.clone();
-    builder = builder.add_unary_handler(&METHOD_COORDINATOR_CLUSTER, move |ctx, req, resp| {
-        instance.cluster(ctx, req, resp)
+    builder = builder.add_unary_handler(&METHOD_COORDINATOR_DISCOVER, move |ctx, req, resp| {
+        instance.discover(ctx, req, resp)
     });
     let mut instance = s;
     builder = builder.add_unary_handler(&METHOD_COORDINATOR_REGISTER, move |ctx, req, resp| {

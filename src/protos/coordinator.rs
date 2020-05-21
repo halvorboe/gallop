@@ -31,6 +31,7 @@ pub struct Node {
     // message fields
     pub nodeType: NodeType,
     pub host: ::std::string::String,
+    pub configuration: ::std::string::String,
     // special fields
     pub unknown_fields: ::protobuf::UnknownFields,
     pub cached_size: ::protobuf::CachedSize,
@@ -87,6 +88,32 @@ impl Node {
     pub fn take_host(&mut self) -> ::std::string::String {
         ::std::mem::replace(&mut self.host, ::std::string::String::new())
     }
+
+    // string configuration = 3;
+
+
+    pub fn get_configuration(&self) -> &str {
+        &self.configuration
+    }
+    pub fn clear_configuration(&mut self) {
+        self.configuration.clear();
+    }
+
+    // Param is passed by value, moved
+    pub fn set_configuration(&mut self, v: ::std::string::String) {
+        self.configuration = v;
+    }
+
+    // Mutable pointer to the field.
+    // If field is not initialized, it is initialized with default value first.
+    pub fn mut_configuration(&mut self) -> &mut ::std::string::String {
+        &mut self.configuration
+    }
+
+    // Take field
+    pub fn take_configuration(&mut self) -> ::std::string::String {
+        ::std::mem::replace(&mut self.configuration, ::std::string::String::new())
+    }
 }
 
 impl ::protobuf::Message for Node {
@@ -103,6 +130,9 @@ impl ::protobuf::Message for Node {
                 },
                 2 => {
                     ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.host)?;
+                },
+                3 => {
+                    ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.configuration)?;
                 },
                 _ => {
                     ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
@@ -122,6 +152,9 @@ impl ::protobuf::Message for Node {
         if !self.host.is_empty() {
             my_size += ::protobuf::rt::string_size(2, &self.host);
         }
+        if !self.configuration.is_empty() {
+            my_size += ::protobuf::rt::string_size(3, &self.configuration);
+        }
         my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
         self.cached_size.set(my_size);
         my_size
@@ -133,6 +166,9 @@ impl ::protobuf::Message for Node {
         }
         if !self.host.is_empty() {
             os.write_string(2, &self.host)?;
+        }
+        if !self.configuration.is_empty() {
+            os.write_string(3, &self.configuration)?;
         }
         os.write_unknown_fields(self.get_unknown_fields())?;
         ::std::result::Result::Ok(())
@@ -183,6 +219,11 @@ impl ::protobuf::Message for Node {
                     |m: &Node| { &m.host },
                     |m: &mut Node| { &mut m.host },
                 ));
+                fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeString>(
+                    "configuration",
+                    |m: &Node| { &m.configuration },
+                    |m: &mut Node| { &mut m.configuration },
+                ));
                 ::protobuf::reflect::MessageDescriptor::new_pb_name::<Node>(
                     "Node",
                     fields,
@@ -204,6 +245,7 @@ impl ::protobuf::Clear for Node {
     fn clear(&mut self) {
         self.nodeType = NodeType::INDEXER;
         self.host.clear();
+        self.configuration.clear();
         self.unknown_fields.clear();
     }
 }
@@ -399,7 +441,7 @@ impl ::protobuf::reflect::ProtobufValue for NodeRequest {
 }
 
 #[derive(PartialEq,Clone,Default)]
-pub struct ClusterResponse {
+pub struct DiscoverResponse {
     // message fields
     pub nodes: ::protobuf::RepeatedField<Node>,
     // special fields
@@ -407,14 +449,14 @@ pub struct ClusterResponse {
     pub cached_size: ::protobuf::CachedSize,
 }
 
-impl<'a> ::std::default::Default for &'a ClusterResponse {
-    fn default() -> &'a ClusterResponse {
-        <ClusterResponse as ::protobuf::Message>::default_instance()
+impl<'a> ::std::default::Default for &'a DiscoverResponse {
+    fn default() -> &'a DiscoverResponse {
+        <DiscoverResponse as ::protobuf::Message>::default_instance()
     }
 }
 
-impl ClusterResponse {
-    pub fn new() -> ClusterResponse {
+impl DiscoverResponse {
+    pub fn new() -> DiscoverResponse {
         ::std::default::Default::default()
     }
 
@@ -444,7 +486,7 @@ impl ClusterResponse {
     }
 }
 
-impl ::protobuf::Message for ClusterResponse {
+impl ::protobuf::Message for DiscoverResponse {
     fn is_initialized(&self) -> bool {
         for v in &self.nodes {
             if !v.is_initialized() {
@@ -518,8 +560,8 @@ impl ::protobuf::Message for ClusterResponse {
         Self::descriptor_static()
     }
 
-    fn new() -> ClusterResponse {
-        ClusterResponse::new()
+    fn new() -> DiscoverResponse {
+        DiscoverResponse::new()
     }
 
     fn descriptor_static() -> &'static ::protobuf::reflect::MessageDescriptor {
@@ -529,11 +571,11 @@ impl ::protobuf::Message for ClusterResponse {
                 let mut fields = ::std::vec::Vec::new();
                 fields.push(::protobuf::reflect::accessor::make_repeated_field_accessor::<_, ::protobuf::types::ProtobufTypeMessage<Node>>(
                     "nodes",
-                    |m: &ClusterResponse| { &m.nodes },
-                    |m: &mut ClusterResponse| { &mut m.nodes },
+                    |m: &DiscoverResponse| { &m.nodes },
+                    |m: &mut DiscoverResponse| { &mut m.nodes },
                 ));
-                ::protobuf::reflect::MessageDescriptor::new_pb_name::<ClusterResponse>(
-                    "ClusterResponse",
+                ::protobuf::reflect::MessageDescriptor::new_pb_name::<DiscoverResponse>(
+                    "DiscoverResponse",
                     fields,
                     file_descriptor_proto()
                 )
@@ -541,53 +583,53 @@ impl ::protobuf::Message for ClusterResponse {
         }
     }
 
-    fn default_instance() -> &'static ClusterResponse {
-        static mut instance: ::protobuf::lazy::Lazy<ClusterResponse> = ::protobuf::lazy::Lazy::INIT;
+    fn default_instance() -> &'static DiscoverResponse {
+        static mut instance: ::protobuf::lazy::Lazy<DiscoverResponse> = ::protobuf::lazy::Lazy::INIT;
         unsafe {
-            instance.get(ClusterResponse::new)
+            instance.get(DiscoverResponse::new)
         }
     }
 }
 
-impl ::protobuf::Clear for ClusterResponse {
+impl ::protobuf::Clear for DiscoverResponse {
     fn clear(&mut self) {
         self.nodes.clear();
         self.unknown_fields.clear();
     }
 }
 
-impl ::std::fmt::Debug for ClusterResponse {
+impl ::std::fmt::Debug for DiscoverResponse {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         ::protobuf::text_format::fmt(self, f)
     }
 }
 
-impl ::protobuf::reflect::ProtobufValue for ClusterResponse {
+impl ::protobuf::reflect::ProtobufValue for DiscoverResponse {
     fn as_ref(&self) -> ::protobuf::reflect::ReflectValueRef {
         ::protobuf::reflect::ReflectValueRef::Message(self)
     }
 }
 
 #[derive(PartialEq,Clone,Default)]
-pub struct ClusterRequest {
+pub struct DiscoverRequest {
     // special fields
     pub unknown_fields: ::protobuf::UnknownFields,
     pub cached_size: ::protobuf::CachedSize,
 }
 
-impl<'a> ::std::default::Default for &'a ClusterRequest {
-    fn default() -> &'a ClusterRequest {
-        <ClusterRequest as ::protobuf::Message>::default_instance()
+impl<'a> ::std::default::Default for &'a DiscoverRequest {
+    fn default() -> &'a DiscoverRequest {
+        <DiscoverRequest as ::protobuf::Message>::default_instance()
     }
 }
 
-impl ClusterRequest {
-    pub fn new() -> ClusterRequest {
+impl DiscoverRequest {
+    pub fn new() -> DiscoverRequest {
         ::std::default::Default::default()
     }
 }
 
-impl ::protobuf::Message for ClusterRequest {
+impl ::protobuf::Message for DiscoverRequest {
     fn is_initialized(&self) -> bool {
         true
     }
@@ -644,8 +686,8 @@ impl ::protobuf::Message for ClusterRequest {
         Self::descriptor_static()
     }
 
-    fn new() -> ClusterRequest {
-        ClusterRequest::new()
+    fn new() -> DiscoverRequest {
+        DiscoverRequest::new()
     }
 
     fn descriptor_static() -> &'static ::protobuf::reflect::MessageDescriptor {
@@ -653,8 +695,8 @@ impl ::protobuf::Message for ClusterRequest {
         unsafe {
             descriptor.get(|| {
                 let fields = ::std::vec::Vec::new();
-                ::protobuf::reflect::MessageDescriptor::new_pb_name::<ClusterRequest>(
-                    "ClusterRequest",
+                ::protobuf::reflect::MessageDescriptor::new_pb_name::<DiscoverRequest>(
+                    "DiscoverRequest",
                     fields,
                     file_descriptor_proto()
                 )
@@ -662,27 +704,27 @@ impl ::protobuf::Message for ClusterRequest {
         }
     }
 
-    fn default_instance() -> &'static ClusterRequest {
-        static mut instance: ::protobuf::lazy::Lazy<ClusterRequest> = ::protobuf::lazy::Lazy::INIT;
+    fn default_instance() -> &'static DiscoverRequest {
+        static mut instance: ::protobuf::lazy::Lazy<DiscoverRequest> = ::protobuf::lazy::Lazy::INIT;
         unsafe {
-            instance.get(ClusterRequest::new)
+            instance.get(DiscoverRequest::new)
         }
     }
 }
 
-impl ::protobuf::Clear for ClusterRequest {
+impl ::protobuf::Clear for DiscoverRequest {
     fn clear(&mut self) {
         self.unknown_fields.clear();
     }
 }
 
-impl ::std::fmt::Debug for ClusterRequest {
+impl ::std::fmt::Debug for DiscoverRequest {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         ::protobuf::text_format::fmt(self, f)
     }
 }
 
-impl ::protobuf::reflect::ProtobufValue for ClusterRequest {
+impl ::protobuf::reflect::ProtobufValue for DiscoverRequest {
     fn as_ref(&self) -> ::protobuf::reflect::ReflectValueRef {
         ::protobuf::reflect::ReflectValueRef::Message(self)
     }
@@ -744,49 +786,53 @@ impl ::protobuf::reflect::ProtobufValue for NodeType {
 }
 
 static file_descriptor_proto_data: &'static [u8] = b"\
-    \n\x11coordinator.proto\x12\x06protos\x1a\x0ccommon.proto\"H\n\x04Node\
+    \n\x11coordinator.proto\x12\x06protos\x1a\x0ccommon.proto\"n\n\x04Node\
     \x12,\n\x08nodeType\x18\x01\x20\x01(\x0e2\x10.protos.NodeTypeR\x08nodeTy\
-    pe\x12\x12\n\x04host\x18\x02\x20\x01(\tR\x04host\"/\n\x0bNodeRequest\x12\
-    \x20\n\x04node\x18\x01\x20\x01(\x0b2\x0c.protos.NodeR\x04node\"5\n\x0fCl\
-    usterResponse\x12\"\n\x05nodes\x18\x01\x20\x03(\x0b2\x0c.protos.NodeR\
-    \x05nodes\"\x10\n\x0eClusterRequest*4\n\x08NodeType\x12\x0b\n\x07INDEXER\
-    \x10\0\x12\n\n\x06PACKER\x10\x01\x12\x0f\n\x0bCOORDINATOR\x10\x022}\n\
-    \x0bCoordinator\x12<\n\x07Cluster\x12\x16.protos.ClusterRequest\x1a\x17.\
-    protos.ClusterResponse\"\0\x120\n\x08Register\x12\x13.protos.NodeRequest\
-    \x1a\r.protos.Error\"\0J\xb7\x05\n\x06\x12\x04\0\0\x20\x01\n\x08\n\x01\
-    \x0c\x12\x03\0\0\x12\n\x08\n\x01\x02\x12\x03\x02\x08\x0e\n\t\n\x02\x03\0\
-    \x12\x03\x04\x07\x15\n\n\n\x02\x05\0\x12\x04\x06\0\n\x01\n\n\n\x03\x05\0\
-    \x01\x12\x03\x06\x05\r\n\x0b\n\x04\x05\0\x02\0\x12\x03\x07\x04\x10\n\x0c\
-    \n\x05\x05\0\x02\0\x01\x12\x03\x07\x04\x0b\n\x0c\n\x05\x05\0\x02\0\x02\
-    \x12\x03\x07\x0e\x0f\n\x0b\n\x04\x05\0\x02\x01\x12\x03\x08\x04\x0f\n\x0c\
-    \n\x05\x05\0\x02\x01\x01\x12\x03\x08\x04\n\n\x0c\n\x05\x05\0\x02\x01\x02\
-    \x12\x03\x08\r\x0e\n\x0b\n\x04\x05\0\x02\x02\x12\x03\t\x04\x14\n\x0c\n\
-    \x05\x05\0\x02\x02\x01\x12\x03\t\x04\x0f\n\x0c\n\x05\x05\0\x02\x02\x02\
-    \x12\x03\t\x12\x13\n\n\n\x02\x04\0\x12\x04\x0c\0\x0f\x01\n\n\n\x03\x04\0\
-    \x01\x12\x03\x0c\x08\x0c\n\x0b\n\x04\x04\0\x02\0\x12\x03\r\x04\x1a\n\r\n\
-    \x05\x04\0\x02\0\x04\x12\x04\r\x04\x0c\x0e\n\x0c\n\x05\x04\0\x02\0\x06\
-    \x12\x03\r\x04\x0c\n\x0c\n\x05\x04\0\x02\0\x01\x12\x03\r\r\x15\n\x0c\n\
-    \x05\x04\0\x02\0\x03\x12\x03\r\x18\x19\n\x0b\n\x04\x04\0\x02\x01\x12\x03\
-    \x0e\x04\x14\n\r\n\x05\x04\0\x02\x01\x04\x12\x04\x0e\x04\r\x1a\n\x0c\n\
-    \x05\x04\0\x02\x01\x05\x12\x03\x0e\x04\n\n\x0c\n\x05\x04\0\x02\x01\x01\
-    \x12\x03\x0e\x0b\x0f\n\x0c\n\x05\x04\0\x02\x01\x03\x12\x03\x0e\x12\x13\n\
-    \n\n\x02\x04\x01\x12\x04\x11\0\x13\x01\n\n\n\x03\x04\x01\x01\x12\x03\x11\
-    \x08\x13\n\x0b\n\x04\x04\x01\x02\0\x12\x03\x12\x04\x12\n\r\n\x05\x04\x01\
-    \x02\0\x04\x12\x04\x12\x04\x11\x15\n\x0c\n\x05\x04\x01\x02\0\x06\x12\x03\
-    \x12\x04\x08\n\x0c\n\x05\x04\x01\x02\0\x01\x12\x03\x12\t\r\n\x0c\n\x05\
-    \x04\x01\x02\0\x03\x12\x03\x12\x10\x11\n\n\n\x02\x04\x02\x12\x04\x15\0\
-    \x17\x01\n\n\n\x03\x04\x02\x01\x12\x03\x15\x08\x17\n\x0b\n\x04\x04\x02\
-    \x02\0\x12\x03\x16\x04\x1c\n\x0c\n\x05\x04\x02\x02\0\x04\x12\x03\x16\x04\
-    \x0c\n\x0c\n\x05\x04\x02\x02\0\x06\x12\x03\x16\r\x11\n\x0c\n\x05\x04\x02\
-    \x02\0\x01\x12\x03\x16\x12\x17\n\x0c\n\x05\x04\x02\x02\0\x03\x12\x03\x16\
-    \x1a\x1b\n\n\n\x02\x04\x03\x12\x04\x19\0\x1a\x01\n\n\n\x03\x04\x03\x01\
-    \x12\x03\x19\x08\x16\n\n\n\x02\x06\0\x12\x04\x1c\0\x20\x01\n\n\n\x03\x06\
-    \0\x01\x12\x03\x1c\x08\x13\n\x0b\n\x04\x06\0\x02\0\x12\x03\x1d\x04<\n\
-    \x0c\n\x05\x06\0\x02\0\x01\x12\x03\x1d\x08\x0f\n\x0c\n\x05\x06\0\x02\0\
-    \x02\x12\x03\x1d\x10\x1e\n\x0c\n\x05\x06\0\x02\0\x03\x12\x03\x1d)8\n\x0b\
-    \n\x04\x06\0\x02\x01\x12\x03\x1e\x040\n\x0c\n\x05\x06\0\x02\x01\x01\x12\
-    \x03\x1e\x08\x10\n\x0c\n\x05\x06\0\x02\x01\x02\x12\x03\x1e\x11\x1c\n\x0c\
-    \n\x05\x06\0\x02\x01\x03\x12\x03\x1e',b\x06proto3\
+    pe\x12\x12\n\x04host\x18\x02\x20\x01(\tR\x04host\x12$\n\rconfiguration\
+    \x18\x03\x20\x01(\tR\rconfiguration\"/\n\x0bNodeRequest\x12\x20\n\x04nod\
+    e\x18\x01\x20\x01(\x0b2\x0c.protos.NodeR\x04node\"6\n\x10DiscoverRespons\
+    e\x12\"\n\x05nodes\x18\x01\x20\x03(\x0b2\x0c.protos.NodeR\x05nodes\"\x11\
+    \n\x0fDiscoverRequest*4\n\x08NodeType\x12\x0b\n\x07INDEXER\x10\0\x12\n\n\
+    \x06PACKER\x10\x01\x12\x0f\n\x0bCOORDINATOR\x10\x022\x80\x01\n\x0bCoordi\
+    nator\x12?\n\x08Discover\x12\x17.protos.DiscoverRequest\x1a\x18.protos.D\
+    iscoverResponse\"\0\x120\n\x08Register\x12\x13.protos.NodeRequest\x1a\r.\
+    protos.Error\"\0J\xfd\x05\n\x06\x12\x04\0\0!\x01\n\x08\n\x01\x0c\x12\x03\
+    \0\0\x12\n\x08\n\x01\x02\x12\x03\x02\x08\x0e\n\t\n\x02\x03\0\x12\x03\x04\
+    \x07\x15\n\n\n\x02\x05\0\x12\x04\x06\0\n\x01\n\n\n\x03\x05\0\x01\x12\x03\
+    \x06\x05\r\n\x0b\n\x04\x05\0\x02\0\x12\x03\x07\x04\x10\n\x0c\n\x05\x05\0\
+    \x02\0\x01\x12\x03\x07\x04\x0b\n\x0c\n\x05\x05\0\x02\0\x02\x12\x03\x07\
+    \x0e\x0f\n\x0b\n\x04\x05\0\x02\x01\x12\x03\x08\x04\x0f\n\x0c\n\x05\x05\0\
+    \x02\x01\x01\x12\x03\x08\x04\n\n\x0c\n\x05\x05\0\x02\x01\x02\x12\x03\x08\
+    \r\x0e\n\x0b\n\x04\x05\0\x02\x02\x12\x03\t\x04\x14\n\x0c\n\x05\x05\0\x02\
+    \x02\x01\x12\x03\t\x04\x0f\n\x0c\n\x05\x05\0\x02\x02\x02\x12\x03\t\x12\
+    \x13\n\n\n\x02\x04\0\x12\x04\x0c\0\x10\x01\n\n\n\x03\x04\0\x01\x12\x03\
+    \x0c\x08\x0c\n\x0b\n\x04\x04\0\x02\0\x12\x03\r\x04\x1a\n\r\n\x05\x04\0\
+    \x02\0\x04\x12\x04\r\x04\x0c\x0e\n\x0c\n\x05\x04\0\x02\0\x06\x12\x03\r\
+    \x04\x0c\n\x0c\n\x05\x04\0\x02\0\x01\x12\x03\r\r\x15\n\x0c\n\x05\x04\0\
+    \x02\0\x03\x12\x03\r\x18\x19\n\x0b\n\x04\x04\0\x02\x01\x12\x03\x0e\x04\
+    \x14\n\r\n\x05\x04\0\x02\x01\x04\x12\x04\x0e\x04\r\x1a\n\x0c\n\x05\x04\0\
+    \x02\x01\x05\x12\x03\x0e\x04\n\n\x0c\n\x05\x04\0\x02\x01\x01\x12\x03\x0e\
+    \x0b\x0f\n\x0c\n\x05\x04\0\x02\x01\x03\x12\x03\x0e\x12\x13\n\x0b\n\x04\
+    \x04\0\x02\x02\x12\x03\x0f\x04\x1d\n\r\n\x05\x04\0\x02\x02\x04\x12\x04\
+    \x0f\x04\x0e\x14\n\x0c\n\x05\x04\0\x02\x02\x05\x12\x03\x0f\x04\n\n\x0c\n\
+    \x05\x04\0\x02\x02\x01\x12\x03\x0f\x0b\x18\n\x0c\n\x05\x04\0\x02\x02\x03\
+    \x12\x03\x0f\x1b\x1c\n\n\n\x02\x04\x01\x12\x04\x12\0\x14\x01\n\n\n\x03\
+    \x04\x01\x01\x12\x03\x12\x08\x13\n\x0b\n\x04\x04\x01\x02\0\x12\x03\x13\
+    \x04\x12\n\r\n\x05\x04\x01\x02\0\x04\x12\x04\x13\x04\x12\x15\n\x0c\n\x05\
+    \x04\x01\x02\0\x06\x12\x03\x13\x04\x08\n\x0c\n\x05\x04\x01\x02\0\x01\x12\
+    \x03\x13\t\r\n\x0c\n\x05\x04\x01\x02\0\x03\x12\x03\x13\x10\x11\n\n\n\x02\
+    \x04\x02\x12\x04\x16\0\x18\x01\n\n\n\x03\x04\x02\x01\x12\x03\x16\x08\x18\
+    \n\x0b\n\x04\x04\x02\x02\0\x12\x03\x17\x04\x1c\n\x0c\n\x05\x04\x02\x02\0\
+    \x04\x12\x03\x17\x04\x0c\n\x0c\n\x05\x04\x02\x02\0\x06\x12\x03\x17\r\x11\
+    \n\x0c\n\x05\x04\x02\x02\0\x01\x12\x03\x17\x12\x17\n\x0c\n\x05\x04\x02\
+    \x02\0\x03\x12\x03\x17\x1a\x1b\n\n\n\x02\x04\x03\x12\x04\x1a\0\x1b\x01\n\
+    \n\n\x03\x04\x03\x01\x12\x03\x1a\x08\x17\n\n\n\x02\x06\0\x12\x04\x1d\0!\
+    \x01\n\n\n\x03\x06\0\x01\x12\x03\x1d\x08\x13\n\x0b\n\x04\x06\0\x02\0\x12\
+    \x03\x1e\x04?\n\x0c\n\x05\x06\0\x02\0\x01\x12\x03\x1e\x08\x10\n\x0c\n\
+    \x05\x06\0\x02\0\x02\x12\x03\x1e\x11\x20\n\x0c\n\x05\x06\0\x02\0\x03\x12\
+    \x03\x1e+;\n\x0b\n\x04\x06\0\x02\x01\x12\x03\x1f\x040\n\x0c\n\x05\x06\0\
+    \x02\x01\x01\x12\x03\x1f\x08\x10\n\x0c\n\x05\x06\0\x02\x01\x02\x12\x03\
+    \x1f\x11\x1c\n\x0c\n\x05\x06\0\x02\x01\x03\x12\x03\x1f',b\x06proto3\
 ";
 
 static mut file_descriptor_proto_lazy: ::protobuf::lazy::Lazy<::protobuf::descriptor::FileDescriptorProto> = ::protobuf::lazy::Lazy::INIT;

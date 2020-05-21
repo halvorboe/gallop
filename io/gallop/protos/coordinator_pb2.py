@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='protos',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x11\x63oordinator.proto\x12\x06protos\x1a\x0c\x63ommon.proto\"8\n\x04Node\x12\"\n\x08nodeType\x18\x01 \x01(\x0e\x32\x10.protos.NodeType\x12\x0c\n\x04host\x18\x02 \x01(\t\")\n\x0bNodeRequest\x12\x1a\n\x04node\x18\x01 \x01(\x0b\x32\x0c.protos.Node\".\n\x0f\x43lusterResponse\x12\x1b\n\x05nodes\x18\x01 \x03(\x0b\x32\x0c.protos.Node\"\x10\n\x0e\x43lusterRequest*4\n\x08NodeType\x12\x0b\n\x07INDEXER\x10\x00\x12\n\n\x06PACKER\x10\x01\x12\x0f\n\x0b\x43OORDINATOR\x10\x02\x32}\n\x0b\x43oordinator\x12<\n\x07\x43luster\x12\x16.protos.ClusterRequest\x1a\x17.protos.ClusterResponse\"\x00\x12\x30\n\x08Register\x12\x13.protos.NodeRequest\x1a\r.protos.Error\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x11\x63oordinator.proto\x12\x06protos\x1a\x0c\x63ommon.proto\"O\n\x04Node\x12\"\n\x08nodeType\x18\x01 \x01(\x0e\x32\x10.protos.NodeType\x12\x0c\n\x04host\x18\x02 \x01(\t\x12\x15\n\rconfiguration\x18\x03 \x01(\t\")\n\x0bNodeRequest\x12\x1a\n\x04node\x18\x01 \x01(\x0b\x32\x0c.protos.Node\"/\n\x10\x44iscoverResponse\x12\x1b\n\x05nodes\x18\x01 \x03(\x0b\x32\x0c.protos.Node\"\x11\n\x0f\x44iscoverRequest*4\n\x08NodeType\x12\x0b\n\x07INDEXER\x10\x00\x12\n\n\x06PACKER\x10\x01\x12\x0f\n\x0b\x43OORDINATOR\x10\x02\x32\x80\x01\n\x0b\x43oordinator\x12?\n\x08\x44iscover\x12\x17.protos.DiscoverRequest\x1a\x18.protos.DiscoverResponse\"\x00\x12\x30\n\x08Register\x12\x13.protos.NodeRequest\x1a\r.protos.Error\"\x00\x62\x06proto3'
   ,
   dependencies=[common__pb2.DESCRIPTOR,])
 
@@ -45,8 +45,8 @@ _NODETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=210,
-  serialized_end=262,
+  serialized_start=235,
+  serialized_end=287,
 )
 _sym_db.RegisterEnumDescriptor(_NODETYPE)
 
@@ -78,6 +78,13 @@ _NODE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='configuration', full_name='protos.Node.configuration', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -91,7 +98,7 @@ _NODE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=43,
-  serialized_end=99,
+  serialized_end=122,
 )
 
 
@@ -121,20 +128,20 @@ _NODEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=101,
-  serialized_end=142,
+  serialized_start=124,
+  serialized_end=165,
 )
 
 
-_CLUSTERRESPONSE = _descriptor.Descriptor(
-  name='ClusterResponse',
-  full_name='protos.ClusterResponse',
+_DISCOVERRESPONSE = _descriptor.Descriptor(
+  name='DiscoverResponse',
+  full_name='protos.DiscoverResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='nodes', full_name='protos.ClusterResponse.nodes', index=0,
+      name='nodes', full_name='protos.DiscoverResponse.nodes', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -152,14 +159,14 @@ _CLUSTERRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=144,
-  serialized_end=190,
+  serialized_start=167,
+  serialized_end=214,
 )
 
 
-_CLUSTERREQUEST = _descriptor.Descriptor(
-  name='ClusterRequest',
-  full_name='protos.ClusterRequest',
+_DISCOVERREQUEST = _descriptor.Descriptor(
+  name='DiscoverRequest',
+  full_name='protos.DiscoverRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
@@ -176,17 +183,17 @@ _CLUSTERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=192,
-  serialized_end=208,
+  serialized_start=216,
+  serialized_end=233,
 )
 
 _NODE.fields_by_name['nodeType'].enum_type = _NODETYPE
 _NODEREQUEST.fields_by_name['node'].message_type = _NODE
-_CLUSTERRESPONSE.fields_by_name['nodes'].message_type = _NODE
+_DISCOVERRESPONSE.fields_by_name['nodes'].message_type = _NODE
 DESCRIPTOR.message_types_by_name['Node'] = _NODE
 DESCRIPTOR.message_types_by_name['NodeRequest'] = _NODEREQUEST
-DESCRIPTOR.message_types_by_name['ClusterResponse'] = _CLUSTERRESPONSE
-DESCRIPTOR.message_types_by_name['ClusterRequest'] = _CLUSTERREQUEST
+DESCRIPTOR.message_types_by_name['DiscoverResponse'] = _DISCOVERRESPONSE
+DESCRIPTOR.message_types_by_name['DiscoverRequest'] = _DISCOVERREQUEST
 DESCRIPTOR.enum_types_by_name['NodeType'] = _NODETYPE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -204,19 +211,19 @@ NodeRequest = _reflection.GeneratedProtocolMessageType('NodeRequest', (_message.
   })
 _sym_db.RegisterMessage(NodeRequest)
 
-ClusterResponse = _reflection.GeneratedProtocolMessageType('ClusterResponse', (_message.Message,), {
-  'DESCRIPTOR' : _CLUSTERRESPONSE,
+DiscoverResponse = _reflection.GeneratedProtocolMessageType('DiscoverResponse', (_message.Message,), {
+  'DESCRIPTOR' : _DISCOVERRESPONSE,
   '__module__' : 'coordinator_pb2'
-  # @@protoc_insertion_point(class_scope:protos.ClusterResponse)
+  # @@protoc_insertion_point(class_scope:protos.DiscoverResponse)
   })
-_sym_db.RegisterMessage(ClusterResponse)
+_sym_db.RegisterMessage(DiscoverResponse)
 
-ClusterRequest = _reflection.GeneratedProtocolMessageType('ClusterRequest', (_message.Message,), {
-  'DESCRIPTOR' : _CLUSTERREQUEST,
+DiscoverRequest = _reflection.GeneratedProtocolMessageType('DiscoverRequest', (_message.Message,), {
+  'DESCRIPTOR' : _DISCOVERREQUEST,
   '__module__' : 'coordinator_pb2'
-  # @@protoc_insertion_point(class_scope:protos.ClusterRequest)
+  # @@protoc_insertion_point(class_scope:protos.DiscoverRequest)
   })
-_sym_db.RegisterMessage(ClusterRequest)
+_sym_db.RegisterMessage(DiscoverRequest)
 
 
 
@@ -226,16 +233,16 @@ _COORDINATOR = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=264,
-  serialized_end=389,
+  serialized_start=290,
+  serialized_end=418,
   methods=[
   _descriptor.MethodDescriptor(
-    name='Cluster',
-    full_name='protos.Coordinator.Cluster',
+    name='Discover',
+    full_name='protos.Coordinator.Discover',
     index=0,
     containing_service=None,
-    input_type=_CLUSTERREQUEST,
-    output_type=_CLUSTERRESPONSE,
+    input_type=_DISCOVERREQUEST,
+    output_type=_DISCOVERRESPONSE,
     serialized_options=None,
   ),
   _descriptor.MethodDescriptor(

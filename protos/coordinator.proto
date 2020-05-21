@@ -13,21 +13,22 @@ enum NodeType {
 message Node {
     NodeType nodeType = 1;
     string host = 2;
+    string configuration = 3;
 }
 
 message NodeRequest {
     Node node = 1;
 }
   
-message ClusterResponse {
+message DiscoverResponse {
     repeated Node nodes = 1;
 }
 
-message ClusterRequest {
+message DiscoverRequest {
 }
 
 service Coordinator {
-    rpc Cluster(ClusterRequest) returns (ClusterResponse) {}
+    rpc Discover(DiscoverRequest) returns (DiscoverResponse) {}
     rpc Register(NodeRequest) returns (Error) {}
 
 }

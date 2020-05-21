@@ -9,7 +9,7 @@ use grpcio::{RpcContext, UnarySink};
 
 use gallop::protos::common::Error;
 use gallop::core::grpc;
-use gallop::core::store::{FileStore};
+use gallop::core::store::{InMemoryStore};
 use gallop::protos::common::{Segment, SegmentId};
 use gallop::protos::packer::SegmentRequest;
 use gallop::protos::packer_grpc::PackerClient;
@@ -25,7 +25,7 @@ use mockall::{automock, predicate::*};
 
 #[derive(Clone)]
 struct CoordinatorService {
-    inner: InnerCoordinatorService<FileStore>,
+    inner: InnerCoordinatorService<InMemoryStore>,
 }
 
 impl CoordinatorService {
@@ -37,12 +37,13 @@ impl CoordinatorService {
 }
 
 impl Coordinator for CoordinatorService {
-    fn cluster(&mut self, ctx: RpcContext, req: gallop::protos::coordinator::ClusterRequest, sink: UnarySink<gallop::protos::coordinator::ClusterResponse>) {
+    fn discover(&mut self, ctx: RpcContext, req: gallop::protos::coordinator::DiscoverRequest, sink: UnarySink<gallop::protos::coordinator::DiscoverResponse>) {
         todo!()
     }
     fn register(&mut self, ctx: RpcContext, req: gallop::protos::coordinator::NodeRequest, sink: UnarySink<Error>) {
         todo!()
     }
+    
 }
 #[derive(Clone)]
 struct InnerCoordinatorService<S: Store> {

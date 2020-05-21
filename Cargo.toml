@@ -16,6 +16,10 @@ path = "src/bin/indexer.rs"
 name = "packer"
 path = "src/bin/packer.rs"
 
+[[bin]]
+name = "coordinator"
+path = "src/bin/coordinator.rs"
+
 [dependencies]
 futures = "0.1.16"
 grpcio = "0.4.3"
