@@ -1,10 +1,11 @@
 
 
-trait Store {
+pub trait Store {
     fn new() -> Self;
 }
 
-struct FileStore {}
+#[derive(Clone)]
+pub struct FileStore {}
 
 impl Store for FileStore {
     fn new() -> Self {
