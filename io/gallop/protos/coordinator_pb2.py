@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='protos',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x11\x63oordinator.proto\x12\x06protos\x1a\x0c\x63ommon.proto\"O\n\x04Node\x12\"\n\x08nodeType\x18\x01 \x01(\x0e\x32\x10.protos.NodeType\x12\x0c\n\x04host\x18\x02 \x01(\t\x12\x15\n\rconfiguration\x18\x03 \x01(\t\")\n\x0bNodeRequest\x12\x1a\n\x04node\x18\x01 \x01(\x0b\x32\x0c.protos.Node\"/\n\x10\x44iscoverResponse\x12\x1b\n\x05nodes\x18\x01 \x03(\x0b\x32\x0c.protos.Node\"\x11\n\x0f\x44iscoverRequest*4\n\x08NodeType\x12\x0b\n\x07INDEXER\x10\x00\x12\n\n\x06PACKER\x10\x01\x12\x0f\n\x0b\x43OORDINATOR\x10\x02\x32\x80\x01\n\x0b\x43oordinator\x12?\n\x08\x44iscover\x12\x17.protos.DiscoverRequest\x1a\x18.protos.DiscoverResponse\"\x00\x12\x30\n\x08Register\x12\x13.protos.NodeRequest\x1a\r.protos.Error\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x11\x63oordinator.proto\x12\x06protos\x1a\x0c\x63ommon.proto\"[\n\x04Node\x12\n\n\x02id\x18\x01 \x01(\t\x12\"\n\x08nodeType\x18\x02 \x01(\x0e\x32\x10.protos.NodeType\x12\x0c\n\x04host\x18\x03 \x01(\t\x12\x15\n\rconfiguration\x18\x04 \x01(\t\")\n\x0bNodeRequest\x12\x1a\n\x04node\x18\x01 \x01(\x0b\x32\x0c.protos.Node\"/\n\x10\x44iscoverResponse\x12\x1b\n\x05nodes\x18\x01 \x03(\x0b\x32\x0c.protos.Node\"\x11\n\x0f\x44iscoverRequest*4\n\x08NodeType\x12\x0b\n\x07INDEXER\x10\x00\x12\n\n\x06PACKER\x10\x01\x12\x0f\n\x0b\x43OORDINATOR\x10\x02\x32\x80\x01\n\x0b\x43oordinator\x12?\n\x08\x44iscover\x12\x17.protos.DiscoverRequest\x1a\x18.protos.DiscoverResponse\"\x00\x12\x30\n\x08Register\x12\x13.protos.NodeRequest\x1a\r.protos.Error\"\x00\x62\x06proto3'
   ,
   dependencies=[common__pb2.DESCRIPTOR,])
 
@@ -45,8 +45,8 @@ _NODETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=235,
-  serialized_end=287,
+  serialized_start=247,
+  serialized_end=299,
 )
 _sym_db.RegisterEnumDescriptor(_NODETYPE)
 
@@ -65,22 +65,29 @@ _NODE = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='nodeType', full_name='protos.Node.nodeType', index=0,
-      number=1, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='host', full_name='protos.Node.host', index=1,
-      number=2, type=9, cpp_type=9, label=1,
+      name='id', full_name='protos.Node.id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='configuration', full_name='protos.Node.configuration', index=2,
+      name='nodeType', full_name='protos.Node.nodeType', index=1,
+      number=2, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='host', full_name='protos.Node.host', index=2,
       number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='configuration', full_name='protos.Node.configuration', index=3,
+      number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -98,7 +105,7 @@ _NODE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=43,
-  serialized_end=122,
+  serialized_end=134,
 )
 
 
@@ -128,8 +135,8 @@ _NODEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=124,
-  serialized_end=165,
+  serialized_start=136,
+  serialized_end=177,
 )
 
 
@@ -159,8 +166,8 @@ _DISCOVERRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=167,
-  serialized_end=214,
+  serialized_start=179,
+  serialized_end=226,
 )
 
 
@@ -183,8 +190,8 @@ _DISCOVERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=216,
-  serialized_end=233,
+  serialized_start=228,
+  serialized_end=245,
 )
 
 _NODE.fields_by_name['nodeType'].enum_type = _NODETYPE
@@ -233,8 +240,8 @@ _COORDINATOR = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=290,
-  serialized_end=418,
+  serialized_start=302,
+  serialized_end=430,
   methods=[
   _descriptor.MethodDescriptor(
     name='Discover',

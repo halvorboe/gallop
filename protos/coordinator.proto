@@ -11,9 +11,10 @@ enum NodeType {
 }
 
 message Node {
-    NodeType nodeType = 1;
-    string host = 2;
-    string configuration = 3;
+    string id = 1;
+    NodeType nodeType = 2;
+    string host = 3;
+    string configuration = 4;
 }
 
 message NodeRequest {

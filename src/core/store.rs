@@ -4,7 +4,7 @@ use std::collections::HashMap;
 
 pub trait Store {
     fn new() -> Self;
-    fn keys(&self) -> Vec<&String>;
+    fn items(&self) ->  Vec<(&String, &String)>;
     fn get(&self, key: String) -> Option<&String>;
     fn set(&mut self, key: String, value: String);
 }
@@ -20,10 +20,10 @@ impl Store for InMemoryStore {
             map: HashMap::new(),
         }
     }
-    fn keys(&self) -> Vec<&String> {
-        let mut result:Vec<&String> = Vec::new();
-        for key in self.map.keys() {
-            result.push(key);
+    fn items(&self) -> Vec<(&String, &String)> {
+        let mut result:Vec<(&String, &String)> = Vec::new();
+        for (key, value) in self.map.iter() {
+            result.push((key, value));
         }
         result
     }
@@ -57,4 +57,5 @@ mod tests {
         // assert_eq!(store.keys(), vec![&a.clone(), &b.clone(), &c.clone()])
     }
 
+        // TODO: Test all
 }

@@ -29,6 +29,7 @@ use protobuf::ProtobufEnum as ProtobufEnum_imported_for_functions;
 #[derive(PartialEq,Clone,Default)]
 pub struct Node {
     // message fields
+    pub id: ::std::string::String,
     pub nodeType: NodeType,
     pub host: ::std::string::String,
     pub configuration: ::std::string::String,
@@ -48,7 +49,33 @@ impl Node {
         ::std::default::Default::default()
     }
 
-    // .protos.NodeType nodeType = 1;
+    // string id = 1;
+
+
+    pub fn get_id(&self) -> &str {
+        &self.id
+    }
+    pub fn clear_id(&mut self) {
+        self.id.clear();
+    }
+
+    // Param is passed by value, moved
+    pub fn set_id(&mut self, v: ::std::string::String) {
+        self.id = v;
+    }
+
+    // Mutable pointer to the field.
+    // If field is not initialized, it is initialized with default value first.
+    pub fn mut_id(&mut self) -> &mut ::std::string::String {
+        &mut self.id
+    }
+
+    // Take field
+    pub fn take_id(&mut self) -> ::std::string::String {
+        ::std::mem::replace(&mut self.id, ::std::string::String::new())
+    }
+
+    // .protos.NodeType nodeType = 2;
 
 
     pub fn get_nodeType(&self) -> NodeType {
@@ -63,7 +90,7 @@ impl Node {
         self.nodeType = v;
     }
 
-    // string host = 2;
+    // string host = 3;
 
 
     pub fn get_host(&self) -> &str {
@@ -89,7 +116,7 @@ impl Node {
         ::std::mem::replace(&mut self.host, ::std::string::String::new())
     }
 
-    // string configuration = 3;
+    // string configuration = 4;
 
 
     pub fn get_configuration(&self) -> &str {
@@ -126,12 +153,15 @@ impl ::protobuf::Message for Node {
             let (field_number, wire_type) = is.read_tag_unpack()?;
             match field_number {
                 1 => {
-                    ::protobuf::rt::read_proto3_enum_with_unknown_fields_into(wire_type, is, &mut self.nodeType, 1, &mut self.unknown_fields)?
+                    ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.id)?;
                 },
                 2 => {
-                    ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.host)?;
+                    ::protobuf::rt::read_proto3_enum_with_unknown_fields_into(wire_type, is, &mut self.nodeType, 2, &mut self.unknown_fields)?
                 },
                 3 => {
+                    ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.host)?;
+                },
+                4 => {
                     ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.configuration)?;
                 },
                 _ => {
@@ -146,14 +176,17 @@ impl ::protobuf::Message for Node {
     #[allow(unused_variables)]
     fn compute_size(&self) -> u32 {
         let mut my_size = 0;
+        if !self.id.is_empty() {
+            my_size += ::protobuf::rt::string_size(1, &self.id);
+        }
         if self.nodeType != NodeType::INDEXER {
-            my_size += ::protobuf::rt::enum_size(1, self.nodeType);
+            my_size += ::protobuf::rt::enum_size(2, self.nodeType);
         }
         if !self.host.is_empty() {
-            my_size += ::protobuf::rt::string_size(2, &self.host);
+            my_size += ::protobuf::rt::string_size(3, &self.host);
         }
         if !self.configuration.is_empty() {
-            my_size += ::protobuf::rt::string_size(3, &self.configuration);
+            my_size += ::protobuf::rt::string_size(4, &self.configuration);
         }
         my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
         self.cached_size.set(my_size);
@@ -161,14 +194,17 @@ impl ::protobuf::Message for Node {
     }
 
     fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream<'_>) -> ::protobuf::ProtobufResult<()> {
+        if !self.id.is_empty() {
+            os.write_string(1, &self.id)?;
+        }
         if self.nodeType != NodeType::INDEXER {
-            os.write_enum(1, self.nodeType.value())?;
+            os.write_enum(2, self.nodeType.value())?;
         }
         if !self.host.is_empty() {
-            os.write_string(2, &self.host)?;
+            os.write_string(3, &self.host)?;
         }
         if !self.configuration.is_empty() {
-            os.write_string(3, &self.configuration)?;
+            os.write_string(4, &self.configuration)?;
         }
         os.write_unknown_fields(self.get_unknown_fields())?;
         ::std::result::Result::Ok(())
@@ -209,6 +245,11 @@ impl ::protobuf::Message for Node {
         unsafe {
             descriptor.get(|| {
                 let mut fields = ::std::vec::Vec::new();
+                fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeString>(
+                    "id",
+                    |m: &Node| { &m.id },
+                    |m: &mut Node| { &mut m.id },
+                ));
                 fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeEnum<NodeType>>(
                     "nodeType",
                     |m: &Node| { &m.nodeType },
@@ -243,6 +284,7 @@ impl ::protobuf::Message for Node {
 
 impl ::protobuf::Clear for Node {
     fn clear(&mut self) {
+        self.id.clear();
         self.nodeType = NodeType::INDEXER;
         self.host.clear();
         self.configuration.clear();
@@ -786,53 +828,58 @@ impl ::protobuf::reflect::ProtobufValue for NodeType {
 }
 
 static file_descriptor_proto_data: &'static [u8] = b"\
-    \n\x11coordinator.proto\x12\x06protos\x1a\x0ccommon.proto\"n\n\x04Node\
-    \x12,\n\x08nodeType\x18\x01\x20\x01(\x0e2\x10.protos.NodeTypeR\x08nodeTy\
-    pe\x12\x12\n\x04host\x18\x02\x20\x01(\tR\x04host\x12$\n\rconfiguration\
-    \x18\x03\x20\x01(\tR\rconfiguration\"/\n\x0bNodeRequest\x12\x20\n\x04nod\
-    e\x18\x01\x20\x01(\x0b2\x0c.protos.NodeR\x04node\"6\n\x10DiscoverRespons\
-    e\x12\"\n\x05nodes\x18\x01\x20\x03(\x0b2\x0c.protos.NodeR\x05nodes\"\x11\
-    \n\x0fDiscoverRequest*4\n\x08NodeType\x12\x0b\n\x07INDEXER\x10\0\x12\n\n\
-    \x06PACKER\x10\x01\x12\x0f\n\x0bCOORDINATOR\x10\x022\x80\x01\n\x0bCoordi\
-    nator\x12?\n\x08Discover\x12\x17.protos.DiscoverRequest\x1a\x18.protos.D\
-    iscoverResponse\"\0\x120\n\x08Register\x12\x13.protos.NodeRequest\x1a\r.\
-    protos.Error\"\0J\xfd\x05\n\x06\x12\x04\0\0!\x01\n\x08\n\x01\x0c\x12\x03\
-    \0\0\x12\n\x08\n\x01\x02\x12\x03\x02\x08\x0e\n\t\n\x02\x03\0\x12\x03\x04\
-    \x07\x15\n\n\n\x02\x05\0\x12\x04\x06\0\n\x01\n\n\n\x03\x05\0\x01\x12\x03\
-    \x06\x05\r\n\x0b\n\x04\x05\0\x02\0\x12\x03\x07\x04\x10\n\x0c\n\x05\x05\0\
-    \x02\0\x01\x12\x03\x07\x04\x0b\n\x0c\n\x05\x05\0\x02\0\x02\x12\x03\x07\
-    \x0e\x0f\n\x0b\n\x04\x05\0\x02\x01\x12\x03\x08\x04\x0f\n\x0c\n\x05\x05\0\
-    \x02\x01\x01\x12\x03\x08\x04\n\n\x0c\n\x05\x05\0\x02\x01\x02\x12\x03\x08\
-    \r\x0e\n\x0b\n\x04\x05\0\x02\x02\x12\x03\t\x04\x14\n\x0c\n\x05\x05\0\x02\
-    \x02\x01\x12\x03\t\x04\x0f\n\x0c\n\x05\x05\0\x02\x02\x02\x12\x03\t\x12\
-    \x13\n\n\n\x02\x04\0\x12\x04\x0c\0\x10\x01\n\n\n\x03\x04\0\x01\x12\x03\
-    \x0c\x08\x0c\n\x0b\n\x04\x04\0\x02\0\x12\x03\r\x04\x1a\n\r\n\x05\x04\0\
-    \x02\0\x04\x12\x04\r\x04\x0c\x0e\n\x0c\n\x05\x04\0\x02\0\x06\x12\x03\r\
-    \x04\x0c\n\x0c\n\x05\x04\0\x02\0\x01\x12\x03\r\r\x15\n\x0c\n\x05\x04\0\
-    \x02\0\x03\x12\x03\r\x18\x19\n\x0b\n\x04\x04\0\x02\x01\x12\x03\x0e\x04\
-    \x14\n\r\n\x05\x04\0\x02\x01\x04\x12\x04\x0e\x04\r\x1a\n\x0c\n\x05\x04\0\
-    \x02\x01\x05\x12\x03\x0e\x04\n\n\x0c\n\x05\x04\0\x02\x01\x01\x12\x03\x0e\
-    \x0b\x0f\n\x0c\n\x05\x04\0\x02\x01\x03\x12\x03\x0e\x12\x13\n\x0b\n\x04\
-    \x04\0\x02\x02\x12\x03\x0f\x04\x1d\n\r\n\x05\x04\0\x02\x02\x04\x12\x04\
-    \x0f\x04\x0e\x14\n\x0c\n\x05\x04\0\x02\x02\x05\x12\x03\x0f\x04\n\n\x0c\n\
-    \x05\x04\0\x02\x02\x01\x12\x03\x0f\x0b\x18\n\x0c\n\x05\x04\0\x02\x02\x03\
-    \x12\x03\x0f\x1b\x1c\n\n\n\x02\x04\x01\x12\x04\x12\0\x14\x01\n\n\n\x03\
-    \x04\x01\x01\x12\x03\x12\x08\x13\n\x0b\n\x04\x04\x01\x02\0\x12\x03\x13\
-    \x04\x12\n\r\n\x05\x04\x01\x02\0\x04\x12\x04\x13\x04\x12\x15\n\x0c\n\x05\
-    \x04\x01\x02\0\x06\x12\x03\x13\x04\x08\n\x0c\n\x05\x04\x01\x02\0\x01\x12\
-    \x03\x13\t\r\n\x0c\n\x05\x04\x01\x02\0\x03\x12\x03\x13\x10\x11\n\n\n\x02\
-    \x04\x02\x12\x04\x16\0\x18\x01\n\n\n\x03\x04\x02\x01\x12\x03\x16\x08\x18\
-    \n\x0b\n\x04\x04\x02\x02\0\x12\x03\x17\x04\x1c\n\x0c\n\x05\x04\x02\x02\0\
-    \x04\x12\x03\x17\x04\x0c\n\x0c\n\x05\x04\x02\x02\0\x06\x12\x03\x17\r\x11\
-    \n\x0c\n\x05\x04\x02\x02\0\x01\x12\x03\x17\x12\x17\n\x0c\n\x05\x04\x02\
-    \x02\0\x03\x12\x03\x17\x1a\x1b\n\n\n\x02\x04\x03\x12\x04\x1a\0\x1b\x01\n\
-    \n\n\x03\x04\x03\x01\x12\x03\x1a\x08\x17\n\n\n\x02\x06\0\x12\x04\x1d\0!\
-    \x01\n\n\n\x03\x06\0\x01\x12\x03\x1d\x08\x13\n\x0b\n\x04\x06\0\x02\0\x12\
-    \x03\x1e\x04?\n\x0c\n\x05\x06\0\x02\0\x01\x12\x03\x1e\x08\x10\n\x0c\n\
-    \x05\x06\0\x02\0\x02\x12\x03\x1e\x11\x20\n\x0c\n\x05\x06\0\x02\0\x03\x12\
-    \x03\x1e+;\n\x0b\n\x04\x06\0\x02\x01\x12\x03\x1f\x040\n\x0c\n\x05\x06\0\
-    \x02\x01\x01\x12\x03\x1f\x08\x10\n\x0c\n\x05\x06\0\x02\x01\x02\x12\x03\
-    \x1f\x11\x1c\n\x0c\n\x05\x06\0\x02\x01\x03\x12\x03\x1f',b\x06proto3\
+    \n\x11coordinator.proto\x12\x06protos\x1a\x0ccommon.proto\"~\n\x04Node\
+    \x12\x0e\n\x02id\x18\x01\x20\x01(\tR\x02id\x12,\n\x08nodeType\x18\x02\
+    \x20\x01(\x0e2\x10.protos.NodeTypeR\x08nodeType\x12\x12\n\x04host\x18\
+    \x03\x20\x01(\tR\x04host\x12$\n\rconfiguration\x18\x04\x20\x01(\tR\rconf\
+    iguration\"/\n\x0bNodeRequest\x12\x20\n\x04node\x18\x01\x20\x01(\x0b2\
+    \x0c.protos.NodeR\x04node\"6\n\x10DiscoverResponse\x12\"\n\x05nodes\x18\
+    \x01\x20\x03(\x0b2\x0c.protos.NodeR\x05nodes\"\x11\n\x0fDiscoverRequest*\
+    4\n\x08NodeType\x12\x0b\n\x07INDEXER\x10\0\x12\n\n\x06PACKER\x10\x01\x12\
+    \x0f\n\x0bCOORDINATOR\x10\x022\x80\x01\n\x0bCoordinator\x12?\n\x08Discov\
+    er\x12\x17.protos.DiscoverRequest\x1a\x18.protos.DiscoverResponse\"\0\
+    \x120\n\x08Register\x12\x13.protos.NodeRequest\x1a\r.protos.Error\"\0J\
+    \xc3\x06\n\x06\x12\x04\0\0\"\x01\n\x08\n\x01\x0c\x12\x03\0\0\x12\n\x08\n\
+    \x01\x02\x12\x03\x02\x08\x0e\n\t\n\x02\x03\0\x12\x03\x04\x07\x15\n\n\n\
+    \x02\x05\0\x12\x04\x06\0\n\x01\n\n\n\x03\x05\0\x01\x12\x03\x06\x05\r\n\
+    \x0b\n\x04\x05\0\x02\0\x12\x03\x07\x04\x10\n\x0c\n\x05\x05\0\x02\0\x01\
+    \x12\x03\x07\x04\x0b\n\x0c\n\x05\x05\0\x02\0\x02\x12\x03\x07\x0e\x0f\n\
+    \x0b\n\x04\x05\0\x02\x01\x12\x03\x08\x04\x0f\n\x0c\n\x05\x05\0\x02\x01\
+    \x01\x12\x03\x08\x04\n\n\x0c\n\x05\x05\0\x02\x01\x02\x12\x03\x08\r\x0e\n\
+    \x0b\n\x04\x05\0\x02\x02\x12\x03\t\x04\x14\n\x0c\n\x05\x05\0\x02\x02\x01\
+    \x12\x03\t\x04\x0f\n\x0c\n\x05\x05\0\x02\x02\x02\x12\x03\t\x12\x13\n\n\n\
+    \x02\x04\0\x12\x04\x0c\0\x11\x01\n\n\n\x03\x04\0\x01\x12\x03\x0c\x08\x0c\
+    \n\x0b\n\x04\x04\0\x02\0\x12\x03\r\x04\x12\n\r\n\x05\x04\0\x02\0\x04\x12\
+    \x04\r\x04\x0c\x0e\n\x0c\n\x05\x04\0\x02\0\x05\x12\x03\r\x04\n\n\x0c\n\
+    \x05\x04\0\x02\0\x01\x12\x03\r\x0b\r\n\x0c\n\x05\x04\0\x02\0\x03\x12\x03\
+    \r\x10\x11\n\x0b\n\x04\x04\0\x02\x01\x12\x03\x0e\x04\x1a\n\r\n\x05\x04\0\
+    \x02\x01\x04\x12\x04\x0e\x04\r\x12\n\x0c\n\x05\x04\0\x02\x01\x06\x12\x03\
+    \x0e\x04\x0c\n\x0c\n\x05\x04\0\x02\x01\x01\x12\x03\x0e\r\x15\n\x0c\n\x05\
+    \x04\0\x02\x01\x03\x12\x03\x0e\x18\x19\n\x0b\n\x04\x04\0\x02\x02\x12\x03\
+    \x0f\x04\x14\n\r\n\x05\x04\0\x02\x02\x04\x12\x04\x0f\x04\x0e\x1a\n\x0c\n\
+    \x05\x04\0\x02\x02\x05\x12\x03\x0f\x04\n\n\x0c\n\x05\x04\0\x02\x02\x01\
+    \x12\x03\x0f\x0b\x0f\n\x0c\n\x05\x04\0\x02\x02\x03\x12\x03\x0f\x12\x13\n\
+    \x0b\n\x04\x04\0\x02\x03\x12\x03\x10\x04\x1d\n\r\n\x05\x04\0\x02\x03\x04\
+    \x12\x04\x10\x04\x0f\x14\n\x0c\n\x05\x04\0\x02\x03\x05\x12\x03\x10\x04\n\
+    \n\x0c\n\x05\x04\0\x02\x03\x01\x12\x03\x10\x0b\x18\n\x0c\n\x05\x04\0\x02\
+    \x03\x03\x12\x03\x10\x1b\x1c\n\n\n\x02\x04\x01\x12\x04\x13\0\x15\x01\n\n\
+    \n\x03\x04\x01\x01\x12\x03\x13\x08\x13\n\x0b\n\x04\x04\x01\x02\0\x12\x03\
+    \x14\x04\x12\n\r\n\x05\x04\x01\x02\0\x04\x12\x04\x14\x04\x13\x15\n\x0c\n\
+    \x05\x04\x01\x02\0\x06\x12\x03\x14\x04\x08\n\x0c\n\x05\x04\x01\x02\0\x01\
+    \x12\x03\x14\t\r\n\x0c\n\x05\x04\x01\x02\0\x03\x12\x03\x14\x10\x11\n\n\n\
+    \x02\x04\x02\x12\x04\x17\0\x19\x01\n\n\n\x03\x04\x02\x01\x12\x03\x17\x08\
+    \x18\n\x0b\n\x04\x04\x02\x02\0\x12\x03\x18\x04\x1c\n\x0c\n\x05\x04\x02\
+    \x02\0\x04\x12\x03\x18\x04\x0c\n\x0c\n\x05\x04\x02\x02\0\x06\x12\x03\x18\
+    \r\x11\n\x0c\n\x05\x04\x02\x02\0\x01\x12\x03\x18\x12\x17\n\x0c\n\x05\x04\
+    \x02\x02\0\x03\x12\x03\x18\x1a\x1b\n\n\n\x02\x04\x03\x12\x04\x1b\0\x1c\
+    \x01\n\n\n\x03\x04\x03\x01\x12\x03\x1b\x08\x17\n\n\n\x02\x06\0\x12\x04\
+    \x1e\0\"\x01\n\n\n\x03\x06\0\x01\x12\x03\x1e\x08\x13\n\x0b\n\x04\x06\0\
+    \x02\0\x12\x03\x1f\x04?\n\x0c\n\x05\x06\0\x02\0\x01\x12\x03\x1f\x08\x10\
+    \n\x0c\n\x05\x06\0\x02\0\x02\x12\x03\x1f\x11\x20\n\x0c\n\x05\x06\0\x02\0\
+    \x03\x12\x03\x1f+;\n\x0b\n\x04\x06\0\x02\x01\x12\x03\x20\x040\n\x0c\n\
+    \x05\x06\0\x02\x01\x01\x12\x03\x20\x08\x10\n\x0c\n\x05\x06\0\x02\x01\x02\
+    \x12\x03\x20\x11\x1c\n\x0c\n\x05\x06\0\x02\x01\x03\x12\x03\x20',b\x06pro\
+    to3\
 ";
 
 static mut file_descriptor_proto_lazy: ::protobuf::lazy::Lazy<::protobuf::descriptor::FileDescriptorProto> = ::protobuf::lazy::Lazy::INIT;

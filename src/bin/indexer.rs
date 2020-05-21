@@ -45,6 +45,7 @@ impl Indexer for IndexerService {
     }
 
     fn count(&mut self, _ctx: RpcContext, _req: CountRequest, _sink: UnarySink<CountResponse>) {
+        unimplemented!()
     }
 
     fn bind(&mut self, ctx: RpcContext, req: BindRequest, sink: UnarySink<Error>) {

@@ -3,11 +3,11 @@ use crate::protos::common::SegmentResolution;
 
 use chrono::{DateTime, NaiveDateTime, Utc};
 
-pub fn encode(row: &Row) -> String {
+pub fn encode_row(row: &Row) -> String {
     row.get_timestamp().to_string() + "#" + &row.get_data().to_string()
 }
 
-pub fn decode(row_string: &String) -> Row {
+pub fn decode_row(row_string: &String) -> Row {
     let parts: Vec<String> = row_string.split('#').map(|it| it.to_string()).collect();
     let mut row = Row::new();
     row.set_timestamp(parts[0].parse().unwrap());

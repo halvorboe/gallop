@@ -9,7 +9,7 @@ use grpcio::{RpcContext, UnarySink};
 
 use gallop::protos::common::Error;
 use gallop::core::grpc;
-use gallop::core::store::{InMemoryStore};
+use gallop::core::{codec::node::{decode_node, encode_node}, store::{InMemoryStore}};
 use gallop::protos::common::{Segment, SegmentId};
 use gallop::protos::packer::SegmentRequest;
 use gallop::protos::packer_grpc::PackerClient;
@@ -17,7 +17,7 @@ use std::sync::Arc;
 
 use grpcio::{ChannelBuilder, EnvBuilder};
 
-use gallop::protos::coordinator_grpc::{self, Coordinator};
+use gallop::protos::{coordinator::Node, coordinator_grpc::{self, Coordinator}};
 
 
 #[cfg(test)]
@@ -57,11 +57,30 @@ impl<S: Store> InnerCoordinatorService<S> {
         }
     }
 
+    fn discover(&mut self) -> Vec<Node> {
+        let mut result: Vec<Node> = Vec::new();
+        for (_, value) in self.storage.items() {
+            result.push(decode_node(value));
+        }
+        result
+    }
+
+    fn register(&mut self, node: Node) {
+        self.storage.set(node.get_id().to_string(), encode_node(&node))
+    }
+
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{InnerCoordinatorService, SegmentId};
+    use super::*;
+
+    #[test]
+    fn test_register() {
+        let mut service: InnerCoordinatorService<InMemoryStore> = InnerCoordinatorService::new();
+        service.register(Node::new());
+    }
+
 }
 
 fn main() {

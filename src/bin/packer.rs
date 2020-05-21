@@ -79,7 +79,7 @@ impl Packer for PackerService {
             segment
                 .unwrap()
                 .iter()
-                .map(|it| codec::row::decode(it))
+                .map(|it| codec::row::decode_row(it))
                 .collect(),
         ));
         resp.set_segment(segment_for_resp);
@@ -137,7 +137,7 @@ impl<D: Directory> InnerPackerService<D> {
         let encoded_segment_id = self.calculate_segment_id(&mut segment_id);
         // println!("Encoded segment: {}", encoded_segment_id);
         // Encode the row...
-        let encoded_row = codec::row::encode(&row);
+        let encoded_row = codec::row::encode_row(&row);
         // Append to the segment.
         self.directory.append(encoded_segment_id, encoded_row)
     }
@@ -202,7 +202,7 @@ mod tests {
 
         let content = service.segment(codec::segment::encode_id(segment_id));
 
-        assert_eq!(codec::row::encode(&row), content.unwrap()[0]);
+        assert_eq!(codec::row::encode_row(&row), content.unwrap()[0]);
     }
 
     #[allow(dead_code)]
