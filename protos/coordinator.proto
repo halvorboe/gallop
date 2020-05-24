@@ -28,7 +28,21 @@ message DiscoverResponse {
 message DiscoverRequest {
 }
 
+message InsertRequest {}
+message SelectResponse {}
+message SelectRequest {}
+message UpdateRequest {}
+message DeleteRequest {}
+
+
+
 service Coordinator {
+    // Database
+    rpc Select(SelectRequest) returns (SelectResponse) {}
+    rpc Insert(InsertRequest) returns (Error) {}
+    rpc Update(UpdateRequest) returns (Error) {}
+    rpc Delete(DeleteRequest) returns (Error) {}
+    // Cluster
     rpc Discover(DiscoverRequest) returns (DiscoverResponse) {}
     rpc Register(NodeRequest) returns (Error) {}
 

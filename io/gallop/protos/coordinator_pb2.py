@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='protos',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x11\x63oordinator.proto\x12\x06protos\x1a\x0c\x63ommon.proto\"[\n\x04Node\x12\n\n\x02id\x18\x01 \x01(\t\x12\"\n\x08nodeType\x18\x02 \x01(\x0e\x32\x10.protos.NodeType\x12\x0c\n\x04host\x18\x03 \x01(\t\x12\x15\n\rconfiguration\x18\x04 \x01(\t\")\n\x0bNodeRequest\x12\x1a\n\x04node\x18\x01 \x01(\x0b\x32\x0c.protos.Node\"/\n\x10\x44iscoverResponse\x12\x1b\n\x05nodes\x18\x01 \x03(\x0b\x32\x0c.protos.Node\"\x11\n\x0f\x44iscoverRequest*4\n\x08NodeType\x12\x0b\n\x07INDEXER\x10\x00\x12\n\n\x06PACKER\x10\x01\x12\x0f\n\x0b\x43OORDINATOR\x10\x02\x32\x80\x01\n\x0b\x43oordinator\x12?\n\x08\x44iscover\x12\x17.protos.DiscoverRequest\x1a\x18.protos.DiscoverResponse\"\x00\x12\x30\n\x08Register\x12\x13.protos.NodeRequest\x1a\r.protos.Error\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x11\x63oordinator.proto\x12\x06protos\x1a\x0c\x63ommon.proto\"[\n\x04Node\x12\n\n\x02id\x18\x01 \x01(\t\x12\"\n\x08nodeType\x18\x02 \x01(\x0e\x32\x10.protos.NodeType\x12\x0c\n\x04host\x18\x03 \x01(\t\x12\x15\n\rconfiguration\x18\x04 \x01(\t\")\n\x0bNodeRequest\x12\x1a\n\x04node\x18\x01 \x01(\x0b\x32\x0c.protos.Node\"/\n\x10\x44iscoverResponse\x12\x1b\n\x05nodes\x18\x01 \x03(\x0b\x32\x0c.protos.Node\"\x11\n\x0f\x44iscoverRequest\"\x0f\n\rInsertRequest\"\x10\n\x0eSelectResponse\"\x0f\n\rSelectRequest\"\x0f\n\rUpdateRequest\"\x0f\n\rDeleteRequest*4\n\x08NodeType\x12\x0b\n\x07INDEXER\x10\x00\x12\n\n\x06PACKER\x10\x01\x12\x0f\n\x0b\x43OORDINATOR\x10\x02\x32\xd1\x02\n\x0b\x43oordinator\x12\x39\n\x06Select\x12\x15.protos.SelectRequest\x1a\x16.protos.SelectResponse\"\x00\x12\x30\n\x06Insert\x12\x15.protos.InsertRequest\x1a\r.protos.Error\"\x00\x12\x30\n\x06Update\x12\x15.protos.UpdateRequest\x1a\r.protos.Error\"\x00\x12\x30\n\x06\x44\x65lete\x12\x15.protos.DeleteRequest\x1a\r.protos.Error\"\x00\x12?\n\x08\x44iscover\x12\x17.protos.DiscoverRequest\x1a\x18.protos.DiscoverResponse\"\x00\x12\x30\n\x08Register\x12\x13.protos.NodeRequest\x1a\r.protos.Error\"\x00\x62\x06proto3'
   ,
   dependencies=[common__pb2.DESCRIPTOR,])
 
@@ -45,8 +45,8 @@ _NODETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=247,
-  serialized_end=299,
+  serialized_start=333,
+  serialized_end=385,
 )
 _sym_db.RegisterEnumDescriptor(_NODETYPE)
 
@@ -194,6 +194,126 @@ _DISCOVERREQUEST = _descriptor.Descriptor(
   serialized_end=245,
 )
 
+
+_INSERTREQUEST = _descriptor.Descriptor(
+  name='InsertRequest',
+  full_name='protos.InsertRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=247,
+  serialized_end=262,
+)
+
+
+_SELECTRESPONSE = _descriptor.Descriptor(
+  name='SelectResponse',
+  full_name='protos.SelectResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=264,
+  serialized_end=280,
+)
+
+
+_SELECTREQUEST = _descriptor.Descriptor(
+  name='SelectRequest',
+  full_name='protos.SelectRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=282,
+  serialized_end=297,
+)
+
+
+_UPDATEREQUEST = _descriptor.Descriptor(
+  name='UpdateRequest',
+  full_name='protos.UpdateRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=299,
+  serialized_end=314,
+)
+
+
+_DELETEREQUEST = _descriptor.Descriptor(
+  name='DeleteRequest',
+  full_name='protos.DeleteRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=316,
+  serialized_end=331,
+)
+
 _NODE.fields_by_name['nodeType'].enum_type = _NODETYPE
 _NODEREQUEST.fields_by_name['node'].message_type = _NODE
 _DISCOVERRESPONSE.fields_by_name['nodes'].message_type = _NODE
@@ -201,6 +321,11 @@ DESCRIPTOR.message_types_by_name['Node'] = _NODE
 DESCRIPTOR.message_types_by_name['NodeRequest'] = _NODEREQUEST
 DESCRIPTOR.message_types_by_name['DiscoverResponse'] = _DISCOVERRESPONSE
 DESCRIPTOR.message_types_by_name['DiscoverRequest'] = _DISCOVERREQUEST
+DESCRIPTOR.message_types_by_name['InsertRequest'] = _INSERTREQUEST
+DESCRIPTOR.message_types_by_name['SelectResponse'] = _SELECTRESPONSE
+DESCRIPTOR.message_types_by_name['SelectRequest'] = _SELECTREQUEST
+DESCRIPTOR.message_types_by_name['UpdateRequest'] = _UPDATEREQUEST
+DESCRIPTOR.message_types_by_name['DeleteRequest'] = _DELETEREQUEST
 DESCRIPTOR.enum_types_by_name['NodeType'] = _NODETYPE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -232,6 +357,41 @@ DiscoverRequest = _reflection.GeneratedProtocolMessageType('DiscoverRequest', (_
   })
 _sym_db.RegisterMessage(DiscoverRequest)
 
+InsertRequest = _reflection.GeneratedProtocolMessageType('InsertRequest', (_message.Message,), {
+  'DESCRIPTOR' : _INSERTREQUEST,
+  '__module__' : 'coordinator_pb2'
+  # @@protoc_insertion_point(class_scope:protos.InsertRequest)
+  })
+_sym_db.RegisterMessage(InsertRequest)
+
+SelectResponse = _reflection.GeneratedProtocolMessageType('SelectResponse', (_message.Message,), {
+  'DESCRIPTOR' : _SELECTRESPONSE,
+  '__module__' : 'coordinator_pb2'
+  # @@protoc_insertion_point(class_scope:protos.SelectResponse)
+  })
+_sym_db.RegisterMessage(SelectResponse)
+
+SelectRequest = _reflection.GeneratedProtocolMessageType('SelectRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SELECTREQUEST,
+  '__module__' : 'coordinator_pb2'
+  # @@protoc_insertion_point(class_scope:protos.SelectRequest)
+  })
+_sym_db.RegisterMessage(SelectRequest)
+
+UpdateRequest = _reflection.GeneratedProtocolMessageType('UpdateRequest', (_message.Message,), {
+  'DESCRIPTOR' : _UPDATEREQUEST,
+  '__module__' : 'coordinator_pb2'
+  # @@protoc_insertion_point(class_scope:protos.UpdateRequest)
+  })
+_sym_db.RegisterMessage(UpdateRequest)
+
+DeleteRequest = _reflection.GeneratedProtocolMessageType('DeleteRequest', (_message.Message,), {
+  'DESCRIPTOR' : _DELETEREQUEST,
+  '__module__' : 'coordinator_pb2'
+  # @@protoc_insertion_point(class_scope:protos.DeleteRequest)
+  })
+_sym_db.RegisterMessage(DeleteRequest)
+
 
 
 _COORDINATOR = _descriptor.ServiceDescriptor(
@@ -240,13 +400,49 @@ _COORDINATOR = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=302,
-  serialized_end=430,
+  serialized_start=388,
+  serialized_end=725,
   methods=[
+  _descriptor.MethodDescriptor(
+    name='Select',
+    full_name='protos.Coordinator.Select',
+    index=0,
+    containing_service=None,
+    input_type=_SELECTREQUEST,
+    output_type=_SELECTRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Insert',
+    full_name='protos.Coordinator.Insert',
+    index=1,
+    containing_service=None,
+    input_type=_INSERTREQUEST,
+    output_type=common__pb2._ERROR,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Update',
+    full_name='protos.Coordinator.Update',
+    index=2,
+    containing_service=None,
+    input_type=_UPDATEREQUEST,
+    output_type=common__pb2._ERROR,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Delete',
+    full_name='protos.Coordinator.Delete',
+    index=3,
+    containing_service=None,
+    input_type=_DELETEREQUEST,
+    output_type=common__pb2._ERROR,
+    serialized_options=None,
+  ),
   _descriptor.MethodDescriptor(
     name='Discover',
     full_name='protos.Coordinator.Discover',
-    index=0,
+    index=4,
     containing_service=None,
     input_type=_DISCOVERREQUEST,
     output_type=_DISCOVERRESPONSE,
@@ -255,7 +451,7 @@ _COORDINATOR = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='Register',
     full_name='protos.Coordinator.Register',
-    index=1,
+    index=5,
     containing_service=None,
     input_type=_NODEREQUEST,
     output_type=common__pb2._ERROR,

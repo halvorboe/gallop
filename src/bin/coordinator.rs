@@ -94,5 +94,5 @@ mod tests {
 
 fn main() {
     let service = CoordinatorService::new();
-    grpc::serve::default(coordinator_grpc::create_coordinator(service), 8083);
+    grpc::serve::default(coordinator_grpc::create_coordinator(service), 7070);
 }

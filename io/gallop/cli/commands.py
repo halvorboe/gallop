@@ -1,5 +1,3 @@
-
-
 import json
 import random
 from datetime import datetime, timedelta
@@ -39,7 +37,6 @@ def chaos():
         indexer_stub.Bind(req)
 
 
-
 def random_timestamp():
     return int(
         (
@@ -58,8 +55,6 @@ def random_data():
             "country": random.choice(constants.COUNTRY),
         }
     )
-
-
 
 
 def run():

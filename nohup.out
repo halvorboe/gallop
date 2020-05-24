@@ -1,0 +1,551 @@
+error: no bin target named `packepacker`
+warning: unused imports: `*`, `SegmentId`, `Segment`
+  --> src/clients/packer.rs:40:17
+   |
+40 |     use super::{Segment, SegmentId, *};
+   |                 ^^^^^^^  ^^^^^^^^^  ^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: unused imports: `decode_node`, `encode_node`
+  --> src/core/codec/node.rs:46:17
+   |
+46 |     use super::{encode_node, decode_node};
+   |                 ^^^^^^^^^^^  ^^^^^^^^^^^
+
+warning: unused import: `crate::protos::coordinator::Node`
+  --> src/core/codec/node.rs:47:9
+   |
+47 |     use crate::protos::coordinator::Node;
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt::Debug`
+ --> src/core/grpc/mod.rs:1:5
+  |
+1 | use std::fmt::Debug;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `grpcio::UnarySink`
+ --> src/core/grpc/mod.rs:2:5
+  |
+2 | use grpcio::UnarySink;
+  |     ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `grpcio::RpcContext`
+ --> src/core/grpc/mod.rs:3:5
+  |
+3 | use grpcio::RpcContext;
+  |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::protos::indexer::BindRequest`
+ --> src/core/grpc/mod.rs:4:5
+  |
+4 | use crate::protos::indexer::BindRequest;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::io::Read`
+ --> src/core/grpc/mod.rs:5:5
+  |
+5 | use std::io::Read;
+  |     ^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+ --> src/core/grpc/mod.rs:6:5
+  |
+6 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused imports: `io`, `thread`
+ --> src/core/grpc/mod.rs:7:11
+  |
+7 | use std::{io, thread};
+  |           ^^  ^^^^^^
+
+warning: unused import: `futures::sync::oneshot`
+ --> src/core/grpc/mod.rs:9:5
+  |
+9 | use futures::sync::oneshot;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `futures::Future`
+  --> src/core/grpc/mod.rs:10:5
+   |
+10 | use futures::Future;
+   |     ^^^^^^^^^^^^^^^
+
+warning: unused imports: `Environment`, `ServerBuilder`
+  --> src/core/grpc/mod.rs:11:14
+   |
+11 | use grpcio::{Environment, ServerBuilder};
+   |              ^^^^^^^^^^^  ^^^^^^^^^^^^^
+
+warning: unused import: `grpcio::Service`
+  --> src/core/grpc/mod.rs:13:5
+   |
+13 | use grpcio::Service;
+   |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::protos::common::Error`
+  --> src/core/grpc/mod.rs:14:5
+   |
+14 | use crate::protos::common::Error;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::protos::indexer::BindRequest`
+ --> src/core/grpc/errors.rs:4:5
+  |
+4 | use crate::protos::indexer::BindRequest;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::io::Read`
+ --> src/core/grpc/errors.rs:5:5
+  |
+5 | use std::io::Read;
+  |     ^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+ --> src/core/grpc/errors.rs:6:5
+  |
+6 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused imports: `io`, `thread`
+ --> src/core/grpc/errors.rs:7:11
+  |
+7 | use std::{io, thread};
+  |           ^^  ^^^^^^
+
+warning: unused import: `futures::sync::oneshot`
+ --> src/core/grpc/errors.rs:9:5
+  |
+9 | use futures::sync::oneshot;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `Environment`, `ServerBuilder`
+  --> src/core/grpc/errors.rs:11:14
+   |
+11 | use grpcio::{Environment, ServerBuilder};
+   |              ^^^^^^^^^^^  ^^^^^^^^^^^^^
+
+warning: unused import: `grpcio::Service`
+  --> src/core/grpc/errors.rs:13:5
+   |
+13 | use grpcio::Service;
+   |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt::Debug`
+ --> src/core/grpc/serve.rs:1:5
+  |
+1 | use std::fmt::Debug;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `grpcio::UnarySink`
+ --> src/core/grpc/serve.rs:2:5
+  |
+2 | use grpcio::UnarySink;
+  |     ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `grpcio::RpcContext`
+ --> src/core/grpc/serve.rs:3:5
+  |
+3 | use grpcio::RpcContext;
+  |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::protos::indexer::BindRequest`
+ --> src/core/grpc/serve.rs:4:5
+  |
+4 | use crate::protos::indexer::BindRequest;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::protos::common::Error`
+  --> src/core/grpc/serve.rs:14:5
+   |
+14 | use crate::protos::common::Error;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `ReloadPolicy`, `doc`
+ --> src/core/index/mod.rs:6:15
+  |
+6 | use tantivy::{doc, Index, ReloadPolicy};
+  |               ^^^         ^^^^^^^^^^^^
+
+warning: unused import: `tempfile::TempDir`
+ --> src/core/index/mod.rs:7:5
+  |
+7 | use tempfile::TempDir;
+  |     ^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `InMemoryStore`, `Store`
+  --> src/core/store.rs:41:17
+   |
+41 |     use super::{Store, InMemoryStore};
+   |                 ^^^^^  ^^^^^^^^^^^^^
+
+warning: unused variable: `addr`
+  --> src/clients/packer.rs:21:18
+   |
+21 |     fn from_addr(addr: String) -> Self {
+   |                  ^^^^ help: if this is intentional, prefix it with an underscore: `_addr`
+   |
+   = note: `#[warn(unused_variables)]` on by default
+
+warning: unused `std::result::Result` that must be used
+  --> src/core/index/mod.rs:26:9
+   |
+26 |         fs::create_dir_all(&raw_index_path);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_must_use)]` on by default
+   = note: this `Result` may be an `Err` variant, which should be handled
+
+warning: 32 warnings emitted
+
+warning: unused `#[macro_use]` import
+ --> src/bin/coordinator.rs:1:1
+  |
+1 | #[macro_use]
+  | ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `futures::Future`
+ --> src/bin/coordinator.rs:5:5
+  |
+5 | use futures::Future;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused imports: `LocalPackerClient`, `PackerClientWrapper`
+ --> src/bin/coordinator.rs:6:31
+  |
+6 | use gallop::clients::packer::{LocalPackerClient, PackerClientWrapper};
+  |                               ^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `gallop::core::index::TantivyIndex`
+ --> src/bin/coordinator.rs:7:5
+  |
+7 | use gallop::core::index::TantivyIndex;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `SegmentId`, `Segment`
+  --> src/bin/coordinator.rs:13:30
+   |
+13 | use gallop::protos::common::{Segment, SegmentId};
+   |                              ^^^^^^^  ^^^^^^^^^
+
+warning: unused import: `gallop::protos::packer::SegmentRequest`
+  --> src/bin/coordinator.rs:14:5
+   |
+14 | use gallop::protos::packer::SegmentRequest;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `gallop::protos::packer_grpc::PackerClient`
+  --> src/bin/coordinator.rs:15:5
+   |
+15 | use gallop::protos::packer_grpc::PackerClient;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+  --> src/bin/coordinator.rs:16:5
+   |
+16 | use std::sync::Arc;
+   |     ^^^^^^^^^^^^^^
+
+warning: unused imports: `ChannelBuilder`, `EnvBuilder`
+  --> src/bin/coordinator.rs:18:14
+   |
+18 | use grpcio::{ChannelBuilder, EnvBuilder};
+   |              ^^^^^^^^^^^^^^  ^^^^^^^^^^
+
+warning: unused variable: `ctx`
+  --> src/bin/coordinator.rs:40:28
+   |
+40 |     fn discover(&mut self, ctx: RpcContext, req: gallop::protos::coordinator::DiscoverRequest, sink: UnarySink<gallop::protos::coordinator::DiscoverResponse>) {
+   |                            ^^^ help: if this is intentional, prefix it with an underscore: `_ctx`
+   |
+   = note: `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `req`
+  --> src/bin/coordinator.rs:40:45
+   |
+40 |     fn discover(&mut self, ctx: RpcContext, req: gallop::protos::coordinator::DiscoverRequest, sink: UnarySink<gallop::protos::coordinator::DiscoverResponse>) {
+   |                                             ^^^ help: if this is intentional, prefix it with an underscore: `_req`
+
+warning: unused variable: `sink`
+  --> src/bin/coordinator.rs:40:96
+   |
+40 |     fn discover(&mut self, ctx: RpcContext, req: gallop::protos::coordinator::DiscoverRequest, sink: UnarySink<gallop::protos::coordinator::DiscoverResponse>) {
+   |                                                                                                ^^^^ help: if this is intentional, prefix it with an underscore: `_sink`
+
+warning: unused variable: `ctx`
+  --> src/bin/coordinator.rs:43:28
+   |
+43 |     fn register(&mut self, ctx: RpcContext, req: gallop::protos::coordinator::NodeRequest, sink: UnarySink<Error>) {
+   |                            ^^^ help: if this is intentional, prefix it with an underscore: `_ctx`
+
+warning: unused variable: `req`
+  --> src/bin/coordinator.rs:43:45
+   |
+43 |     fn register(&mut self, ctx: RpcContext, req: gallop::protos::coordinator::NodeRequest, sink: UnarySink<Error>) {
+   |                                             ^^^ help: if this is intentional, prefix it with an underscore: `_req`
+
+warning: unused variable: `sink`
+  --> src/bin/coordinator.rs:43:92
+   |
+43 |     fn register(&mut self, ctx: RpcContext, req: gallop::protos::coordinator::NodeRequest, sink: UnarySink<Error>) {
+   |                                                                                            ^^^^ help: if this is intentional, prefix it with an underscore: `_sink`
+
+warning: associated function is never used: `discover`
+  --> src/bin/coordinator.rs:60:8
+   |
+60 |     fn discover(&mut self) -> Vec<Node> {
+   |        ^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+warning: associated function is never used: `register`
+  --> src/bin/coordinator.rs:68:8
+   |
+68 |     fn register(&mut self, node: &Node) {
+   |        ^^^^^^^^
+
+warning: 17 warnings emitted
+
+[2020-05-24T05:35:14Z INFO  gallop::core::grpc::serve] Listening on localhost:7070
+[2020-05-24T05:35:14Z INFO  gallop::core::grpc::serve] Press ENTER to exit...
+warning: unused imports: `*`, `SegmentId`, `Segment`
+  --> src/clients/packer.rs:40:17
+   |
+40 |     use super::{Segment, SegmentId, *};
+   |                 ^^^^^^^  ^^^^^^^^^  ^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: unused imports: `decode_node`, `encode_node`
+  --> src/core/codec/node.rs:46:17
+   |
+46 |     use super::{encode_node, decode_node};
+   |                 ^^^^^^^^^^^  ^^^^^^^^^^^
+
+warning: unused import: `crate::protos::coordinator::Node`
+  --> src/core/codec/node.rs:47:9
+   |
+47 |     use crate::protos::coordinator::Node;
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt::Debug`
+ --> src/core/grpc/mod.rs:1:5
+  |
+1 | use std::fmt::Debug;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `grpcio::UnarySink`
+ --> src/core/grpc/mod.rs:2:5
+  |
+2 | use grpcio::UnarySink;
+  |     ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `grpcio::RpcContext`
+ --> src/core/grpc/mod.rs:3:5
+  |
+3 | use grpcio::RpcContext;
+  |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::protos::indexer::BindRequest`
+ --> src/core/grpc/mod.rs:4:5
+  |
+4 | use crate::protos::indexer::BindRequest;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::io::Read`
+ --> src/core/grpc/mod.rs:5:5
+  |
+5 | use std::io::Read;
+  |     ^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+ --> src/core/grpc/mod.rs:6:5
+  |
+6 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused imports: `io`, `thread`
+ --> src/core/grpc/mod.rs:7:11
+  |
+7 | use std::{io, thread};
+  |           ^^  ^^^^^^
+
+warning: unused import: `futures::sync::oneshot`
+ --> src/core/grpc/mod.rs:9:5
+  |
+9 | use futures::sync::oneshot;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `futures::Future`
+  --> src/core/grpc/mod.rs:10:5
+   |
+10 | use futures::Future;
+   |     ^^^^^^^^^^^^^^^
+
+warning: unused imports: `Environment`, `ServerBuilder`
+  --> src/core/grpc/mod.rs:11:14
+   |
+11 | use grpcio::{Environment, ServerBuilder};
+   |              ^^^^^^^^^^^  ^^^^^^^^^^^^^
+
+warning: unused import: `grpcio::Service`
+  --> src/core/grpc/mod.rs:13:5
+   |
+13 | use grpcio::Service;
+   |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::protos::common::Error`
+  --> src/core/grpc/mod.rs:14:5
+   |
+14 | use crate::protos::common::Error;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::protos::indexer::BindRequest`
+ --> src/core/grpc/errors.rs:4:5
+  |
+4 | use crate::protos::indexer::BindRequest;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::io::Read`
+ --> src/core/grpc/errors.rs:5:5
+  |
+5 | use std::io::Read;
+  |     ^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+ --> src/core/grpc/errors.rs:6:5
+  |
+6 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused imports: `io`, `thread`
+ --> src/core/grpc/errors.rs:7:11
+  |
+7 | use std::{io, thread};
+  |           ^^  ^^^^^^
+
+warning: unused import: `futures::sync::oneshot`
+ --> src/core/grpc/errors.rs:9:5
+  |
+9 | use futures::sync::oneshot;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `Environment`, `ServerBuilder`
+  --> src/core/grpc/errors.rs:11:14
+   |
+11 | use grpcio::{Environment, ServerBuilder};
+   |              ^^^^^^^^^^^  ^^^^^^^^^^^^^
+
+warning: unused import: `grpcio::Service`
+  --> src/core/grpc/errors.rs:13:5
+   |
+13 | use grpcio::Service;
+   |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fmt::Debug`
+ --> src/core/grpc/serve.rs:1:5
+  |
+1 | use std::fmt::Debug;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `grpcio::UnarySink`
+ --> src/core/grpc/serve.rs:2:5
+  |
+2 | use grpcio::UnarySink;
+  |     ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `grpcio::RpcContext`
+ --> src/core/grpc/serve.rs:3:5
+  |
+3 | use grpcio::RpcContext;
+  |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::protos::indexer::BindRequest`
+ --> src/core/grpc/serve.rs:4:5
+  |
+4 | use crate::protos::indexer::BindRequest;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::protos::common::Error`
+  --> src/core/grpc/serve.rs:14:5
+   |
+14 | use crate::protos::common::Error;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `ReloadPolicy`, `doc`
+ --> src/core/index/mod.rs:6:15
+  |
+6 | use tantivy::{doc, Index, ReloadPolicy};
+  |               ^^^         ^^^^^^^^^^^^
+
+warning: unused import: `tempfile::TempDir`
+ --> src/core/index/mod.rs:7:5
+  |
+7 | use tempfile::TempDir;
+  |     ^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `InMemoryStore`, `Store`
+  --> src/core/store.rs:41:17
+   |
+41 |     use super::{Store, InMemoryStore};
+   |                 ^^^^^  ^^^^^^^^^^^^^
+
+warning: unused variable: `addr`
+  --> src/clients/packer.rs:21:18
+   |
+21 |     fn from_addr(addr: String) -> Self {
+   |                  ^^^^ help: if this is intentional, prefix it with an underscore: `_addr`
+   |
+   = note: `#[warn(unused_variables)]` on by default
+
+warning: unused `std::result::Result` that must be used
+  --> src/core/index/mod.rs:26:9
+   |
+26 |         fs::create_dir_all(&raw_index_path);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_must_use)]` on by default
+   = note: this `Result` may be an `Err` variant, which should be handled
+
+warning: 32 warnings emitted
+
+warning: unused import: `futures::Future`
+ --> src/bin/indexer.rs:4:5
+  |
+4 | use futures::Future;
+  |     ^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `gallop::protos::packer::SegmentRequest`
+  --> src/bin/indexer.rs:12:5
+   |
+12 | use gallop::protos::packer::SegmentRequest;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `gallop::protos::packer_grpc::PackerClient`
+  --> src/bin/indexer.rs:13:5
+   |
+13 | use gallop::protos::packer_grpc::PackerClient;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+  --> src/bin/indexer.rs:14:5
+   |
+14 | use std::sync::Arc;
+   |     ^^^^^^^^^^^^^^
+
+warning: unused imports: `ChannelBuilder`, `EnvBuilder`
+  --> src/bin/indexer.rs:16:14
+   |
+16 | use grpcio::{ChannelBuilder, EnvBuilder};
+   |              ^^^^^^^^^^^^^^  ^^^^^^^^^^
+
+warning: 5 warnings emitted
+
+[2020-05-24T05:35:14Z INFO  gallop::core::grpc::serve] Listening on localhost:7071
+[2020-05-24T05:35:14Z INFO  gallop::core::grpc::serve] Press ENTER to exit...

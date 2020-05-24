@@ -14,6 +14,26 @@ class CoordinatorStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.Select = channel.unary_unary(
+                '/protos.Coordinator/Select',
+                request_serializer=coordinator__pb2.SelectRequest.SerializeToString,
+                response_deserializer=coordinator__pb2.SelectResponse.FromString,
+                )
+        self.Insert = channel.unary_unary(
+                '/protos.Coordinator/Insert',
+                request_serializer=coordinator__pb2.InsertRequest.SerializeToString,
+                response_deserializer=common__pb2.Error.FromString,
+                )
+        self.Update = channel.unary_unary(
+                '/protos.Coordinator/Update',
+                request_serializer=coordinator__pb2.UpdateRequest.SerializeToString,
+                response_deserializer=common__pb2.Error.FromString,
+                )
+        self.Delete = channel.unary_unary(
+                '/protos.Coordinator/Delete',
+                request_serializer=coordinator__pb2.DeleteRequest.SerializeToString,
+                response_deserializer=common__pb2.Error.FromString,
+                )
         self.Discover = channel.unary_unary(
                 '/protos.Coordinator/Discover',
                 request_serializer=coordinator__pb2.DiscoverRequest.SerializeToString,
@@ -29,8 +49,34 @@ class CoordinatorStub(object):
 class CoordinatorServicer(object):
     """Missing associated documentation comment in .proto file"""
 
-    def Discover(self, request, context):
+    def Select(self, request, context):
+        """Database
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Insert(self, request, context):
         """Missing associated documentation comment in .proto file"""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Update(self, request, context):
+        """Missing associated documentation comment in .proto file"""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Delete(self, request, context):
+        """Missing associated documentation comment in .proto file"""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Discover(self, request, context):
+        """Cluster
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -44,6 +90,26 @@ class CoordinatorServicer(object):
 
 def add_CoordinatorServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'Select': grpc.unary_unary_rpc_method_handler(
+                    servicer.Select,
+                    request_deserializer=coordinator__pb2.SelectRequest.FromString,
+                    response_serializer=coordinator__pb2.SelectResponse.SerializeToString,
+            ),
+            'Insert': grpc.unary_unary_rpc_method_handler(
+                    servicer.Insert,
+                    request_deserializer=coordinator__pb2.InsertRequest.FromString,
+                    response_serializer=common__pb2.Error.SerializeToString,
+            ),
+            'Update': grpc.unary_unary_rpc_method_handler(
+                    servicer.Update,
+                    request_deserializer=coordinator__pb2.UpdateRequest.FromString,
+                    response_serializer=common__pb2.Error.SerializeToString,
+            ),
+            'Delete': grpc.unary_unary_rpc_method_handler(
+                    servicer.Delete,
+                    request_deserializer=coordinator__pb2.DeleteRequest.FromString,
+                    response_serializer=common__pb2.Error.SerializeToString,
+            ),
             'Discover': grpc.unary_unary_rpc_method_handler(
                     servicer.Discover,
                     request_deserializer=coordinator__pb2.DiscoverRequest.FromString,
@@ -63,6 +129,70 @@ def add_CoordinatorServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class Coordinator(object):
     """Missing associated documentation comment in .proto file"""
+
+    @staticmethod
+    def Select(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/protos.Coordinator/Select',
+            coordinator__pb2.SelectRequest.SerializeToString,
+            coordinator__pb2.SelectResponse.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Insert(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/protos.Coordinator/Insert',
+            coordinator__pb2.InsertRequest.SerializeToString,
+            common__pb2.Error.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Update(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/protos.Coordinator/Update',
+            coordinator__pb2.UpdateRequest.SerializeToString,
+            common__pb2.Error.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Delete(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/protos.Coordinator/Delete',
+            coordinator__pb2.DeleteRequest.SerializeToString,
+            common__pb2.Error.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def Discover(request,

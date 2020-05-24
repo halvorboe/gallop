@@ -25,14 +25,14 @@ message ConfigureRequest {
   repeated Table tables = 1;
 }
 
-message InsertRequest {
+message PackerInsertRequest {
   string table = 1;
   Row row = 2;
 }
 
 
 service Packer {
-  rpc Insert(InsertRequest) returns (Error) {}
+  rpc Insert(PackerInsertRequest) returns (Error) {}
   rpc Segment(SegmentRequest) returns (SegmentResponse) {}
   rpc Segments(SegmentsRequest) returns (SegmentsResponse) {}
 }

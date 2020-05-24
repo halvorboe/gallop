@@ -18,7 +18,7 @@
 #![allow(unused_imports)]
 #![allow(unused_results)]
 
-const METHOD_PACKER_INSERT: ::grpcio::Method<super::packer::InsertRequest, super::common::Error> = ::grpcio::Method {
+const METHOD_PACKER_INSERT: ::grpcio::Method<super::packer::PackerInsertRequest, super::common::Error> = ::grpcio::Method {
     ty: ::grpcio::MethodType::Unary,
     name: "/protos.Packer/Insert",
     req_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
@@ -51,19 +51,19 @@ impl PackerClient {
         }
     }
 
-    pub fn insert_opt(&self, req: &super::packer::InsertRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<super::common::Error> {
+    pub fn insert_opt(&self, req: &super::packer::PackerInsertRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<super::common::Error> {
         self.client.unary_call(&METHOD_PACKER_INSERT, req, opt)
     }
 
-    pub fn insert(&self, req: &super::packer::InsertRequest) -> ::grpcio::Result<super::common::Error> {
+    pub fn insert(&self, req: &super::packer::PackerInsertRequest) -> ::grpcio::Result<super::common::Error> {
         self.insert_opt(req, ::grpcio::CallOption::default())
     }
 
-    pub fn insert_async_opt(&self, req: &super::packer::InsertRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::common::Error>> {
+    pub fn insert_async_opt(&self, req: &super::packer::PackerInsertRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::common::Error>> {
         self.client.unary_call_async(&METHOD_PACKER_INSERT, req, opt)
     }
 
-    pub fn insert_async(&self, req: &super::packer::InsertRequest) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::common::Error>> {
+    pub fn insert_async(&self, req: &super::packer::PackerInsertRequest) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::common::Error>> {
         self.insert_async_opt(req, ::grpcio::CallOption::default())
     }
 
@@ -104,7 +104,7 @@ impl PackerClient {
 }
 
 pub trait Packer {
-    fn insert(&mut self, ctx: ::grpcio::RpcContext, req: super::packer::InsertRequest, sink: ::grpcio::UnarySink<super::common::Error>);
+    fn insert(&mut self, ctx: ::grpcio::RpcContext, req: super::packer::PackerInsertRequest, sink: ::grpcio::UnarySink<super::common::Error>);
     fn segment(&mut self, ctx: ::grpcio::RpcContext, req: super::packer::SegmentRequest, sink: ::grpcio::UnarySink<super::packer::SegmentResponse>);
     fn segments(&mut self, ctx: ::grpcio::RpcContext, req: super::packer::SegmentsRequest, sink: ::grpcio::UnarySink<super::packer::SegmentsResponse>);
 }

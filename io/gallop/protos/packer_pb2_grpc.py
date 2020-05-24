@@ -16,7 +16,7 @@ class PackerStub(object):
         """
         self.Insert = channel.unary_unary(
                 '/protos.Packer/Insert',
-                request_serializer=packer__pb2.InsertRequest.SerializeToString,
+                request_serializer=packer__pb2.PackerInsertRequest.SerializeToString,
                 response_deserializer=common__pb2.Error.FromString,
                 )
         self.Segment = channel.unary_unary(
@@ -57,7 +57,7 @@ def add_PackerServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Insert': grpc.unary_unary_rpc_method_handler(
                     servicer.Insert,
-                    request_deserializer=packer__pb2.InsertRequest.FromString,
+                    request_deserializer=packer__pb2.PackerInsertRequest.FromString,
                     response_serializer=common__pb2.Error.SerializeToString,
             ),
             'Segment': grpc.unary_unary_rpc_method_handler(
@@ -91,7 +91,7 @@ class Packer(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/protos.Packer/Insert',
-            packer__pb2.InsertRequest.SerializeToString,
+            packer__pb2.PackerInsertRequest.SerializeToString,
             common__pb2.Error.FromString,
             options, channel_credentials,
             call_credentials, compression, wait_for_ready, timeout, metadata)

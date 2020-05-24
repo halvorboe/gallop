@@ -772,6 +772,606 @@ impl ::protobuf::reflect::ProtobufValue for DiscoverRequest {
     }
 }
 
+#[derive(PartialEq,Clone,Default)]
+pub struct InsertRequest {
+    // special fields
+    pub unknown_fields: ::protobuf::UnknownFields,
+    pub cached_size: ::protobuf::CachedSize,
+}
+
+impl<'a> ::std::default::Default for &'a InsertRequest {
+    fn default() -> &'a InsertRequest {
+        <InsertRequest as ::protobuf::Message>::default_instance()
+    }
+}
+
+impl InsertRequest {
+    pub fn new() -> InsertRequest {
+        ::std::default::Default::default()
+    }
+}
+
+impl ::protobuf::Message for InsertRequest {
+    fn is_initialized(&self) -> bool {
+        true
+    }
+
+    fn merge_from(&mut self, is: &mut ::protobuf::CodedInputStream<'_>) -> ::protobuf::ProtobufResult<()> {
+        while !is.eof()? {
+            let (field_number, wire_type) = is.read_tag_unpack()?;
+            match field_number {
+                _ => {
+                    ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
+                },
+            };
+        }
+        ::std::result::Result::Ok(())
+    }
+
+    // Compute sizes of nested messages
+    #[allow(unused_variables)]
+    fn compute_size(&self) -> u32 {
+        let mut my_size = 0;
+        my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
+        self.cached_size.set(my_size);
+        my_size
+    }
+
+    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream<'_>) -> ::protobuf::ProtobufResult<()> {
+        os.write_unknown_fields(self.get_unknown_fields())?;
+        ::std::result::Result::Ok(())
+    }
+
+    fn get_cached_size(&self) -> u32 {
+        self.cached_size.get()
+    }
+
+    fn get_unknown_fields(&self) -> &::protobuf::UnknownFields {
+        &self.unknown_fields
+    }
+
+    fn mut_unknown_fields(&mut self) -> &mut ::protobuf::UnknownFields {
+        &mut self.unknown_fields
+    }
+
+    fn as_any(&self) -> &dyn (::std::any::Any) {
+        self as &dyn (::std::any::Any)
+    }
+    fn as_any_mut(&mut self) -> &mut dyn (::std::any::Any) {
+        self as &mut dyn (::std::any::Any)
+    }
+    fn into_any(self: Box<Self>) -> ::std::boxed::Box<dyn (::std::any::Any)> {
+        self
+    }
+
+    fn descriptor(&self) -> &'static ::protobuf::reflect::MessageDescriptor {
+        Self::descriptor_static()
+    }
+
+    fn new() -> InsertRequest {
+        InsertRequest::new()
+    }
+
+    fn descriptor_static() -> &'static ::protobuf::reflect::MessageDescriptor {
+        static mut descriptor: ::protobuf::lazy::Lazy<::protobuf::reflect::MessageDescriptor> = ::protobuf::lazy::Lazy::INIT;
+        unsafe {
+            descriptor.get(|| {
+                let fields = ::std::vec::Vec::new();
+                ::protobuf::reflect::MessageDescriptor::new_pb_name::<InsertRequest>(
+                    "InsertRequest",
+                    fields,
+                    file_descriptor_proto()
+                )
+            })
+        }
+    }
+
+    fn default_instance() -> &'static InsertRequest {
+        static mut instance: ::protobuf::lazy::Lazy<InsertRequest> = ::protobuf::lazy::Lazy::INIT;
+        unsafe {
+            instance.get(InsertRequest::new)
+        }
+    }
+}
+
+impl ::protobuf::Clear for InsertRequest {
+    fn clear(&mut self) {
+        self.unknown_fields.clear();
+    }
+}
+
+impl ::std::fmt::Debug for InsertRequest {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        ::protobuf::text_format::fmt(self, f)
+    }
+}
+
+impl ::protobuf::reflect::ProtobufValue for InsertRequest {
+    fn as_ref(&self) -> ::protobuf::reflect::ReflectValueRef {
+        ::protobuf::reflect::ReflectValueRef::Message(self)
+    }
+}
+
+#[derive(PartialEq,Clone,Default)]
+pub struct SelectResponse {
+    // special fields
+    pub unknown_fields: ::protobuf::UnknownFields,
+    pub cached_size: ::protobuf::CachedSize,
+}
+
+impl<'a> ::std::default::Default for &'a SelectResponse {
+    fn default() -> &'a SelectResponse {
+        <SelectResponse as ::protobuf::Message>::default_instance()
+    }
+}
+
+impl SelectResponse {
+    pub fn new() -> SelectResponse {
+        ::std::default::Default::default()
+    }
+}
+
+impl ::protobuf::Message for SelectResponse {
+    fn is_initialized(&self) -> bool {
+        true
+    }
+
+    fn merge_from(&mut self, is: &mut ::protobuf::CodedInputStream<'_>) -> ::protobuf::ProtobufResult<()> {
+        while !is.eof()? {
+            let (field_number, wire_type) = is.read_tag_unpack()?;
+            match field_number {
+                _ => {
+                    ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
+                },
+            };
+        }
+        ::std::result::Result::Ok(())
+    }
+
+    // Compute sizes of nested messages
+    #[allow(unused_variables)]
+    fn compute_size(&self) -> u32 {
+        let mut my_size = 0;
+        my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
+        self.cached_size.set(my_size);
+        my_size
+    }
+
+    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream<'_>) -> ::protobuf::ProtobufResult<()> {
+        os.write_unknown_fields(self.get_unknown_fields())?;
+        ::std::result::Result::Ok(())
+    }
+
+    fn get_cached_size(&self) -> u32 {
+        self.cached_size.get()
+    }
+
+    fn get_unknown_fields(&self) -> &::protobuf::UnknownFields {
+        &self.unknown_fields
+    }
+
+    fn mut_unknown_fields(&mut self) -> &mut ::protobuf::UnknownFields {
+        &mut self.unknown_fields
+    }
+
+    fn as_any(&self) -> &dyn (::std::any::Any) {
+        self as &dyn (::std::any::Any)
+    }
+    fn as_any_mut(&mut self) -> &mut dyn (::std::any::Any) {
+        self as &mut dyn (::std::any::Any)
+    }
+    fn into_any(self: Box<Self>) -> ::std::boxed::Box<dyn (::std::any::Any)> {
+        self
+    }
+
+    fn descriptor(&self) -> &'static ::protobuf::reflect::MessageDescriptor {
+        Self::descriptor_static()
+    }
+
+    fn new() -> SelectResponse {
+        SelectResponse::new()
+    }
+
+    fn descriptor_static() -> &'static ::protobuf::reflect::MessageDescriptor {
+        static mut descriptor: ::protobuf::lazy::Lazy<::protobuf::reflect::MessageDescriptor> = ::protobuf::lazy::Lazy::INIT;
+        unsafe {
+            descriptor.get(|| {
+                let fields = ::std::vec::Vec::new();
+                ::protobuf::reflect::MessageDescriptor::new_pb_name::<SelectResponse>(
+                    "SelectResponse",
+                    fields,
+                    file_descriptor_proto()
+                )
+            })
+        }
+    }
+
+    fn default_instance() -> &'static SelectResponse {
+        static mut instance: ::protobuf::lazy::Lazy<SelectResponse> = ::protobuf::lazy::Lazy::INIT;
+        unsafe {
+            instance.get(SelectResponse::new)
+        }
+    }
+}
+
+impl ::protobuf::Clear for SelectResponse {
+    fn clear(&mut self) {
+        self.unknown_fields.clear();
+    }
+}
+
+impl ::std::fmt::Debug for SelectResponse {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        ::protobuf::text_format::fmt(self, f)
+    }
+}
+
+impl ::protobuf::reflect::ProtobufValue for SelectResponse {
+    fn as_ref(&self) -> ::protobuf::reflect::ReflectValueRef {
+        ::protobuf::reflect::ReflectValueRef::Message(self)
+    }
+}
+
+#[derive(PartialEq,Clone,Default)]
+pub struct SelectRequest {
+    // special fields
+    pub unknown_fields: ::protobuf::UnknownFields,
+    pub cached_size: ::protobuf::CachedSize,
+}
+
+impl<'a> ::std::default::Default for &'a SelectRequest {
+    fn default() -> &'a SelectRequest {
+        <SelectRequest as ::protobuf::Message>::default_instance()
+    }
+}
+
+impl SelectRequest {
+    pub fn new() -> SelectRequest {
+        ::std::default::Default::default()
+    }
+}
+
+impl ::protobuf::Message for SelectRequest {
+    fn is_initialized(&self) -> bool {
+        true
+    }
+
+    fn merge_from(&mut self, is: &mut ::protobuf::CodedInputStream<'_>) -> ::protobuf::ProtobufResult<()> {
+        while !is.eof()? {
+            let (field_number, wire_type) = is.read_tag_unpack()?;
+            match field_number {
+                _ => {
+                    ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
+                },
+            };
+        }
+        ::std::result::Result::Ok(())
+    }
+
+    // Compute sizes of nested messages
+    #[allow(unused_variables)]
+    fn compute_size(&self) -> u32 {
+        let mut my_size = 0;
+        my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
+        self.cached_size.set(my_size);
+        my_size
+    }
+
+    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream<'_>) -> ::protobuf::ProtobufResult<()> {
+        os.write_unknown_fields(self.get_unknown_fields())?;
+        ::std::result::Result::Ok(())
+    }
+
+    fn get_cached_size(&self) -> u32 {
+        self.cached_size.get()
+    }
+
+    fn get_unknown_fields(&self) -> &::protobuf::UnknownFields {
+        &self.unknown_fields
+    }
+
+    fn mut_unknown_fields(&mut self) -> &mut ::protobuf::UnknownFields {
+        &mut self.unknown_fields
+    }
+
+    fn as_any(&self) -> &dyn (::std::any::Any) {
+        self as &dyn (::std::any::Any)
+    }
+    fn as_any_mut(&mut self) -> &mut dyn (::std::any::Any) {
+        self as &mut dyn (::std::any::Any)
+    }
+    fn into_any(self: Box<Self>) -> ::std::boxed::Box<dyn (::std::any::Any)> {
+        self
+    }
+
+    fn descriptor(&self) -> &'static ::protobuf::reflect::MessageDescriptor {
+        Self::descriptor_static()
+    }
+
+    fn new() -> SelectRequest {
+        SelectRequest::new()
+    }
+
+    fn descriptor_static() -> &'static ::protobuf::reflect::MessageDescriptor {
+        static mut descriptor: ::protobuf::lazy::Lazy<::protobuf::reflect::MessageDescriptor> = ::protobuf::lazy::Lazy::INIT;
+        unsafe {
+            descriptor.get(|| {
+                let fields = ::std::vec::Vec::new();
+                ::protobuf::reflect::MessageDescriptor::new_pb_name::<SelectRequest>(
+                    "SelectRequest",
+                    fields,
+                    file_descriptor_proto()
+                )
+            })
+        }
+    }
+
+    fn default_instance() -> &'static SelectRequest {
+        static mut instance: ::protobuf::lazy::Lazy<SelectRequest> = ::protobuf::lazy::Lazy::INIT;
+        unsafe {
+            instance.get(SelectRequest::new)
+        }
+    }
+}
+
+impl ::protobuf::Clear for SelectRequest {
+    fn clear(&mut self) {
+        self.unknown_fields.clear();
+    }
+}
+
+impl ::std::fmt::Debug for SelectRequest {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        ::protobuf::text_format::fmt(self, f)
+    }
+}
+
+impl ::protobuf::reflect::ProtobufValue for SelectRequest {
+    fn as_ref(&self) -> ::protobuf::reflect::ReflectValueRef {
+        ::protobuf::reflect::ReflectValueRef::Message(self)
+    }
+}
+
+#[derive(PartialEq,Clone,Default)]
+pub struct UpdateRequest {
+    // special fields
+    pub unknown_fields: ::protobuf::UnknownFields,
+    pub cached_size: ::protobuf::CachedSize,
+}
+
+impl<'a> ::std::default::Default for &'a UpdateRequest {
+    fn default() -> &'a UpdateRequest {
+        <UpdateRequest as ::protobuf::Message>::default_instance()
+    }
+}
+
+impl UpdateRequest {
+    pub fn new() -> UpdateRequest {
+        ::std::default::Default::default()
+    }
+}
+
+impl ::protobuf::Message for UpdateRequest {
+    fn is_initialized(&self) -> bool {
+        true
+    }
+
+    fn merge_from(&mut self, is: &mut ::protobuf::CodedInputStream<'_>) -> ::protobuf::ProtobufResult<()> {
+        while !is.eof()? {
+            let (field_number, wire_type) = is.read_tag_unpack()?;
+            match field_number {
+                _ => {
+                    ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
+                },
+            };
+        }
+        ::std::result::Result::Ok(())
+    }
+
+    // Compute sizes of nested messages
+    #[allow(unused_variables)]
+    fn compute_size(&self) -> u32 {
+        let mut my_size = 0;
+        my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
+        self.cached_size.set(my_size);
+        my_size
+    }
+
+    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream<'_>) -> ::protobuf::ProtobufResult<()> {
+        os.write_unknown_fields(self.get_unknown_fields())?;
+        ::std::result::Result::Ok(())
+    }
+
+    fn get_cached_size(&self) -> u32 {
+        self.cached_size.get()
+    }
+
+    fn get_unknown_fields(&self) -> &::protobuf::UnknownFields {
+        &self.unknown_fields
+    }
+
+    fn mut_unknown_fields(&mut self) -> &mut ::protobuf::UnknownFields {
+        &mut self.unknown_fields
+    }
+
+    fn as_any(&self) -> &dyn (::std::any::Any) {
+        self as &dyn (::std::any::Any)
+    }
+    fn as_any_mut(&mut self) -> &mut dyn (::std::any::Any) {
+        self as &mut dyn (::std::any::Any)
+    }
+    fn into_any(self: Box<Self>) -> ::std::boxed::Box<dyn (::std::any::Any)> {
+        self
+    }
+
+    fn descriptor(&self) -> &'static ::protobuf::reflect::MessageDescriptor {
+        Self::descriptor_static()
+    }
+
+    fn new() -> UpdateRequest {
+        UpdateRequest::new()
+    }
+
+    fn descriptor_static() -> &'static ::protobuf::reflect::MessageDescriptor {
+        static mut descriptor: ::protobuf::lazy::Lazy<::protobuf::reflect::MessageDescriptor> = ::protobuf::lazy::Lazy::INIT;
+        unsafe {
+            descriptor.get(|| {
+                let fields = ::std::vec::Vec::new();
+                ::protobuf::reflect::MessageDescriptor::new_pb_name::<UpdateRequest>(
+                    "UpdateRequest",
+                    fields,
+                    file_descriptor_proto()
+                )
+            })
+        }
+    }
+
+    fn default_instance() -> &'static UpdateRequest {
+        static mut instance: ::protobuf::lazy::Lazy<UpdateRequest> = ::protobuf::lazy::Lazy::INIT;
+        unsafe {
+            instance.get(UpdateRequest::new)
+        }
+    }
+}
+
+impl ::protobuf::Clear for UpdateRequest {
+    fn clear(&mut self) {
+        self.unknown_fields.clear();
+    }
+}
+
+impl ::std::fmt::Debug for UpdateRequest {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        ::protobuf::text_format::fmt(self, f)
+    }
+}
+
+impl ::protobuf::reflect::ProtobufValue for UpdateRequest {
+    fn as_ref(&self) -> ::protobuf::reflect::ReflectValueRef {
+        ::protobuf::reflect::ReflectValueRef::Message(self)
+    }
+}
+
+#[derive(PartialEq,Clone,Default)]
+pub struct DeleteRequest {
+    // special fields
+    pub unknown_fields: ::protobuf::UnknownFields,
+    pub cached_size: ::protobuf::CachedSize,
+}
+
+impl<'a> ::std::default::Default for &'a DeleteRequest {
+    fn default() -> &'a DeleteRequest {
+        <DeleteRequest as ::protobuf::Message>::default_instance()
+    }
+}
+
+impl DeleteRequest {
+    pub fn new() -> DeleteRequest {
+        ::std::default::Default::default()
+    }
+}
+
+impl ::protobuf::Message for DeleteRequest {
+    fn is_initialized(&self) -> bool {
+        true
+    }
+
+    fn merge_from(&mut self, is: &mut ::protobuf::CodedInputStream<'_>) -> ::protobuf::ProtobufResult<()> {
+        while !is.eof()? {
+            let (field_number, wire_type) = is.read_tag_unpack()?;
+            match field_number {
+                _ => {
+                    ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
+                },
+            };
+        }
+        ::std::result::Result::Ok(())
+    }
+
+    // Compute sizes of nested messages
+    #[allow(unused_variables)]
+    fn compute_size(&self) -> u32 {
+        let mut my_size = 0;
+        my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
+        self.cached_size.set(my_size);
+        my_size
+    }
+
+    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream<'_>) -> ::protobuf::ProtobufResult<()> {
+        os.write_unknown_fields(self.get_unknown_fields())?;
+        ::std::result::Result::Ok(())
+    }
+
+    fn get_cached_size(&self) -> u32 {
+        self.cached_size.get()
+    }
+
+    fn get_unknown_fields(&self) -> &::protobuf::UnknownFields {
+        &self.unknown_fields
+    }
+
+    fn mut_unknown_fields(&mut self) -> &mut ::protobuf::UnknownFields {
+        &mut self.unknown_fields
+    }
+
+    fn as_any(&self) -> &dyn (::std::any::Any) {
+        self as &dyn (::std::any::Any)
+    }
+    fn as_any_mut(&mut self) -> &mut dyn (::std::any::Any) {
+        self as &mut dyn (::std::any::Any)
+    }
+    fn into_any(self: Box<Self>) -> ::std::boxed::Box<dyn (::std::any::Any)> {
+        self
+    }
+
+    fn descriptor(&self) -> &'static ::protobuf::reflect::MessageDescriptor {
+        Self::descriptor_static()
+    }
+
+    fn new() -> DeleteRequest {
+        DeleteRequest::new()
+    }
+
+    fn descriptor_static() -> &'static ::protobuf::reflect::MessageDescriptor {
+        static mut descriptor: ::protobuf::lazy::Lazy<::protobuf::reflect::MessageDescriptor> = ::protobuf::lazy::Lazy::INIT;
+        unsafe {
+            descriptor.get(|| {
+                let fields = ::std::vec::Vec::new();
+                ::protobuf::reflect::MessageDescriptor::new_pb_name::<DeleteRequest>(
+                    "DeleteRequest",
+                    fields,
+                    file_descriptor_proto()
+                )
+            })
+        }
+    }
+
+    fn default_instance() -> &'static DeleteRequest {
+        static mut instance: ::protobuf::lazy::Lazy<DeleteRequest> = ::protobuf::lazy::Lazy::INIT;
+        unsafe {
+            instance.get(DeleteRequest::new)
+        }
+    }
+}
+
+impl ::protobuf::Clear for DeleteRequest {
+    fn clear(&mut self) {
+        self.unknown_fields.clear();
+    }
+}
+
+impl ::std::fmt::Debug for DeleteRequest {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        ::protobuf::text_format::fmt(self, f)
+    }
+}
+
+impl ::protobuf::reflect::ProtobufValue for DeleteRequest {
+    fn as_ref(&self) -> ::protobuf::reflect::ReflectValueRef {
+        ::protobuf::reflect::ReflectValueRef::Message(self)
+    }
+}
+
 #[derive(Clone,PartialEq,Eq,Debug,Hash)]
 pub enum NodeType {
     INDEXER = 0,
@@ -834,52 +1434,73 @@ static file_descriptor_proto_data: &'static [u8] = b"\
     \x03\x20\x01(\tR\x04host\x12$\n\rconfiguration\x18\x04\x20\x01(\tR\rconf\
     iguration\"/\n\x0bNodeRequest\x12\x20\n\x04node\x18\x01\x20\x01(\x0b2\
     \x0c.protos.NodeR\x04node\"6\n\x10DiscoverResponse\x12\"\n\x05nodes\x18\
-    \x01\x20\x03(\x0b2\x0c.protos.NodeR\x05nodes\"\x11\n\x0fDiscoverRequest*\
-    4\n\x08NodeType\x12\x0b\n\x07INDEXER\x10\0\x12\n\n\x06PACKER\x10\x01\x12\
-    \x0f\n\x0bCOORDINATOR\x10\x022\x80\x01\n\x0bCoordinator\x12?\n\x08Discov\
-    er\x12\x17.protos.DiscoverRequest\x1a\x18.protos.DiscoverResponse\"\0\
-    \x120\n\x08Register\x12\x13.protos.NodeRequest\x1a\r.protos.Error\"\0J\
-    \xc3\x06\n\x06\x12\x04\0\0\"\x01\n\x08\n\x01\x0c\x12\x03\0\0\x12\n\x08\n\
-    \x01\x02\x12\x03\x02\x08\x0e\n\t\n\x02\x03\0\x12\x03\x04\x07\x15\n\n\n\
-    \x02\x05\0\x12\x04\x06\0\n\x01\n\n\n\x03\x05\0\x01\x12\x03\x06\x05\r\n\
-    \x0b\n\x04\x05\0\x02\0\x12\x03\x07\x04\x10\n\x0c\n\x05\x05\0\x02\0\x01\
-    \x12\x03\x07\x04\x0b\n\x0c\n\x05\x05\0\x02\0\x02\x12\x03\x07\x0e\x0f\n\
-    \x0b\n\x04\x05\0\x02\x01\x12\x03\x08\x04\x0f\n\x0c\n\x05\x05\0\x02\x01\
-    \x01\x12\x03\x08\x04\n\n\x0c\n\x05\x05\0\x02\x01\x02\x12\x03\x08\r\x0e\n\
-    \x0b\n\x04\x05\0\x02\x02\x12\x03\t\x04\x14\n\x0c\n\x05\x05\0\x02\x02\x01\
-    \x12\x03\t\x04\x0f\n\x0c\n\x05\x05\0\x02\x02\x02\x12\x03\t\x12\x13\n\n\n\
-    \x02\x04\0\x12\x04\x0c\0\x11\x01\n\n\n\x03\x04\0\x01\x12\x03\x0c\x08\x0c\
-    \n\x0b\n\x04\x04\0\x02\0\x12\x03\r\x04\x12\n\r\n\x05\x04\0\x02\0\x04\x12\
-    \x04\r\x04\x0c\x0e\n\x0c\n\x05\x04\0\x02\0\x05\x12\x03\r\x04\n\n\x0c\n\
-    \x05\x04\0\x02\0\x01\x12\x03\r\x0b\r\n\x0c\n\x05\x04\0\x02\0\x03\x12\x03\
-    \r\x10\x11\n\x0b\n\x04\x04\0\x02\x01\x12\x03\x0e\x04\x1a\n\r\n\x05\x04\0\
-    \x02\x01\x04\x12\x04\x0e\x04\r\x12\n\x0c\n\x05\x04\0\x02\x01\x06\x12\x03\
-    \x0e\x04\x0c\n\x0c\n\x05\x04\0\x02\x01\x01\x12\x03\x0e\r\x15\n\x0c\n\x05\
-    \x04\0\x02\x01\x03\x12\x03\x0e\x18\x19\n\x0b\n\x04\x04\0\x02\x02\x12\x03\
-    \x0f\x04\x14\n\r\n\x05\x04\0\x02\x02\x04\x12\x04\x0f\x04\x0e\x1a\n\x0c\n\
-    \x05\x04\0\x02\x02\x05\x12\x03\x0f\x04\n\n\x0c\n\x05\x04\0\x02\x02\x01\
-    \x12\x03\x0f\x0b\x0f\n\x0c\n\x05\x04\0\x02\x02\x03\x12\x03\x0f\x12\x13\n\
-    \x0b\n\x04\x04\0\x02\x03\x12\x03\x10\x04\x1d\n\r\n\x05\x04\0\x02\x03\x04\
-    \x12\x04\x10\x04\x0f\x14\n\x0c\n\x05\x04\0\x02\x03\x05\x12\x03\x10\x04\n\
-    \n\x0c\n\x05\x04\0\x02\x03\x01\x12\x03\x10\x0b\x18\n\x0c\n\x05\x04\0\x02\
-    \x03\x03\x12\x03\x10\x1b\x1c\n\n\n\x02\x04\x01\x12\x04\x13\0\x15\x01\n\n\
-    \n\x03\x04\x01\x01\x12\x03\x13\x08\x13\n\x0b\n\x04\x04\x01\x02\0\x12\x03\
-    \x14\x04\x12\n\r\n\x05\x04\x01\x02\0\x04\x12\x04\x14\x04\x13\x15\n\x0c\n\
-    \x05\x04\x01\x02\0\x06\x12\x03\x14\x04\x08\n\x0c\n\x05\x04\x01\x02\0\x01\
-    \x12\x03\x14\t\r\n\x0c\n\x05\x04\x01\x02\0\x03\x12\x03\x14\x10\x11\n\n\n\
-    \x02\x04\x02\x12\x04\x17\0\x19\x01\n\n\n\x03\x04\x02\x01\x12\x03\x17\x08\
-    \x18\n\x0b\n\x04\x04\x02\x02\0\x12\x03\x18\x04\x1c\n\x0c\n\x05\x04\x02\
-    \x02\0\x04\x12\x03\x18\x04\x0c\n\x0c\n\x05\x04\x02\x02\0\x06\x12\x03\x18\
-    \r\x11\n\x0c\n\x05\x04\x02\x02\0\x01\x12\x03\x18\x12\x17\n\x0c\n\x05\x04\
-    \x02\x02\0\x03\x12\x03\x18\x1a\x1b\n\n\n\x02\x04\x03\x12\x04\x1b\0\x1c\
-    \x01\n\n\n\x03\x04\x03\x01\x12\x03\x1b\x08\x17\n\n\n\x02\x06\0\x12\x04\
-    \x1e\0\"\x01\n\n\n\x03\x06\0\x01\x12\x03\x1e\x08\x13\n\x0b\n\x04\x06\0\
-    \x02\0\x12\x03\x1f\x04?\n\x0c\n\x05\x06\0\x02\0\x01\x12\x03\x1f\x08\x10\
-    \n\x0c\n\x05\x06\0\x02\0\x02\x12\x03\x1f\x11\x20\n\x0c\n\x05\x06\0\x02\0\
-    \x03\x12\x03\x1f+;\n\x0b\n\x04\x06\0\x02\x01\x12\x03\x20\x040\n\x0c\n\
-    \x05\x06\0\x02\x01\x01\x12\x03\x20\x08\x10\n\x0c\n\x05\x06\0\x02\x01\x02\
-    \x12\x03\x20\x11\x1c\n\x0c\n\x05\x06\0\x02\x01\x03\x12\x03\x20',b\x06pro\
-    to3\
+    \x01\x20\x03(\x0b2\x0c.protos.NodeR\x05nodes\"\x11\n\x0fDiscoverRequest\
+    \"\x0f\n\rInsertRequest\"\x10\n\x0eSelectResponse\"\x0f\n\rSelectRequest\
+    \"\x0f\n\rUpdateRequest\"\x0f\n\rDeleteRequest*4\n\x08NodeType\x12\x0b\n\
+    \x07INDEXER\x10\0\x12\n\n\x06PACKER\x10\x01\x12\x0f\n\x0bCOORDINATOR\x10\
+    \x022\xd1\x02\n\x0bCoordinator\x129\n\x06Select\x12\x15.protos.SelectReq\
+    uest\x1a\x16.protos.SelectResponse\"\0\x120\n\x06Insert\x12\x15.protos.I\
+    nsertRequest\x1a\r.protos.Error\"\0\x120\n\x06Update\x12\x15.protos.Upda\
+    teRequest\x1a\r.protos.Error\"\0\x120\n\x06Delete\x12\x15.protos.DeleteR\
+    equest\x1a\r.protos.Error\"\0\x12?\n\x08Discover\x12\x17.protos.Discover\
+    Request\x1a\x18.protos.DiscoverResponse\"\0\x120\n\x08Register\x12\x13.p\
+    rotos.NodeRequest\x1a\r.protos.Error\"\0J\xa9\t\n\x06\x12\x04\0\00\x01\n\
+    \x08\n\x01\x0c\x12\x03\0\0\x12\n\x08\n\x01\x02\x12\x03\x02\x08\x0e\n\t\n\
+    \x02\x03\0\x12\x03\x04\x07\x15\n\n\n\x02\x05\0\x12\x04\x06\0\n\x01\n\n\n\
+    \x03\x05\0\x01\x12\x03\x06\x05\r\n\x0b\n\x04\x05\0\x02\0\x12\x03\x07\x04\
+    \x10\n\x0c\n\x05\x05\0\x02\0\x01\x12\x03\x07\x04\x0b\n\x0c\n\x05\x05\0\
+    \x02\0\x02\x12\x03\x07\x0e\x0f\n\x0b\n\x04\x05\0\x02\x01\x12\x03\x08\x04\
+    \x0f\n\x0c\n\x05\x05\0\x02\x01\x01\x12\x03\x08\x04\n\n\x0c\n\x05\x05\0\
+    \x02\x01\x02\x12\x03\x08\r\x0e\n\x0b\n\x04\x05\0\x02\x02\x12\x03\t\x04\
+    \x14\n\x0c\n\x05\x05\0\x02\x02\x01\x12\x03\t\x04\x0f\n\x0c\n\x05\x05\0\
+    \x02\x02\x02\x12\x03\t\x12\x13\n\n\n\x02\x04\0\x12\x04\x0c\0\x11\x01\n\n\
+    \n\x03\x04\0\x01\x12\x03\x0c\x08\x0c\n\x0b\n\x04\x04\0\x02\0\x12\x03\r\
+    \x04\x12\n\r\n\x05\x04\0\x02\0\x04\x12\x04\r\x04\x0c\x0e\n\x0c\n\x05\x04\
+    \0\x02\0\x05\x12\x03\r\x04\n\n\x0c\n\x05\x04\0\x02\0\x01\x12\x03\r\x0b\r\
+    \n\x0c\n\x05\x04\0\x02\0\x03\x12\x03\r\x10\x11\n\x0b\n\x04\x04\0\x02\x01\
+    \x12\x03\x0e\x04\x1a\n\r\n\x05\x04\0\x02\x01\x04\x12\x04\x0e\x04\r\x12\n\
+    \x0c\n\x05\x04\0\x02\x01\x06\x12\x03\x0e\x04\x0c\n\x0c\n\x05\x04\0\x02\
+    \x01\x01\x12\x03\x0e\r\x15\n\x0c\n\x05\x04\0\x02\x01\x03\x12\x03\x0e\x18\
+    \x19\n\x0b\n\x04\x04\0\x02\x02\x12\x03\x0f\x04\x14\n\r\n\x05\x04\0\x02\
+    \x02\x04\x12\x04\x0f\x04\x0e\x1a\n\x0c\n\x05\x04\0\x02\x02\x05\x12\x03\
+    \x0f\x04\n\n\x0c\n\x05\x04\0\x02\x02\x01\x12\x03\x0f\x0b\x0f\n\x0c\n\x05\
+    \x04\0\x02\x02\x03\x12\x03\x0f\x12\x13\n\x0b\n\x04\x04\0\x02\x03\x12\x03\
+    \x10\x04\x1d\n\r\n\x05\x04\0\x02\x03\x04\x12\x04\x10\x04\x0f\x14\n\x0c\n\
+    \x05\x04\0\x02\x03\x05\x12\x03\x10\x04\n\n\x0c\n\x05\x04\0\x02\x03\x01\
+    \x12\x03\x10\x0b\x18\n\x0c\n\x05\x04\0\x02\x03\x03\x12\x03\x10\x1b\x1c\n\
+    \n\n\x02\x04\x01\x12\x04\x13\0\x15\x01\n\n\n\x03\x04\x01\x01\x12\x03\x13\
+    \x08\x13\n\x0b\n\x04\x04\x01\x02\0\x12\x03\x14\x04\x12\n\r\n\x05\x04\x01\
+    \x02\0\x04\x12\x04\x14\x04\x13\x15\n\x0c\n\x05\x04\x01\x02\0\x06\x12\x03\
+    \x14\x04\x08\n\x0c\n\x05\x04\x01\x02\0\x01\x12\x03\x14\t\r\n\x0c\n\x05\
+    \x04\x01\x02\0\x03\x12\x03\x14\x10\x11\n\n\n\x02\x04\x02\x12\x04\x17\0\
+    \x19\x01\n\n\n\x03\x04\x02\x01\x12\x03\x17\x08\x18\n\x0b\n\x04\x04\x02\
+    \x02\0\x12\x03\x18\x04\x1c\n\x0c\n\x05\x04\x02\x02\0\x04\x12\x03\x18\x04\
+    \x0c\n\x0c\n\x05\x04\x02\x02\0\x06\x12\x03\x18\r\x11\n\x0c\n\x05\x04\x02\
+    \x02\0\x01\x12\x03\x18\x12\x17\n\x0c\n\x05\x04\x02\x02\0\x03\x12\x03\x18\
+    \x1a\x1b\n\n\n\x02\x04\x03\x12\x04\x1b\0\x1c\x01\n\n\n\x03\x04\x03\x01\
+    \x12\x03\x1b\x08\x17\n\t\n\x02\x04\x04\x12\x03\x1e\0\x18\n\n\n\x03\x04\
+    \x04\x01\x12\x03\x1e\x08\x15\n\t\n\x02\x04\x05\x12\x03\x1f\0\x19\n\n\n\
+    \x03\x04\x05\x01\x12\x03\x1f\x08\x16\n\t\n\x02\x04\x06\x12\x03\x20\0\x18\
+    \n\n\n\x03\x04\x06\x01\x12\x03\x20\x08\x15\n\t\n\x02\x04\x07\x12\x03!\0\
+    \x18\n\n\n\x03\x04\x07\x01\x12\x03!\x08\x15\n\t\n\x02\x04\x08\x12\x03\"\
+    \0\x18\n\n\n\x03\x04\x08\x01\x12\x03\"\x08\x15\n\n\n\x02\x06\0\x12\x04&\
+    \00\x01\n\n\n\x03\x06\0\x01\x12\x03&\x08\x13\n\x17\n\x04\x06\0\x02\0\x12\
+    \x03(\x049\x1a\n\x20Database\n\n\x0c\n\x05\x06\0\x02\0\x01\x12\x03(\x08\
+    \x0e\n\x0c\n\x05\x06\0\x02\0\x02\x12\x03(\x0f\x1c\n\x0c\n\x05\x06\0\x02\
+    \0\x03\x12\x03('5\n\x0b\n\x04\x06\0\x02\x01\x12\x03)\x040\n\x0c\n\x05\
+    \x06\0\x02\x01\x01\x12\x03)\x08\x0e\n\x0c\n\x05\x06\0\x02\x01\x02\x12\
+    \x03)\x0f\x1c\n\x0c\n\x05\x06\0\x02\x01\x03\x12\x03)',\n\x0b\n\x04\x06\0\
+    \x02\x02\x12\x03*\x040\n\x0c\n\x05\x06\0\x02\x02\x01\x12\x03*\x08\x0e\n\
+    \x0c\n\x05\x06\0\x02\x02\x02\x12\x03*\x0f\x1c\n\x0c\n\x05\x06\0\x02\x02\
+    \x03\x12\x03*',\n\x0b\n\x04\x06\0\x02\x03\x12\x03+\x040\n\x0c\n\x05\x06\
+    \0\x02\x03\x01\x12\x03+\x08\x0e\n\x0c\n\x05\x06\0\x02\x03\x02\x12\x03+\
+    \x0f\x1c\n\x0c\n\x05\x06\0\x02\x03\x03\x12\x03+',\n\x16\n\x04\x06\0\x02\
+    \x04\x12\x03-\x04?\x1a\t\x20Cluster\n\n\x0c\n\x05\x06\0\x02\x04\x01\x12\
+    \x03-\x08\x10\n\x0c\n\x05\x06\0\x02\x04\x02\x12\x03-\x11\x20\n\x0c\n\x05\
+    \x06\0\x02\x04\x03\x12\x03-+;\n\x0b\n\x04\x06\0\x02\x05\x12\x03.\x040\n\
+    \x0c\n\x05\x06\0\x02\x05\x01\x12\x03.\x08\x10\n\x0c\n\x05\x06\0\x02\x05\
+    \x02\x12\x03.\x11\x1c\n\x0c\n\x05\x06\0\x02\x05\x03\x12\x03.',b\x06proto\
+    3\
 ";
 
 static mut file_descriptor_proto_lazy: ::protobuf::lazy::Lazy<::protobuf::descriptor::FileDescriptorProto> = ::protobuf::lazy::Lazy::INIT;

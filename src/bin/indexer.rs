@@ -97,5 +97,5 @@ mod tests {
 
 fn main() {
     let service = IndexerService::new();
-    grpc::serve::default(indexer_grpc::create_indexer(service), 8082);
+    grpc::serve::default(indexer_grpc::create_indexer(service), 7071);
 }
