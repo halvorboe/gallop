@@ -65,8 +65,8 @@ impl<S: Store> InnerCoordinatorService<S> {
         result
     }
 
-    fn register(&mut self, node: Node) {
-        self.storage.set(node.get_id().to_string(), encode_node(&node))
+    fn register(&mut self, node: &Node) {
+        self.storage.set(node.get_id().to_string(), encode_node(node))
     }
 
 }
@@ -78,7 +78,16 @@ mod tests {
     #[test]
     fn test_register() {
         let mut service: InnerCoordinatorService<InMemoryStore> = InnerCoordinatorService::new();
-        service.register(Node::new());
+        let mut a = Node::new();
+        a.set_id("1".to_string());
+        let mut b = Node::new();
+        b.set_id("2".to_string());
+        let mut c = Node::new();
+        c.set_id("3".to_string());
+        service.register(&a);
+        service.register(&b);
+        service.register(&c);
+        assert_eq!(service.discover().len(), 3);
     }
 
 }

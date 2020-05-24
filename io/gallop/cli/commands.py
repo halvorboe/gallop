@@ -1,3 +1,5 @@
+
+
 import json
 import random
 from datetime import datetime, timedelta
@@ -58,9 +60,7 @@ def random_data():
     )
 
 
-# print("Fetching segment...")
 
-# print("Done...")
 
-# result = stub.Segment(packer.SegmentRequest())
-# print(result)
+def run():
+    chaos()
