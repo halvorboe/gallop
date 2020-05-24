@@ -2,7 +2,7 @@
 extern crate log;
 
 use futures::Future;
-use gallop::clients::packer::{LocalPackerClient, PackerClientWrapper};
+use gallop::clients::packer::{PackerClientImpl, PackerClientWrapper};
 use gallop::core::index::TantivyIndex;
 use grpcio::{RpcContext, UnarySink};
 
@@ -28,7 +28,7 @@ use mockall::{automock, predicate::*};
 
 #[derive(Clone)]
 struct IndexerService {
-    inner: InnerIndexerService<LocalPackerClient, TantivyIndex>,
+    inner: InnerIndexerService<PackerClientImpl, TantivyIndex>,
 }
 
 impl IndexerService {
@@ -62,21 +62,21 @@ impl Indexer for IndexerService {
     }
 }
 #[derive(Clone)]
-struct InnerIndexerService<C: PackerClientWrapper, I: IndexWrapper> {
-    packer_client_wrapper: C,
+struct InnerIndexerService<P: PackerClientWrapper, I: IndexWrapper> {
+    packer_client_wrapper: P,
     index_wrapper: I,
 }
 
-impl<C: PackerClientWrapper, I: IndexWrapper> InnerIndexerService<C, I> {
+impl<P: PackerClientWrapper, I: IndexWrapper> InnerIndexerService<P, I> {
     fn new() -> Self {
         Self {
-            packer_client_wrapper: C::from_addr("localhost:8081".to_string()),
+            packer_client_wrapper: P::from_addr("localhost:8081".to_string()),
             index_wrapper: I::new(),
         }
     }
 
     #[allow(dead_code)]
-    fn from(packer_client_wrapper: C) -> Self {
+    fn from(packer_client_wrapper: P) -> Self {
         let index_wrapper = I::new();
         Self {
             packer_client_wrapper,

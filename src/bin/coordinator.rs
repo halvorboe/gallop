@@ -2,7 +2,7 @@
 extern crate log;
 
 use futures::Future;
-use gallop::clients::packer::{LocalPackerClient, PackerClientWrapper};
+use gallop::clients::packer::{PackerClientImpl, PackerClientWrapper};
 use gallop::core::index::TantivyIndex;
 use gallop::core::store::Store;
 use grpcio::{RpcContext, UnarySink};
@@ -13,7 +13,7 @@ use gallop::core::{
     store::InMemoryStore,
 };
 use gallop::protos::common::Error;
-use gallop::protos::common::{Segment, SegmentId};
+use gallop::protos::common::{Segment, SegmentId, Row};
 use gallop::protos::packer::SegmentRequest;
 use gallop::protos::packer_grpc::PackerClient;
 use std::sync::Arc;
@@ -30,7 +30,7 @@ use mockall::{automock, predicate::*};
 
 #[derive(Clone)]
 struct CoordinatorService {
-    inner: InnerCoordinatorService<InMemoryStore>,
+    inner: InnerCoordinatorService<PackerClientImpl, InMemoryStore>,
 }
 
 impl CoordinatorService {
@@ -92,27 +92,33 @@ impl Coordinator for CoordinatorService {
     }
 }
 #[derive(Clone)]
-struct InnerCoordinatorService<S: Store> {
-    storage: S,
+struct InnerCoordinatorService<P: PackerClientWrapper, S: Store> {
+    packer_client_wrapper: P,
+    storage_wrapper: S,
 }
 
-impl<S: Store> InnerCoordinatorService<S> {
+impl<P: PackerClientWrapper, S: Store> InnerCoordinatorService<P, S> {
     fn new() -> Self {
         Self {
-            storage: Store::new(),
+            packer_client_wrapper: P::from_addr("localhost:8081".to_string()),
+            storage_wrapper: S::new(),
         }
     }
 
     fn discover(&mut self) -> Vec<Node> {
         let mut result: Vec<Node> = Vec::new();
-        for (_, value) in self.storage.items() {
+        for (_, value) in self.storage_wrapper.items() {
             result.push(decode_node(value));
         }
         result
     }
 
+    fn insert(&self, row: &Row) {
+        self.packer_client_wrapper.insert(row);
+    }
+
     fn register(&mut self, node: &Node) {
-        self.storage
+        self.storage_wrapper
             .set(node.get_id().to_string(), encode_node(node))
     }
 }
@@ -120,10 +126,11 @@ impl<S: Store> InnerCoordinatorService<S> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use gallop::protos::common::Row;
 
-    #[test]
+
     fn test_register() {
-        let mut service: InnerCoordinatorService<InMemoryStore> = InnerCoordinatorService::new();
+        let mut service: InnerCoordinatorService<PackerClientImpl, InMemoryStore> = InnerCoordinatorService::new();
         let mut a = Node::new();
         a.set_id("1".to_string());
         let mut b = Node::new();
@@ -135,9 +142,16 @@ mod tests {
         service.register(&c);
         assert_eq!(service.discover().len(), 3);
     }
+
+    #[test]
+    fn test_insert() {
+        // let mut service: InnerCoordinatorService<PackerClientImpl, InMemoryStore> = InnerCoordinatorService::new();
+        // let row = Row::new();
+        // service.insert(&row);
+    }
 }
 
 fn main() {
     let service = CoordinatorService::new();
-    grpc::serve::default(coordinator_grpc::create_coordinator(service), 7070);
+    grpc::serve::default(coordinator_grpc::create_coordinator(service), 8080);
 }
