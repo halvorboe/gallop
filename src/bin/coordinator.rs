@@ -43,6 +43,18 @@ impl Coordinator for CoordinatorService {
     fn register(&mut self, ctx: RpcContext, req: gallop::protos::coordinator::NodeRequest, sink: UnarySink<Error>) {
         todo!()
     }
+    fn select(&mut self, ctx: RpcContext, req: gallop::protos::coordinator::SelectRequest, sink: UnarySink<gallop::protos::coordinator::SelectResponse>) {
+        todo!()
+    }
+    fn insert(&mut self, ctx: RpcContext, req: gallop::protos::coordinator::InsertRequest, sink: UnarySink<Error>) {
+        todo!()
+    }
+    fn update(&mut self, ctx: RpcContext, req: gallop::protos::coordinator::UpdateRequest, sink: UnarySink<Error>) {
+        todo!()
+    }
+    fn delete(&mut self, ctx: RpcContext, req: gallop::protos::coordinator::DeleteRequest, sink: UnarySink<Error>) {
+        todo!()
+    }
     
 }
 #[derive(Clone)]

@@ -9,7 +9,7 @@ use protobuf::RepeatedField;
 
 use gallop::protos::common::{Error, Row, Segment, SegmentId};
 use gallop::protos::packer::{
-    InsertRequest, SegmentRequest, SegmentResponse, SegmentsRequest, SegmentsResponse,
+    PackerInsertRequest, SegmentRequest, SegmentResponse, SegmentsRequest, SegmentsResponse,
 };
 use gallop::protos::packer_grpc::{self, Packer};
 
@@ -34,7 +34,7 @@ impl PackerService {
 }
 
 impl Packer for PackerService {
-    fn insert(&mut self, ctx: RpcContext, req: InsertRequest, sink: UnarySink<Error>) {
+    fn insert(&mut self, ctx: RpcContext, req: PackerInsertRequest, sink: UnarySink<Error>) {
         // println!("Inserting row...");
         let table = req.get_table().to_string();
         let row = req.get_row();
