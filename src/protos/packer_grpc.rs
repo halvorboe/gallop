@@ -18,25 +18,52 @@
 #![allow(unused_imports)]
 #![allow(unused_results)]
 
-const METHOD_PACKER_INSERT: ::grpcio::Method<super::packer::PackerInsertRequest, super::common::Error> = ::grpcio::Method {
+const METHOD_PACKER_INSERT: ::grpcio::Method<
+    super::packer::PackerInsertRequest,
+    super::common::Error,
+> = ::grpcio::Method {
     ty: ::grpcio::MethodType::Unary,
     name: "/protos.Packer/Insert",
-    req_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
-    resp_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
+    req_mar: ::grpcio::Marshaller {
+        ser: ::grpcio::pb_ser,
+        de: ::grpcio::pb_de,
+    },
+    resp_mar: ::grpcio::Marshaller {
+        ser: ::grpcio::pb_ser,
+        de: ::grpcio::pb_de,
+    },
 };
 
-const METHOD_PACKER_SEGMENT: ::grpcio::Method<super::packer::SegmentRequest, super::packer::SegmentResponse> = ::grpcio::Method {
+const METHOD_PACKER_SEGMENT: ::grpcio::Method<
+    super::packer::SegmentRequest,
+    super::packer::SegmentResponse,
+> = ::grpcio::Method {
     ty: ::grpcio::MethodType::Unary,
     name: "/protos.Packer/Segment",
-    req_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
-    resp_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
+    req_mar: ::grpcio::Marshaller {
+        ser: ::grpcio::pb_ser,
+        de: ::grpcio::pb_de,
+    },
+    resp_mar: ::grpcio::Marshaller {
+        ser: ::grpcio::pb_ser,
+        de: ::grpcio::pb_de,
+    },
 };
 
-const METHOD_PACKER_SEGMENTS: ::grpcio::Method<super::packer::SegmentsRequest, super::packer::SegmentsResponse> = ::grpcio::Method {
+const METHOD_PACKER_SEGMENTS: ::grpcio::Method<
+    super::packer::SegmentsRequest,
+    super::packer::SegmentsResponse,
+> = ::grpcio::Method {
     ty: ::grpcio::MethodType::Unary,
     name: "/protos.Packer/Segments",
-    req_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
-    resp_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
+    req_mar: ::grpcio::Marshaller {
+        ser: ::grpcio::pb_ser,
+        de: ::grpcio::pb_de,
+    },
+    resp_mar: ::grpcio::Marshaller {
+        ser: ::grpcio::pb_ser,
+        de: ::grpcio::pb_de,
+    },
 };
 
 #[derive(Clone)]
@@ -51,62 +78,125 @@ impl PackerClient {
         }
     }
 
-    pub fn insert_opt(&self, req: &super::packer::PackerInsertRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<super::common::Error> {
+    pub fn insert_opt(
+        &self,
+        req: &super::packer::PackerInsertRequest,
+        opt: ::grpcio::CallOption,
+    ) -> ::grpcio::Result<super::common::Error> {
         self.client.unary_call(&METHOD_PACKER_INSERT, req, opt)
     }
 
-    pub fn insert(&self, req: &super::packer::PackerInsertRequest) -> ::grpcio::Result<super::common::Error> {
+    pub fn insert(
+        &self,
+        req: &super::packer::PackerInsertRequest,
+    ) -> ::grpcio::Result<super::common::Error> {
         self.insert_opt(req, ::grpcio::CallOption::default())
     }
 
-    pub fn insert_async_opt(&self, req: &super::packer::PackerInsertRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::common::Error>> {
-        self.client.unary_call_async(&METHOD_PACKER_INSERT, req, opt)
+    pub fn insert_async_opt(
+        &self,
+        req: &super::packer::PackerInsertRequest,
+        opt: ::grpcio::CallOption,
+    ) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::common::Error>> {
+        self.client
+            .unary_call_async(&METHOD_PACKER_INSERT, req, opt)
     }
 
-    pub fn insert_async(&self, req: &super::packer::PackerInsertRequest) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::common::Error>> {
+    pub fn insert_async(
+        &self,
+        req: &super::packer::PackerInsertRequest,
+    ) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::common::Error>> {
         self.insert_async_opt(req, ::grpcio::CallOption::default())
     }
 
-    pub fn segment_opt(&self, req: &super::packer::SegmentRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<super::packer::SegmentResponse> {
+    pub fn segment_opt(
+        &self,
+        req: &super::packer::SegmentRequest,
+        opt: ::grpcio::CallOption,
+    ) -> ::grpcio::Result<super::packer::SegmentResponse> {
         self.client.unary_call(&METHOD_PACKER_SEGMENT, req, opt)
     }
 
-    pub fn segment(&self, req: &super::packer::SegmentRequest) -> ::grpcio::Result<super::packer::SegmentResponse> {
+    pub fn segment(
+        &self,
+        req: &super::packer::SegmentRequest,
+    ) -> ::grpcio::Result<super::packer::SegmentResponse> {
         self.segment_opt(req, ::grpcio::CallOption::default())
     }
 
-    pub fn segment_async_opt(&self, req: &super::packer::SegmentRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::packer::SegmentResponse>> {
-        self.client.unary_call_async(&METHOD_PACKER_SEGMENT, req, opt)
+    pub fn segment_async_opt(
+        &self,
+        req: &super::packer::SegmentRequest,
+        opt: ::grpcio::CallOption,
+    ) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::packer::SegmentResponse>> {
+        self.client
+            .unary_call_async(&METHOD_PACKER_SEGMENT, req, opt)
     }
 
-    pub fn segment_async(&self, req: &super::packer::SegmentRequest) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::packer::SegmentResponse>> {
+    pub fn segment_async(
+        &self,
+        req: &super::packer::SegmentRequest,
+    ) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::packer::SegmentResponse>> {
         self.segment_async_opt(req, ::grpcio::CallOption::default())
     }
 
-    pub fn segments_opt(&self, req: &super::packer::SegmentsRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<super::packer::SegmentsResponse> {
+    pub fn segments_opt(
+        &self,
+        req: &super::packer::SegmentsRequest,
+        opt: ::grpcio::CallOption,
+    ) -> ::grpcio::Result<super::packer::SegmentsResponse> {
         self.client.unary_call(&METHOD_PACKER_SEGMENTS, req, opt)
     }
 
-    pub fn segments(&self, req: &super::packer::SegmentsRequest) -> ::grpcio::Result<super::packer::SegmentsResponse> {
+    pub fn segments(
+        &self,
+        req: &super::packer::SegmentsRequest,
+    ) -> ::grpcio::Result<super::packer::SegmentsResponse> {
         self.segments_opt(req, ::grpcio::CallOption::default())
     }
 
-    pub fn segments_async_opt(&self, req: &super::packer::SegmentsRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::packer::SegmentsResponse>> {
-        self.client.unary_call_async(&METHOD_PACKER_SEGMENTS, req, opt)
+    pub fn segments_async_opt(
+        &self,
+        req: &super::packer::SegmentsRequest,
+        opt: ::grpcio::CallOption,
+    ) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::packer::SegmentsResponse>> {
+        self.client
+            .unary_call_async(&METHOD_PACKER_SEGMENTS, req, opt)
     }
 
-    pub fn segments_async(&self, req: &super::packer::SegmentsRequest) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::packer::SegmentsResponse>> {
+    pub fn segments_async(
+        &self,
+        req: &super::packer::SegmentsRequest,
+    ) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::packer::SegmentsResponse>> {
         self.segments_async_opt(req, ::grpcio::CallOption::default())
     }
-    pub fn spawn<F>(&self, f: F) where F: ::futures::Future<Item = (), Error = ()> + Send + 'static {
+    pub fn spawn<F>(&self, f: F)
+    where
+        F: ::futures::Future<Item = (), Error = ()> + Send + 'static,
+    {
         self.client.spawn(f)
     }
 }
 
 pub trait Packer {
-    fn insert(&mut self, ctx: ::grpcio::RpcContext, req: super::packer::PackerInsertRequest, sink: ::grpcio::UnarySink<super::common::Error>);
-    fn segment(&mut self, ctx: ::grpcio::RpcContext, req: super::packer::SegmentRequest, sink: ::grpcio::UnarySink<super::packer::SegmentResponse>);
-    fn segments(&mut self, ctx: ::grpcio::RpcContext, req: super::packer::SegmentsRequest, sink: ::grpcio::UnarySink<super::packer::SegmentsResponse>);
+    fn insert(
+        &mut self,
+        ctx: ::grpcio::RpcContext,
+        req: super::packer::PackerInsertRequest,
+        sink: ::grpcio::UnarySink<super::common::Error>,
+    );
+    fn segment(
+        &mut self,
+        ctx: ::grpcio::RpcContext,
+        req: super::packer::SegmentRequest,
+        sink: ::grpcio::UnarySink<super::packer::SegmentResponse>,
+    );
+    fn segments(
+        &mut self,
+        ctx: ::grpcio::RpcContext,
+        req: super::packer::SegmentsRequest,
+        sink: ::grpcio::UnarySink<super::packer::SegmentsResponse>,
+    );
 }
 
 pub fn create_packer<S: Packer + Send + Clone + 'static>(s: S) -> ::grpcio::Service {

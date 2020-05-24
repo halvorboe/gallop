@@ -1,3 +1,5 @@
+#![allow(unused_variables, unused_imports)]
+
 #[macro_use]
 extern crate log;
 

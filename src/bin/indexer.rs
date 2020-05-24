@@ -6,8 +6,8 @@ use gallop::clients::packer::{LocalPackerClient, PackerClientWrapper};
 use gallop::core::index::TantivyIndex;
 use grpcio::{RpcContext, UnarySink};
 
-use gallop::protos::common::Error;
 use gallop::core::grpc;
+use gallop::protos::common::Error;
 use gallop::protos::common::{Segment, SegmentId};
 use gallop::protos::packer::SegmentRequest;
 use gallop::protos::packer_grpc::PackerClient;

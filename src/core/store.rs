@@ -1,10 +1,8 @@
-
-
 use std::collections::HashMap;
 
 pub trait Store {
     fn new() -> Self;
-    fn items(&self) ->  Vec<(&String, &String)>;
+    fn items(&self) -> Vec<(&String, &String)>;
     fn get(&self, key: String) -> Option<&String>;
     fn set(&mut self, key: String, value: String);
 }
@@ -21,7 +19,7 @@ impl Store for InMemoryStore {
         }
     }
     fn items(&self) -> Vec<(&String, &String)> {
-        let mut result:Vec<(&String, &String)> = Vec::new();
+        let mut result: Vec<(&String, &String)> = Vec::new();
         for (key, value) in self.map.iter() {
             result.push((key, value));
         }
@@ -30,15 +28,15 @@ impl Store for InMemoryStore {
     fn get(&self, key: String) -> Option<&String> {
         self.map.get(&key)
     }
-    fn set(&mut self, key: String, value: String) { 
+    fn set(&mut self, key: String, value: String) {
         self.map.insert(key.clone(), value.clone());
     }
-
 }
 
+#[allow(unused_variables, unused_imports)]
 mod tests {
 
-    use super::{Store, InMemoryStore};
+    use super::{InMemoryStore, Store};
 
     #[test]
     fn test_basic() {
@@ -57,5 +55,5 @@ mod tests {
         // assert_eq!(store.keys(), vec![&a.clone(), &b.clone(), &c.clone()])
     }
 
-        // TODO: Test all
+    // TODO: Test all
 }
